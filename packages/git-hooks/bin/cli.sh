@@ -5,6 +5,17 @@ allArgs=$@
 packageDir=`npm explore @pretty-cozy/git-hooks -- pwd`
 projectDir=`pwd`
 
+fileExists() {
+  local path=$1
+  
+  test -f $path
+  if [ $? = 0 ]
+  then
+    return 0
+  fi
+  return 1
+}
+
 argNotAvailable() {
   printf "Error: $1 is not available\n"
 }
@@ -20,12 +31,25 @@ copyCommitlintConfig() {
   local configSrc="$packageDir/$configName"
   local configDest="$projectDir/$configName"
 
+  if [ $force = true ]
+  then
+    cp -f $configSrc $configDest
+    return 0
+  fi
+
+  fileExists $configDest
+  if [ $? = 0 ]
+  then
+    printf "⚠️ $configName exists already, use -f to overwrite it\n"
+    return 1
+  fi
+  
   cp -n $configSrc $configDest
 }
 
 installHusky() {
   local hooksDir=`realpath $packageDir/../hooks`
-  # TODO: make husky silent
+  # make husky silent
   npx husky install $hooksDir
 }
 
@@ -62,6 +86,7 @@ installGitHooks() {
 run() {
   local help=false
   local install=false
+  local force=false
 
   if [ $argCount = 0 ]
   then
@@ -76,7 +101,7 @@ run() {
       "") help=true ;;
       -h | --help | help) help=true ;;
 
-      # TODO: -f, --force
+      -f | --force) force=true ;;
 
       *) 
         argNotAvailable $arg
