@@ -30,21 +30,24 @@ installHusky() {
 install() {
   local success=true
 
-  if [ copyCommitlintConfig ] ; then
+  if [ copyCommitlintConfig ]
+  then
     printf "✅ Copied .commitlintrc\n"
   else
     printf "❌ Failed to copy .commitlintrc\n"
     success=false
   fi
 
-  if [ installHusky ] ; then
+  if [ installHusky ]
+  then
     printf "✅ Installed git hooks\n"
   else
     printf "❌ Failed to install git hooks\n"
     success=false
   fi
 
-  if [ $success = true ] ; then
+  if [ $success = true ]
+  then
     printf "✅ Successfully installed comfy-git-hooks"
   else 
     printf "⚠️ Something went wrong when installing cozy-git-hooks"
