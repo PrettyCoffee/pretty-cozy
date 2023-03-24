@@ -1,0 +1,8 @@
+{
+  "name": "@pretty-cozy/eslint-config",
+  "version": "0.0.1",
+  "description": "A pretty cozy collection of eslint configs",
+  "author": "Pretty Coffee",
+  "license": "MIT",
+  "scripts": { }
+}

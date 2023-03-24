@@ -1,0 +1,12 @@
+{
+  "name": "@pretty-cozy/root",
+  "version": "0.0.1",
+  "description": "Collection of pretty cozy utilities to make npm workflows easier",
+  "author": "Pretty Coffee",
+  "license": "MIT",
+  "workspaces": [
+    "packages/eslint-config",
+    "packages/eslint-plugin"
+  ],
+  "scripts": { }
+}

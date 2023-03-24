@@ -1,0 +1,8 @@
+{
+  "name": "@pretty-cozy/eslint-plugin",
+  "version": "0.0.1",
+  "description": "A pretty cozy collection of eslint rules",
+  "author": "Pretty Coffee",
+  "license": "MIT",
+  "scripts": { }
+}

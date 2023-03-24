@@ -1,0 +1,1 @@
+# @pretty-cozy/eslint-plugin
