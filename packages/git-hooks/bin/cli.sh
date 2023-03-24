@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 arg1=$1
-scriptDir=`dirname $0`
+packageDir=`npm explore @pretty-cozy/git-hooks -- pwd`
 projectDir=`pwd`
 
 notAvailable() {
@@ -16,14 +16,14 @@ printHelp() {
 
 copyCommitlintConfig() {
   local configName=".commitlintrc"
-  local configSrc="$scriptDir/../$configName"
+  local configSrc="$packageDir/$configName"
   local configDest="$projectDir/$configName"
   
   cp $configSrc $configDest
 }
 
 installHusky() {
-  local hooksDir=`realpath $scriptDir/../hooks`
+  local hooksDir=`realpath $packageDir/../hooks`
   npx husky install $hooksDir
 }
 
@@ -48,9 +48,9 @@ install() {
 
   if [ $success = true ]
   then
-    printf "✅ Successfully installed comfy-git-hooks"
+    printf "✅ Successfully installed comfy-git-hooks\n"
   else 
-    printf "⚠️ Something went wrong when installing cozy-git-hooks"
+    printf "⚠️ Something went wrong when installing cozy-git-hooks\n"
   fi
 }
 
