@@ -1,15 +1,16 @@
 #!/usr/bin/env sh
 
-arg1=$1
+argCount=$#
+allArgs=$@
 packageDir=`npm explore @pretty-cozy/git-hooks -- pwd`
 projectDir=`pwd`
 
-notAvailable() {
+argNotAvailable() {
   printf "Error: $1 is not available\n"
-  printf "\n"
 }
 
 printHelp() {
+  printf "\n"
   printf "Usage:\n"
   printf "  cozy-git-hooks install\n"
 }
@@ -18,8 +19,8 @@ copyCommitlintConfig() {
   local configName=".commitlintrc"
   local configSrc="$packageDir/$configName"
   local configDest="$projectDir/$configName"
-  
-  cp $configSrc $configDest
+
+  cp -n $configSrc $configDest
 }
 
 installHusky() {
@@ -27,7 +28,7 @@ installHusky() {
   npx husky install $hooksDir
 }
 
-install() {
+installGitHooks() {
   local success=true
 
   if [ copyCommitlintConfig ]
@@ -54,20 +55,44 @@ install() {
   fi
 }
 
+
 run() {
-  case $arg1 in
-    install) install ;;
+  local help=false
+  local install=false
 
-    "") printHelp;;
-    -h,--help,help) printHelp;;
+  if [ $argCount = 0 ]
+  then
+    help=true
+  fi
 
-    # TODO: -f, --force
+  for arg in $allArgs
+  do
+    case $arg in
+      install) install=true ;;
 
-    *) 
-      notAvailable $arg1
-      printHelp
-      ;;
-  esac
+      "") help=true ;;
+      -h | --help | help) help=true ;;
+
+      # TODO: -f, --force
+
+      *) 
+        argNotAvailable $arg
+        help=true
+        ;;
+    esac
+  done
+
+  if [ $help = true ]
+  then
+    printHelp
+    exit 0
+  fi
+
+  if [ $install = true ]
+  then
+    installGitHooks
+    exit 0
+  fi
 }
 
 run
