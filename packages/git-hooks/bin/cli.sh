@@ -25,13 +25,15 @@ copyCommitlintConfig() {
 
 installHusky() {
   local hooksDir=`realpath $packageDir/../hooks`
+  # TODO: make husky silent
   npx husky install $hooksDir
 }
 
 installGitHooks() {
   local success=true
 
-  if [ copyCommitlintConfig ]
+  copyCommitlintConfig
+  if [ $? = 0 ]
   then
     printf "✅ Copied .commitlintrc\n"
   else
@@ -39,7 +41,8 @@ installGitHooks() {
     success=false
   fi
 
-  if [ installHusky ]
+  installHusky
+  if [ $? = 0 ]
   then
     printf "✅ Installed git hooks\n"
   else
