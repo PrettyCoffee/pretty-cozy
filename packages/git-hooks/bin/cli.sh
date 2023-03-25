@@ -50,7 +50,7 @@ copyCommitlintConfig() {
 installHusky() {
   local hooksDir=`realpath $packageDir/../hooks`
   # make husky silent
-  npx husky install $hooksDir
+  npx husky install $hooksDir > /dev/null 2>&1
 }
 
 installGitHooks() {
