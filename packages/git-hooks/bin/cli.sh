@@ -47,6 +47,15 @@ copyCommitlintConfig() {
   cp -n $configSrc $configDest
 }
 
+copyLintStagedConfig() {
+  
+  # TODO: 
+  #  - Add lint staged config
+  #  - Copy lint staged config
+  #  - Install lint staged hook
+  printf ""
+}
+
 installHusky() {
   local hooksDir=`realpath $packageDir/../hooks`
   # make husky silent
