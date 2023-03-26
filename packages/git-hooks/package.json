@@ -1,13 +1,13 @@
 {
   "name": "@pretty-cozy/git-hooks",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "description": "A pretty cozy collection of eslint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
   "bin": {
     "cozy-git-hooks": "./bin/cli.sh"
   },
-  "scripts": { },
+  "scripts": {},
   "dependencies": {
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
