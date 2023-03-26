@@ -10,9 +10,12 @@
     "packages/git-hooks"
   ],
   "scripts": {
+    "lint": "eslint ./**/*.js",
+    "lint:fix": "npx lint -- --fix",
     "prepare": "cozy-git-hooks install"
   },
   "devDependencies": {
+    "@pretty-cozy/eslint-config": "file:/packages/eslint-config",
     "@pretty-cozy/git-hooks": "file:/packages/git-hooks"
   }
 }
