@@ -6,7 +6,7 @@ const gitCreateCommit = require("./utils/createGitCommit")
 const pkg = require("../package.json")
 
 const argNotAvailable = arg => {
-  console.error(`Error: ${arg} is not available\n`)
+  throw new Error(`Error: ${arg} is not available\n`)
 }
 
 const parseVersion = version => {
