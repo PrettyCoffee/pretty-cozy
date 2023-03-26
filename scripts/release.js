@@ -79,17 +79,25 @@ const run = () => {
   const args = process.argv.slice(2)
   const options = getOptions(args)
 
-  gitCreateCommit(() => {
-    const version = stringifyVersion(createVersion(options))
-    console.log("Version", pkg.version, "->", version)
-    applyVersion(version)
-    console.log("Applied version in package.json files")
-
-    return {
-      message: createCommitMessage(version),
-      tag: version,
-      tagMessage: options.pre ? "Internal release only" : `Release v${version}`,
-    }
+  gitCreateCommit((setCommit) => {
+    const oldVersion = pkg.version
+    let version
+    return [
+      {
+        run: () => {
+          version = stringifyVersion(createVersion(options))
+          applyVersion(version)
+          setCommit({
+            message: createCommitMessage(version),
+            tag: version,
+            tagMessage: options.pre ? "Internal release only" : `Release v${version}`,
+          })
+        },
+        success: () => `Version updated: v${oldVersion} -> v${version}`,
+        error: () => `Version v${version || "undefined"} could not be applied`,
+        abortOnError: true
+      },
+    ]
   })
 }
 
