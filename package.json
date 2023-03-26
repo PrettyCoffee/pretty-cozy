@@ -10,8 +10,8 @@
     "packages/git-hooks"
   ],
   "scripts": {
-    "lint": "eslint ./**/*.js",
-    "lint:fix": "npx lint -- --fix",
+    "lint": "eslint --ignore-path .gitignore ./**/*.js",
+    "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install"
   },
   "devDependencies": {
