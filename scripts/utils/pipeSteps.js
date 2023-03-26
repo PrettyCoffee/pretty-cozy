@@ -1,15 +1,16 @@
-const resolveMessage = (message) => typeof message === "function" ? message() : message
+const resolveMessage = message =>
+  typeof message === "function" ? message() : message
 
 /** Handles executing different cli steps subsequently.
- * 
+ *
  * @typedef {{ run: () => void, success: string | () => string, error: string | () => string, abortOnError?: boolean }} Step
- * @param {Array<Step | () => Array<Step>>} steps 
+ * @param {Array<Step | () => Array<Step>>} steps
  */
 const pipeSteps = steps => {
   steps.forEach(step => {
     if (typeof step === "function") {
       pipeSteps(step())
-      return;
+      return
     }
 
     const { run, success, error, abortOnError } = step

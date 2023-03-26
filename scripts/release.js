@@ -2,8 +2,8 @@
 
 const { execSync } = require("child_process")
 
-const pkg = require("../package.json")
 const gitCreateCommit = require("./utils/createGitCommit")
+const pkg = require("../package.json")
 
 const argNotAvailable = arg => {
   console.error(`Error: ${arg} is not available\n`)
@@ -79,7 +79,7 @@ const run = () => {
   const args = process.argv.slice(2)
   const options = getOptions(args)
 
-  gitCreateCommit((setCommit) => {
+  gitCreateCommit(setCommit => {
     const oldVersion = pkg.version
     let version
     return [
@@ -90,12 +90,14 @@ const run = () => {
           setCommit({
             message: createCommitMessage(version),
             tag: version,
-            tagMessage: options.pre ? "Internal release only" : `Release v${version}`,
+            tagMessage: options.pre
+              ? "Internal release only"
+              : `Release v${version}`,
           })
         },
         success: () => `Version updated: v${oldVersion} -> v${version}`,
         error: () => `Version v${version || "undefined"} could not be applied`,
-        abortOnError: true
+        abortOnError: true,
       },
     ]
   })
