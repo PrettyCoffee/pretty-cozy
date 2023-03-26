@@ -10,6 +10,11 @@
     "packages/git-hooks"
   ],
   "scripts": {
+    "release": "node ./scripts/release.js",
+    "release:patch": "npm run release -- --patch",
+    "release:minor": "npm run release -- --minor",
+    "pre-release:patch": "npm run release:patch -- --pre",
+    "pre-release:minor": "npm run release:minor -- --pre",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install"
