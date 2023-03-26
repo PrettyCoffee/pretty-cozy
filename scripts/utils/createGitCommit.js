@@ -2,6 +2,8 @@ const { execSync } = require("child_process")
 
 const pipeSteps = require("./pipeSteps")
 
+let hasStash = false
+
 const git = {
   stash: () => execSync(`git stash --include-untracked`),
   stashPop: () => execSync(`git stash pop`),
@@ -25,7 +27,10 @@ const gitCreateCommit = applyChanges => {
 
   pipeSteps([
     {
-      run: git.stash,
+      run: () => {
+        git.stash()
+        hasStash = true
+      },
       success: "Stashed current changes",
       error: "Changes could not be stashed",
       abortOnError: true,
@@ -34,7 +39,7 @@ const gitCreateCommit = applyChanges => {
       try {
         return applyChanges(setCommit)
       } catch (error) {
-        git.stashPop()
+        if (hasStash) git.stashPop()
         console.error("Error: Failed to apply changes, aborting.")
         throw new Error(error)
       }
@@ -54,7 +59,9 @@ const gitCreateCommit = applyChanges => {
         !commit.tag ? "" : `Could not apply git tag v${commit.tag}`,
     },
     {
-      run: git.stashPop,
+      run: () => {
+        if (hasStash) git.stashPop()
+      },
       success: "Re-applied stashed changes",
       error: "Could not reapply stash",
     },
