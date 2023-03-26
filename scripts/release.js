@@ -3,10 +3,26 @@
 const { execSync } = require("child_process")
 
 const gitCreateCommit = require("./utils/createGitCommit")
+const printHelp = require("./utils/printHelp")
 const pkg = require("../package.json")
 
+const printHelpPage = () => {
+  printHelp(
+    "Increase the release version in all workspaces, commit the changes and tag the commit.",
+    "node release.js [options]",
+    {
+      "--major": "vX.0.0 - Mark the releases scope as major (breaking changes)",
+      "--minor": "v0.X.0 - Mark the releases scope as minor (new features)",
+      "--patch": "v0.0.X - Mark the releases scope as patch (bug fixes)",
+      "-p, --pre":
+        "v0.0.0-alpha.X - Mark the release as pre-release (internal)\nNeeds a scope of the above (major | minor | patch)",
+      "-h, --help": "Show help page",
+    }
+  )
+}
+
 const argNotAvailable = arg => {
-  throw new Error(`Error: ${arg} is not available\n`)
+  console.error(`Error: ${arg} is not available\n`)
 }
 
 const parseVersion = version => {
@@ -32,9 +48,13 @@ const getOptions = args =>
       case "--pre":
         return { ...options, pre: true }
 
+      case "-h":
+      case "--help":
+        return { ...options, help: true }
+
       default:
         argNotAvailable(arg)
-        return options
+        return { ...options, help: true }
     }
   }, {})
 
@@ -78,6 +98,11 @@ const createCommitMessage = version =>
 const run = () => {
   const args = process.argv.slice(2)
   const options = getOptions(args)
+
+  if (!options.scope || options.help) {
+    printHelpPage()
+    return
+  }
 
   gitCreateCommit(setCommit => {
     const oldVersion = pkg.version
