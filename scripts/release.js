@@ -3,9 +3,10 @@
 const { execSync } = require("child_process")
 
 const pkg = require("../package.json")
+const gitCreateCommit = require("./utils/createGitCommit")
 
 const argNotAvailable = arg => {
-  console.log(`Error: ${arg} is not available\n`)
+  console.error(`Error: ${arg} is not available\n`)
 }
 
 const parseVersion = version => {
@@ -69,14 +70,27 @@ const applyVersion = version => {
   execSync(`npm --no-git-tag-version version ${version}`)
 }
 
+const createCommitMessage = version =>
+  version.includes("alpha")
+    ? `chore: Prerelease v${version}`
+    : `chore: Release v${version}`
+
 const run = () => {
   const args = process.argv.slice(2)
   const options = getOptions(args)
 
-  const version = stringifyVersion(createVersion(options))
-  console.log(pkg.version, "->", version)
+  gitCreateCommit(() => {
+    const version = stringifyVersion(createVersion(options))
+    console.log("Version", pkg.version, "->", version)
+    applyVersion(version)
+    console.log("Applied version in package.json files")
 
-  applyVersion(version)
+    return {
+      message: createCommitMessage(version),
+      tag: version,
+      tagMessage: options.pre ? "Internal release only" : `Release v${version}`,
+    }
+  })
 }
 
 run()
