@@ -1,6 +1,6 @@
-const baseTs = require("./base-ts")
+const base = require("./base")
 
-const importOrder = baseTs.rules["import/order"].find(
+const importOrder = base.rules["import/order"].find(
   item => typeof item === "object"
 )
 
@@ -10,14 +10,12 @@ module.exports = {
     browser: true,
   },
   parserOptions: {
-    project: "./tsconfig.json",
     ecmaVersion: "latest",
     ecmaFeatures: {
       jsx: true,
     },
   },
   extends: [
-    "./base-ts.js",
     "plugin:react/recommended",
     "plugin:react-prefer-function-component/recommended",
     "plugin:react-hooks/recommended",
@@ -37,6 +35,7 @@ module.exports = {
             position: "before",
           },
         ],
+        pathGroupsExcludedImportTypes: ["react"],
       },
     ],
 
