@@ -1,6 +1,6 @@
 # @pretty-cozy/eslint-config
 
-A pretty cozy eslint collection of rules.
+A pretty cozy collection of eslint rules.
 
 ## Available configs
 
@@ -16,10 +16,10 @@ A pretty cozy eslint collection of rules.
     ```bash
     npm i -D eslint @pretty-cozy/eslint-config
     ```
-2. Create an `.eslintrc` file in the directory where your `package.json` is located.
-3. Extend on the configs you need, e.g.:
+2. Add an eslint configuration that extends on the configs you need. 
+   For example, you can add this to your `package.json`:
     ```json
-    {
+    "eslintConfig": {
       "extends": [
         "@pretty-cozy/eslint-config/base-ts",
         "@pretty-cozy/eslint-config/react"

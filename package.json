@@ -25,6 +25,11 @@
     "@pretty-cozy/eslint-config": "file:/packages/eslint-config",
     "@pretty-cozy/git-hooks": "file:/packages/git-hooks"
   },
+  "eslintConfig": {
+    "extends": [
+      "@pretty-cozy"
+    ]
+  },
   "lint-staged": {
     "*.js": [
       "npm run lint:fix"
