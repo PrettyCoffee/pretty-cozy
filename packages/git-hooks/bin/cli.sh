@@ -26,7 +26,15 @@ printHelp() {
   printf "\n"
   printf "Options:\n"
   printf "  -f, --force  Overwrite existing config files (.commitlintrc)\n"
+  printf "  -q, --quiet  Only print critical information and mute everything else\n"
   printf "  -h, --help   Show help page\n"
+}
+
+printIfNotQuiet() {
+  if [ $quiet = false ]
+  then
+    printf "$1"
+  fi
 }
 
 copyCommitlintConfig() {
@@ -43,11 +51,16 @@ copyCommitlintConfig() {
   fileExists $configDest
   if [ $? = 0 ]
   then
-    printf "⚠️ $configName exists already, use -f to overwrite it\n"
     return 1
   fi
   
   cp -n $configSrc $configDest
+  if [ $? = 0 ]
+  then
+    return 0
+  else 
+    return 2
+  fi
 }
 
 copyLintStagedConfig() {
@@ -71,7 +84,10 @@ installGitHooks() {
   copyCommitlintConfig
   if [ $? = 0 ]
   then
-    printf "✅ Copied .commitlintrc\n"
+    printIfNotQuiet "✅ Copied .commitlintrc\n"
+  elif [ $? = 1 ]
+  then
+    printIfNotQuiet "⚠️ .commitlintrc exists already, use -f to overwrite it\n"
   else
     printf "❌ Failed to copy .commitlintrc\n"
     success=false
@@ -80,7 +96,7 @@ installGitHooks() {
   installHusky
   if [ $? = 0 ]
   then
-    printf "✅ Installed git hooks\n"
+    printIfNotQuiet "✅ Installed git hooks\n"
   else
     printf "❌ Failed to install git hooks\n"
     success=false
@@ -88,9 +104,9 @@ installGitHooks() {
 
   if [ $success = true ]
   then
-    printf "✅ Successfully installed comfy-git-hooks\n"
+    printIfNotQuiet "✅ Successfully installed comfy-git-hooks\n"
   else 
-    printf "⚠️ Something went wrong when installing cozy-git-hooks\n"
+    printIfNotQuiet "⚠️ Something went wrong when installing cozy-git-hooks\n"
   fi
 }
 
@@ -99,6 +115,7 @@ run() {
   local help=false
   local install=false
   local force=false
+  local quiet=false
 
   if [ $argCount = 0 ]
   then
@@ -114,6 +131,8 @@ run() {
       -h | --help | help) help=true ;;
 
       -f | --force) force=true ;;
+
+      -q | --quiet) quiet=true ;;
 
       *) 
         argNotAvailable $arg
