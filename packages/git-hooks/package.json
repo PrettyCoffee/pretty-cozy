@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/git-hooks",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.2",
   "description": "A pretty cozy collection of eslint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
