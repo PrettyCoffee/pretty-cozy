@@ -28,8 +28,10 @@ const gitCreateCommit = applyChanges => {
   pipeSteps([
     {
       run: () => {
-        git.stash()
-        hasStash = true
+        const result = git.stash()
+        if (!String(result).match(/no local changes/gi)) {
+          hasStash = true
+        }
       },
       success: "Stashed current changes",
       error: "Changes could not be stashed",
