@@ -22,8 +22,11 @@ argNotAvailable() {
 
 printHelp() {
   printf "\n"
-  printf "Usage:\n"
-  printf "  cozy-git-hooks install\n"
+  printf "Usage: cozy-git-hooks install [options]\n"
+  printf "\n"
+  printf "Options:\n"
+  printf "  -f, --force  Overwrite existing config files (.commitlintrc)\n"
+  printf "  -h, --help   Show help page\n"
 }
 
 copyCommitlintConfig() {
