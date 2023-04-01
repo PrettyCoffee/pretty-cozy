@@ -57,7 +57,7 @@ copyLintStagedConfig() {
 }
 
 installHusky() {
-  local hooksDir=`realpath $packageDir/../hooks`
+  local hooksDir=`realpath $packageDir/hooks`
   # make husky silent
   npx husky install $hooksDir > /dev/null 2>&1
 }
