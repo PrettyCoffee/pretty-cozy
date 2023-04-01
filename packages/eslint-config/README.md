@@ -26,7 +26,7 @@ A pretty cozy collection of eslint rules.
       ]
     }
     ```
-4. Add npm scripts to your `package.json`:
+3. Add npm scripts to your `package.json`:
     ```json
     "scripts": {
       "lint": "eslint ./src",
