@@ -19,10 +19,15 @@
     "publish:preview": "npm run publish -- --preview",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
-    "prepare": "cozy-git-hooks install"
+    "prepare": "cozy-git-hooks install -f"
   },
   "devDependencies": {
     "@pretty-cozy/eslint-config": "file:/packages/eslint-config",
     "@pretty-cozy/git-hooks": "file:/packages/git-hooks"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:fix"
+    ]
   }
 }
