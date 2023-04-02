@@ -8,11 +8,14 @@ A pretty cozy collection of git hooks to verify commit messages and lint your co
     ```bash
     npm i -D @pretty-cozy/git-hooks
     ```
-2. Add a lint-staged config to your `package.json`:
+2. Add a lint-staged config to your `package.json`, for example:
     ```json
     "lint-staged": {
       "*.{ts,tsx}": [
         "npm run lint:fix"
+      ],
+      "*.{json,md,html}": [
+        "prettier --write"
       ]
     }
     ```

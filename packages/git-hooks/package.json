@@ -1,7 +1,7 @@
 {
   "name": "@pretty-cozy/git-hooks",
   "version": "0.0.2",
-  "description": "A pretty cozy collection of eslint configs",
+  "description": "A pretty cozy collection of git hooks",
   "author": "Pretty Coffee",
   "license": "MIT",
   "bin": {
