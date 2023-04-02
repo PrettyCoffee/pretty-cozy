@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/root",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Collection of pretty cozy utilities to make npm workflows easier",
   "author": "Pretty Coffee",
   "license": "MIT",
