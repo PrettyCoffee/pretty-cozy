@@ -4,6 +4,11 @@
   "description": "A pretty cozy collection of git hooks",
   "author": "Pretty Coffee",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrettyCoffee/pretty-cozy"
+  },
+  "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
   "bin": {
     "cozy-git-hooks": "./bin/cli.sh"
   },

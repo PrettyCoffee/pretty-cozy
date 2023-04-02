@@ -4,6 +4,11 @@
   "description": "A pretty cozy collection of eslint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrettyCoffee/pretty-cozy"
+  },
+  "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
   "exports": {
     ".": "./configs/base.js",
     "./base": "./configs/base.js",
