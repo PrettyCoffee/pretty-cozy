@@ -46,5 +46,23 @@ module.exports = {
     ],
 
     "unused-imports/no-unused-imports": "error",
+
+    "import/no-deprecated": "error",
+    "import/no-empty-named-blocks": "error",
+    "import/no-self-import": "error",
+    "import/newline-after-import": ["error", { count: 1 }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: false,
+        optionalDependencies: false,
+      },
+    ],
+    "import/no-useless-path-segments": [
+      "error",
+      {
+        noUselessIndex: true,
+      },
+    ],
   },
 }
