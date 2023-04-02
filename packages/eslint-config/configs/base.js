@@ -10,9 +10,10 @@ module.exports = {
     "eslint:recommended",
     "plugin:import/recommended",
     "plugin:sonarjs/recommended",
+    "plugin:@pretty-cozy/recommended",
     "plugin:prettier/recommended",
   ],
-  plugins: ["import", "sonarjs", "unused-imports", "check-file"],
+  plugins: ["check-file", "import", "sonarjs", "unused-imports"],
   rules: {
     "import/order": [
       "error",

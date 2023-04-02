@@ -4,5 +4,9 @@
   "description": "A pretty cozy collection of eslint rules",
   "author": "Pretty Coffee",
   "license": "MIT",
-  "scripts": {}
+  "main": "./index.js",
+  "scripts": {
+    "lint": "eslint ./{configs,rules}/*",
+    "lint:fix": "npm run lint -- --fix"
+  }
 }

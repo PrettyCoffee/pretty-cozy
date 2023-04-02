@@ -21,10 +21,7 @@
     "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install --quiet"
   },
-  "devDependencies": {
-    "@pretty-cozy/eslint-config": "file:/packages/eslint-config",
-    "@pretty-cozy/git-hooks": "file:/packages/git-hooks"
-  },
+  "devDependencies": { },
   "eslintConfig": {
     "extends": [
       "@pretty-cozy"
