@@ -13,7 +13,8 @@
     ".": "./configs/base.js",
     "./base": "./configs/base.js",
     "./base-ts": "./configs/base-ts.js",
-    "./react": "./configs/react.js"
+    "./react": "./configs/react.js",
+    "./preact": "./configs/preact.js"
   },
   "scripts": {
     "lint": "eslint ./configs/*",
