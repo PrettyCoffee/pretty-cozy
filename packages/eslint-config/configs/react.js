@@ -48,7 +48,6 @@ module.exports = {
         unnamedComponents: "arrow-function",
       },
     ],
-    "react/forbid-elements": ["error", { forbid: ["iframe"] }],
     "react/hook-use-state": "error",
     "react/jsx-boolean-value": ["error", "never"],
     "react/jsx-max-depth": ["error", { max: 4 }],

@@ -17,11 +17,7 @@ module.exports = {
   ],
   plugins: ["@typescript-eslint"],
   rules: {
-    "@typescript-eslint/consistent-type-assertions": [
-      "warn",
-      { assertionStyle: "never" },
-    ],
-
+    "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
   },
   settings: {
