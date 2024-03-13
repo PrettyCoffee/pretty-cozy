@@ -54,6 +54,7 @@ module.exports = {
     "react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],
     "react/jsx-pascal-case": ["error", { allowNamespace: true }],
     "react/no-array-index-key": "error",
+    "react/prop-types": "off",
 
     "jsx-a11y/no-onchange": "off", // deprecated rule, will be deleted in a future release
     "jsx-a11y/label-has-associated-control": "off",
