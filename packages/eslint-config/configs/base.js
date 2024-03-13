@@ -66,4 +66,12 @@ module.exports = {
       },
     ],
   },
+  overrides: [
+    {
+      files: "*.test.*",
+      rules: {
+        "import/no-extraneous-dependencies": "off",
+      },
+    },
+  ],
 }
