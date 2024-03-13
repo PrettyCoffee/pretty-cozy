@@ -1,4 +1,4 @@
-const hasTargetName = text => text.match(/[a-zA-Z]+\/?$/)
+const hasTargetName = text => text.match(/[a-zA-Z0-9]+\/?$/)
 
 module.exports = {
   meta: {
