@@ -9,6 +9,7 @@ A pretty cozy collection of eslint rules.
 | `@pretty-cozy/eslint-config/base` | General config without a specific usage scope |
 | `@pretty-cozy/eslint-config/base-ts`| Replaces `/base` to support typescript |
 | `@pretty-cozy/eslint-config/react` | React specific rule set |
+| `@pretty-cozy/eslint-config/tailwind` | Tailwind css specific rule set |
 
 ## Setup
 
