@@ -1,0 +1,20 @@
+{
+  "name": "@pretty-cozy/release-tools",
+  "version": "0.2.0",
+  "description": "A pretty cozy collection of tools to create release scripts",
+  "author": "Pretty Coffee",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrettyCoffee/pretty-cozy"
+  },
+  "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint ./src",
+    "lint:fix": "npx lint -- --fix"
+  },
+  "dependencies": {
+    "enquirer": "^2.4.1"
+  }
+}
