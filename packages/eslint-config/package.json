@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/eslint-config",
-  "version": "0.2.0",
+  "version": "0.3.0-alpha.0",
   "description": "A pretty cozy collection of eslint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "lint:fix": "npx lint -- --fix"
   },
   "peerDependencies": {
-    "@pretty-cozy/eslint-plugin": "*"
+    "@pretty-cozy/eslint-plugin": "0.3.0-alpha.0"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -43,6 +43,6 @@
     "prettier": "^2.8.8"
   },
   "devDependencies": {
-    "@pretty-cozy/eslint-plugin": "file:packages/eslint-plugin"
+    "@pretty-cozy/eslint-plugin": "0.3.0-alpha.0"
   }
 }
