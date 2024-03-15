@@ -33,7 +33,7 @@ ${options}
  */
 const printHelp = (description, usage, options) => {
   const help = helpTemplate(description, usage, formatOptions(options))
-  console.log(help)
+  console.info(help)
 }
 
 module.exports = printHelp

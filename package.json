@@ -12,17 +12,16 @@
   ],
   "scripts": {
     "release": "node ./scripts/release.js",
-    "release:patch": "npm run release -- --patch",
-    "release:minor": "npm run release -- --minor",
-    "pre-release:patch": "npm run release:patch -- --pre",
-    "pre-release:minor": "npm run release:minor -- --pre",
     "publish": "node ./scripts/publish.js",
     "publish:preview": "npm run publish -- --preview",
     "lint": "eslint . --ext .js --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install --quiet"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "enquirer": "^2.4.1",
+    "glob": "^10.3.10"
+  },
   "eslintConfig": {
     "extends": [
       "@pretty-cozy"

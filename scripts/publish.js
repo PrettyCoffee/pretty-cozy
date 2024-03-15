@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-const askToAccept = require("./utils/askToAccept")
-const createSpinner = require("./utils/createSpinner")
+const { npm, color } = require("@pretty-cozy/release-tools")
+const { createSpinner } = require("@pretty-cozy/release-tools")
+
 const printHelp = require("./utils/printHelp")
-const runCmd = require("./utils/runCmd")
+const { promptOk } = require("./utils/promptOk")
 
 const printHelpPage = () => {
   printHelp(
@@ -36,15 +37,17 @@ const getOptions = args =>
     }
   }, {})
 
-const npmPublish = mode => {
-  const publishCommand = "npm publish --workspaces --access public"
-
+const npmPublish = async mode => {
   switch (mode) {
     case "preview":
-      return runCmd(`${publishCommand} --dry-run`, { silent: false })
+      return npm.publish({
+        workspaces: true,
+        access: "public",
+        dryRun: true,
+      })
 
     case "execute":
-      return runCmd(`${publishCommand}`, { silent: true })
+      return npm.publish({ workspaces: true, access: "public" })
   }
 
   return Promise.reject(new Error("Bad mode"))
@@ -59,29 +62,32 @@ const run = async () => {
     return
   }
 
-  console.log("Packages to be published:\n")
-  await npmPublish("preview")
+  console.info("Packages to be published:\n")
+  const preview = await npmPublish("preview")
+  console.info(color.gray(preview))
 
   if (options.preview) return
 
-  console.log("\n")
+  console.info("\n")
 
-  const { start, stop } = createSpinner("Publishing the version")
+  const spinner = createSpinner()
 
-  askToAccept("Do you want to publish this version?").then(accepted => {
-    console.log("\n")
+  promptOk("Do you want to publish this version?").then(accepted => {
+    console.info("\n")
     if (!accepted) {
-      console.log("❌ Publishing was canceled.\n")
+      console.info("❌ Publishing was canceled.\n")
       return
     }
 
-    start()
+    spinner.start("Publishing the version")
     npmPublish("execute")
       .then(() => {
-        stop("✅ Published")
+        spinner.success("Published")
       })
       .catch(() => {
-        stop("⚠️  Failed to publish. Did you already publish this version?\n")
+        spinner.error(
+          "Failed to publish. Did you already publish this version?\n"
+        )
       })
   })
 }
