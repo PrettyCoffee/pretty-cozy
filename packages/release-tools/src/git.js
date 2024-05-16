@@ -84,7 +84,7 @@ const git = {
    *  @returns {Promise<string[]>} A promise that resolves to an array of commits between the specified tags.
    */
   getCommits: async (startTag, endTag) => {
-    const tags = await this.allTags()
+    const tags = await git.allTags()
     const start = startTag ?? tags.at(-1)
     const end = endTag ?? "HEAD"
 
