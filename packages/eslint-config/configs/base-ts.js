@@ -19,6 +19,14 @@ module.exports = {
   rules: {
     "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        types: {
+          "{}": false,
+        },
+      },
+    ],
   },
   settings: {
     "import/parsers": {
