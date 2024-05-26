@@ -3,6 +3,18 @@ const { stringifyArgs } = require("./utils/stringifyArgs")
 
 const npm = {
   /**
+   * Run an npm script.
+   * @param {string} script The script to run.
+   * @returns {Promise<string|null>} A promise that resolves to the script's text output or null if the script failed.
+   */
+  run: script => {
+    try {
+      return exec(`npm run ${script}`)
+    } catch {
+      return Promise.resolve(null)
+    }
+  },
+  /**
    * Get the current user's npm username.
    * @returns {Promise<string|null>} A promise that resolves to the username
    */
