@@ -1,77 +1,71 @@
-module.exports = {
-  env: {
-    node: true,
-    es6: true,
-  },
-  parserOptions: {
-    ecmaVersion: "latest",
-  },
-  extends: [
-    "eslint:recommended",
-    "plugin:import/recommended",
-    "plugin:sonarjs/recommended",
-    "plugin:@pretty-cozy/recommended",
-    "plugin:prettier/recommended",
-  ],
-  plugins: ["check-file", "import", "sonarjs", "unused-imports"],
-  rules: {
-    "import/order": [
-      "error",
-      {
-        groups: ["builtin", "external", "internal"],
-        "newlines-between": "always",
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
-      },
-    ],
+import js from "@eslint/js"
+import prettyCozy from "@pretty-cozy/eslint-plugin"
+import checkFile from "eslint-plugin-check-file"
+import imprt from "eslint-plugin-import"
+import sonarjs from "eslint-plugin-sonarjs"
+import unusedImports from "eslint-plugin-unused-imports"
+import globals from "globals"
+import ts from "typescript-eslint"
 
-    "prettier/prettier": [
-      "error",
-      {
-        tabWidth: 2,
-        singleQuote: false,
-        trailingComma: "es5",
-        semi: false,
-        bracketSpacing: true,
-        arrowParens: "avoid",
-        endOfLine: "auto",
-        jsxSingleQuote: false,
-      },
-    ],
+import { createImportOrder } from "./_create-import-order.js"
+import { prettier } from "./_prettier.js"
 
-    "check-file/folder-naming-convention": [
-      "error",
-      { "src/**": "KEBAB_CASE" },
-    ],
+export default ts.config(
+  js.configs.recommended,
+  imprt.flatConfigs.recommended,
+  sonarjs.configs.recommended,
+  prettyCozy.configs.flat,
+  prettier,
+  createImportOrder(),
 
-    "unused-imports/no-unused-imports": "error",
-
-    "import/no-deprecated": "error",
-    "import/no-empty-named-blocks": "error",
-    "import/no-self-import": "error",
-    "import/newline-after-import": ["error", { count: 1 }],
-    "import/no-extraneous-dependencies": [
-      "error",
-      {
-        devDependencies: false,
-        optionalDependencies: false,
-      },
-    ],
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        noUselessIndex: true,
-      },
-    ],
-  },
-  overrides: [
-    {
-      files: "*.test.*",
-      rules: {
-        "import/no-extraneous-dependencies": "off",
+  {
+    languageOptions: {
+      ecmaVersion: "latest",
+      globals: {
+        ...globals.node,
+        ...globals.browser,
       },
     },
-  ],
-}
+    plugins: {
+      "check-file": checkFile,
+      "unused-imports": unusedImports,
+    },
+    rules: {
+      "check-file/folder-naming-convention": [
+        "error",
+        { "src/**": "KEBAB_CASE" },
+      ],
+
+      "unused-imports/no-unused-imports": "error",
+
+      "sonarjs/todo-tag": "off",
+      "sonarjs/public-static-readonly": "off",
+
+      "import/no-unresolved": "off",
+      "import/no-deprecated": "error",
+      "import/no-empty-named-blocks": "error",
+      "import/no-self-import": "error",
+      "import/newline-after-import": ["error", { count: 1 }],
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          devDependencies: false,
+          optionalDependencies: false,
+        },
+      ],
+      "import/no-useless-path-segments": [
+        "error",
+        {
+          noUselessIndex: true,
+        },
+      ],
+    },
+  },
+
+  {
+    files: ["*.test.*"],
+    rules: {
+      "import/no-extraneous-dependencies": "off",
+    },
+  }
+)

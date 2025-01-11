@@ -1,31 +1,20 @@
-const base = require("./base")
+import ts from "typescript-eslint"
 
-const importOrder = base.rules["import/order"].find(
-  item => typeof item === "object"
-)
+import { createImportOrder } from "./_create-import-order.js"
+import { prettier } from "./_prettier.js"
+import react from "./react.js"
 
-module.exports = {
-  extends: ["@pretty-cozy/eslint-config/react"],
-  rules: {
-    "import/order": [
-      "error",
-      {
-        ...importOrder,
-        pathGroups: [
-          {
-            pattern: "preact",
-            group: "external",
-            position: "before",
-          },
-        ],
-        pathGroupsExcludedImportTypes: ["preact"],
+export default ts.config(
+  react,
+  createImportOrder({ main: ["preact", "preact/hooks"] }),
+  prettier,
+
+  {
+    settings: {
+      react: {
+        version: "16.0",
+        pragma: "h",
       },
-    ],
-  },
-  settings: {
-    react: {
-      version: "16.0",
-      pragma: "h",
     },
-  },
-}
+  }
+)

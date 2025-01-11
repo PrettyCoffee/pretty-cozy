@@ -9,40 +9,41 @@
     "url": "https://github.com/PrettyCoffee/pretty-cozy"
   },
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
-  "exports": {
-    ".": "./configs/base.js",
-    "./base": "./configs/base.js",
-    "./base-ts": "./configs/base-ts.js",
-    "./react": "./configs/react.js",
-    "./preact": "./configs/preact.js",
-    "./tailwind": "./configs/tailwind.js"
-  },
+  "type": "module",
+  "main": "./index.js",
+  "module": "./index.js",
   "scripts": {
-    "lint": "eslint ./configs/*",
+    "lint": "eslint ./configs/* ./index.js",
     "lint:fix": "npx lint -- --fix"
   },
   "peerDependencies": {
-    "@pretty-cozy/eslint-plugin": "0.4.0"
+    "eslint": ">=9.0.0"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
-    "eslint-config-prettier": "^8.9.0",
-    "eslint-import-resolver-typescript": "^3.5.5",
-    "eslint-plugin-check-file": "^2.5.0",
-    "eslint-plugin-import": "^2.28.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.33.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-prefer-function-component": "^3.1.0",
-    "eslint-plugin-sonarjs": "^0.19.0",
-    "eslint-plugin-tailwindcss": "^3.15.1",
-    "eslint-plugin-unused-imports": "^2.0.0",
-    "prettier": "^2.8.8"
+    "@eslint/js": "^9.18.0",
+    "@pretty-cozy/eslint-plugin": "0.4.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.7.0",
+    "eslint-plugin-check-file": "^2.8.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-prefer-function-component": "^3.3.0",
+    "eslint-plugin-sonarjs": "^3.0.1",
+    "eslint-plugin-tailwindcss": "^3.17.5",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript-eslint": "^8.19.1"
   },
   "devDependencies": {
-    "@pretty-cozy/eslint-plugin": "0.4.0"
+    "eslint": "^9.18.0"
+  },
+  "overrides": {
+    "eslint": "^9.18.0"
   }
 }
