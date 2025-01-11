@@ -14,18 +14,17 @@
     "release": "node ./scripts/release.js",
     "publish": "node ./scripts/publish.js",
     "publish:preview": "npm run publish -- --preview",
-    "lint": "eslint . --ext .js --ignore-path .gitignore",
+    "lint": "eslint",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install --quiet"
   },
   "devDependencies": {
     "enquirer": "^2.4.1",
+    "eslint": "^9.18.0",
     "glob": "^10.3.10"
   },
-  "eslintConfig": {
-    "extends": [
-      "@pretty-cozy"
-    ]
+  "overrides": {
+    "eslint": "^9.18.0"
   },
   "lint-staged": {
     "*.js": [

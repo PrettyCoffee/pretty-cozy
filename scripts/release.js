@@ -9,8 +9,8 @@ const {
 } = require("@pretty-cozy/release-tools")
 const { glob } = require("glob")
 
-const { promptOk } = require("./utils/promptOk")
 const { version } = require("../package.json")
+const { promptOk } = require("./utils/promptOk")
 
 const getPackages = () =>
   glob(["package.json", "packages/*/package.json"], { absolute: true })

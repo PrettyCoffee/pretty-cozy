@@ -6,7 +6,7 @@ class Version {
   /** @type {ParsedVersion} */
   current
 
-  /** @param {string} version */
+  /** @param {string} currentVersion */
   constructor(currentVersion) {
     if (!Version.isValid(currentVersion)) {
       throw new Error(color.red(`Invalid version: ${currentVersion}`))
