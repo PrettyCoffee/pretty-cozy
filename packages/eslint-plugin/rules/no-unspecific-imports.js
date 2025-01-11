@@ -1,6 +1,7 @@
+// eslint-disable-next-line sonarjs/slow-regex
 const hasTargetName = text => text.match(/[a-zA-Z0-9]+\/?$/)
 
-module.exports = {
+export default {
   meta: {
     type: "problem",
     docs: {

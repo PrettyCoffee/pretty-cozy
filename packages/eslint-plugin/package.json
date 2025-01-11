@@ -9,9 +9,10 @@
     "url": "https://github.com/PrettyCoffee/pretty-cozy"
   },
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
+  "type": "module",
   "main": "./index.js",
   "scripts": {
-    "lint": "eslint ./{configs,rules}/*",
+    "lint": "eslint ./rules/* ./index.js",
     "lint:fix": "npm run lint -- --fix"
   }
 }
