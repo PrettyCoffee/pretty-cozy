@@ -8,10 +8,4 @@ export default [
       "import/no-extraneous-dependencies": "off",
     },
   },
-  {
-    files: ["packages/release-tools/**"],
-    rules: {
-      "sonarjs/os-command": "off",
-    },
-  },
 ]

@@ -32,6 +32,8 @@ export default ts.config(
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/no-use-before-define": ["error"],
       "@typescript-eslint/no-empty-object-type": "off",
+
+      "sonarjs/public-static-readonly": "error",
     },
   },
   {
