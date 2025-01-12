@@ -35,7 +35,6 @@
     "eslint-plugin-react-prefer-function-component": "^3.3.0",
     "eslint-plugin-sonarjs": "^3.0.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
-    "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
     "typescript-eslint": "^8.19.1"

@@ -3,7 +3,6 @@ import prettyCozy from "@pretty-cozy/eslint-plugin"
 import checkFile from "eslint-plugin-check-file"
 import imprt from "eslint-plugin-import"
 import sonarjs from "eslint-plugin-sonarjs"
-import unusedImports from "eslint-plugin-unused-imports"
 import globals from "globals"
 import ts from "typescript-eslint"
 
@@ -28,7 +27,6 @@ export default ts.config(
     },
     plugins: {
       "check-file": checkFile,
-      "unused-imports": unusedImports,
     },
     rules: {
       "check-file/folder-naming-convention": [
@@ -36,8 +34,7 @@ export default ts.config(
         { "src/**": "KEBAB_CASE" },
       ],
 
-      "unused-imports/no-unused-imports": "error",
-
+      "sonarjs/unused-import": "error",
       "sonarjs/todo-tag": "off",
       "sonarjs/public-static-readonly": "off",
 
