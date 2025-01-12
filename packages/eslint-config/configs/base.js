@@ -7,13 +7,11 @@ import globals from "globals"
 import ts from "typescript-eslint"
 
 import { createImportOrder } from "./_create-import-order.js"
-import { prettier } from "./_prettier.js"
 
 export default ts.config(
   js.configs.recommended,
   imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,
-  prettier,
   createImportOrder(),
 
   {

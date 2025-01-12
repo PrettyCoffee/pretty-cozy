@@ -4,12 +4,14 @@ A pretty cozy collection of eslint rules.
 
 ## Available configs
 
-| config name | description |
-|--- |--- |
-| `@pretty-cozy/eslint-config/base` | General config without a specific usage scope |
-| `@pretty-cozy/eslint-config/base-ts`| Replaces `/base` to support typescript |
-| `@pretty-cozy/eslint-config/react` | React specific rule set |
-| `@pretty-cozy/eslint-config/tailwind` | Tailwind css specific rule set |
+| config name | description                                   |
+|-------------|-----------------------------------------------|
+| `base`      | General config without a specific usage scope |
+| `base-ts`   | Replaces `/base` to support typescript        |
+| `react`     | React specific rule set                       |
+| `peact`     | Preact specific rule set                      |
+| `prettier`  | Enables prettier for eslint.                  |
+| `tailwind`  | Tailwind css specific rule set                |
 
 ## Setup
 

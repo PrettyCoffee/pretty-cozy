@@ -1,7 +1,6 @@
 import imprt from "eslint-plugin-import"
 import ts from "typescript-eslint"
 
-import { prettier } from "./_prettier.js"
 import base from "./base.js"
 
 export default ts.config(
@@ -9,7 +8,6 @@ export default ts.config(
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,
   imprt.flatConfigs.typescript,
-  prettier,
 
   {
     languageOptions: {

@@ -5,7 +5,6 @@ import preferFC from "eslint-plugin-react-prefer-function-component/config"
 import ts from "typescript-eslint"
 
 import { createImportOrder } from "./_create-import-order.js"
-import { prettier } from "./_prettier.js"
 
 // TODO: Replace as soon as https://github.com/facebook/react/issues/28313 is resolved
 const reactHooksConfig = ts.config({
@@ -23,7 +22,6 @@ export default ts.config(
   preferFC.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   createImportOrder({ main: ["react"] }),
-  prettier,
 
   {
     rules: {
