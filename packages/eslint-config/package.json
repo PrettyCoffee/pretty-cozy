@@ -11,7 +11,7 @@
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
   "type": "module",
   "main": "./index.js",
-  "module": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "lint": "eslint ./configs/* ./index.js",
     "lint:fix": "npx lint -- --fix"
