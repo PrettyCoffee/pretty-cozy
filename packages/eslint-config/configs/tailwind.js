@@ -8,6 +8,7 @@ const tailwindConfig = [
 ]
 
 export default ts.config({
+  name: "@pretty-cozy/tailwind",
   plugins: {
     tailwindcss: tailwind,
   },

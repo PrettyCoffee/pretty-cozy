@@ -10,6 +10,7 @@ export default ts.config(
   imprt.flatConfigs.typescript,
 
   {
+    name: "@pretty-cozy/baseTs",
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -38,6 +39,7 @@ export default ts.config(
     },
   },
   {
+    name: "@pretty-cozy/baseTs",
     files: ["src/@types/**"],
     rules: {
       "check-file/folder-naming-convention": "off",

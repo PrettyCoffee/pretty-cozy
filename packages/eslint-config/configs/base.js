@@ -12,9 +12,10 @@ import { createImportOrder } from "./_create-import-order.js"
 export default ts.config(
   js.configs.recommended,
   prettyCozy.configs.flat,
-  createImportOrder(),
 
   {
+    name: "@pretty-cozy/base",
+    extends: [createImportOrder()],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
@@ -111,6 +112,7 @@ export default ts.config(
   },
 
   {
+    name: "@pretty-cozy/base",
     files: ["*", "**/*.test.*", "**/*.stories.*"],
     rules: {
       "import/no-extraneous-dependencies": "off",

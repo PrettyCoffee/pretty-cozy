@@ -2,7 +2,9 @@ import prettierConfig from "eslint-config-prettier"
 import prettierPlugin from "eslint-plugin-prettier"
 import ts from "typescript-eslint"
 
-export default ts.config(prettierConfig, {
+export default ts.config({
+  name: "@pretty-cozy/prettier",
+  extends: [prettierConfig],
   plugins: {
     prettier: prettierPlugin,
   },

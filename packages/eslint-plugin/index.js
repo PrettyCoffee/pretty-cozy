@@ -11,6 +11,7 @@ const plugin = {
 
 const configs = {
   flat: {
+    name: "@pretty-cozy/plugin",
     plugins: {
       [plugin.meta.name]: plugin,
     },

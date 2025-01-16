@@ -8,6 +8,7 @@ import { createImportOrder } from "./_create-import-order.js"
 
 // TODO: Replace as soon as https://github.com/facebook/react/issues/28313 is resolved
 const reactHooksConfig = ts.config({
+  name: "react-hooks",
   plugins: {
     "react-hooks": {
       rules: { ...reactHooks.rules },
@@ -21,11 +22,14 @@ export default ts.config(
   reactHooksConfig,
   preferFC.configs.recommended,
   jsxA11y.flatConfigs.recommended,
-  createImportOrder({
-    main: ["react", "react-dom", "react-dom/client", "react-dom/server"],
-  }),
 
   {
+    name: "@pretty-cozy/react",
+    extends: [
+      createImportOrder({
+        main: ["react", "react-dom", "react-dom/client", "react-dom/server"],
+      }),
+    ],
     rules: {
       "react/react-in-jsx-scope": "off",
       "react/destructuring-assignment": ["error", "always"],
