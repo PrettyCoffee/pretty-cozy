@@ -11,7 +11,6 @@ import { createImportOrder } from "./_create-import-order.js"
 
 export default ts.config(
   js.configs.recommended,
-  imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,
   createImportOrder(),
 
@@ -25,6 +24,7 @@ export default ts.config(
     },
     plugins: {
       "check-file": checkFile,
+      import: imprt,
       sonarjs,
       unicorn,
     },
@@ -34,8 +34,9 @@ export default ts.config(
         { "*/**": "KEBAB_CASE" },
       ],
 
-      "import/no-unresolved": "off",
+      "import/no-cycle": "error",
       "import/no-deprecated": "error",
+      "import/no-duplicates": "error",
       "import/no-empty-named-blocks": "error",
       "import/no-self-import": "error",
       "import/newline-after-import": ["error", { count: 1 }],
