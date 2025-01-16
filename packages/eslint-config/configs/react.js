@@ -21,7 +21,9 @@ export default ts.config(
   reactHooksConfig,
   preferFC.configs.recommended,
   jsxA11y.flatConfigs.recommended,
-  createImportOrder({ main: ["react"] }),
+  createImportOrder({
+    main: ["react", "react-dom", "react-dom/client", "react-dom/server"],
+  }),
 
   {
     rules: {
