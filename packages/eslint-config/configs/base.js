@@ -29,7 +29,7 @@ export default ts.config(
     rules: {
       "check-file/folder-naming-convention": [
         "error",
-        { "src/**": "KEBAB_CASE" },
+        { "*/**": "KEBAB_CASE" },
       ],
 
       "import/no-unresolved": "off",
@@ -60,7 +60,6 @@ export default ts.config(
       "sonarjs/destructuring-assignment-syntax": "error",
       "sonarjs/duplicates-in-character-class": "error",
       "sonarjs/existing-groups": "error",
-      "sonarjs/file-name-differ-from-class": "error",
       "sonarjs/function-inside-loop": "error",
       "sonarjs/future-reserved-words": "error",
       "sonarjs/generator-without-yield": "error",
@@ -69,9 +68,7 @@ export default ts.config(
       "sonarjs/no-array-delete": "error",
       "sonarjs/no-collapsible-if": "error",
       "sonarjs/no-duplicate-in-composite": "error",
-      "sonarjs/no-duplicate-string": "error",
       "sonarjs/no-empty-alternatives": "error",
-      "sonarjs/no-empty-test-file": "error",
       "sonarjs/no-exclusive-tests": "error",
       "sonarjs/no-globals-shadowing": "error",
       "sonarjs/no-identical-conditions": "error",
@@ -91,7 +88,7 @@ export default ts.config(
   },
 
   {
-    files: ["*.test.*"],
+    files: ["**/*.test.*", "**/*.stories.*"],
     rules: {
       "import/no-extraneous-dependencies": "off",
     },

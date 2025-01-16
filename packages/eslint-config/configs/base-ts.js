@@ -29,7 +29,10 @@ export default ts.config(
     rules: {
       "@typescript-eslint/consistent-type-assertions": "off",
       "@typescript-eslint/no-use-before-define": ["error"],
+      "@typescript-eslint/restrict-template-expressions": "off",
       "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-confusing-void-expression": "off",
+      "@typescript-eslint/no-unused-expressions": "off",
 
       "sonarjs/public-static-readonly": "error",
     },
