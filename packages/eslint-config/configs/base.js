@@ -3,6 +3,7 @@ import prettyCozy from "@pretty-cozy/eslint-plugin"
 import checkFile from "eslint-plugin-check-file"
 import imprt from "eslint-plugin-import"
 import sonarjs from "eslint-plugin-sonarjs"
+import unicorn from "eslint-plugin-unicorn"
 import globals from "globals"
 import ts from "typescript-eslint"
 
@@ -23,8 +24,9 @@ export default ts.config(
       },
     },
     plugins: {
-      sonarjs,
       "check-file": checkFile,
+      sonarjs,
+      unicorn,
     },
     rules: {
       "check-file/folder-naming-convention": [
@@ -84,11 +86,31 @@ export default ts.config(
       "sonarjs/prefer-regexp-exec": "error",
       "sonarjs/super-invocation": "error",
       "sonarjs/unused-import": "error",
+
+      "unicorn/consistent-destructuring": "error",
+      "unicorn/expiring-todo-comments": "error",
+      "unicorn/explicit-length-check": "error",
+      "unicorn/no-await-expression-member": "error",
+      "unicorn/no-empty-file": "error",
+      "unicorn/no-useless-switch-case": "error",
+      "unicorn/prefer-date-now": "error",
+      "unicorn/prefer-default-parameters": "error",
+      "unicorn/prefer-logical-operator-over-ternary": "error",
+      "unicorn/prefer-number-properties": "error",
+      "unicorn/prefer-object-from-entries": "error",
+      "unicorn/prefer-regexp-test": "error",
+      "unicorn/prefer-set-has": "error",
+      "unicorn/prefer-string-replace-all": "error",
+      "unicorn/prefer-string-starts-ends-with": "error",
+      "unicorn/prefer-structured-clone": "error",
+      "unicorn/prefer-switch": "error",
+      "unicorn/require-array-join-separator": "error",
+      "unicorn/template-indent": "error",
     },
   },
 
   {
-    files: ["**/*.test.*", "**/*.stories.*"],
+    files: ["*", "**/*.test.*", "**/*.stories.*"],
     rules: {
       "import/no-extraneous-dependencies": "off",
     },

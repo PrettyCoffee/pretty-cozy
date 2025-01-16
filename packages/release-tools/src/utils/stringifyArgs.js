@@ -1,7 +1,7 @@
 const { color } = require("../color")
 
 const camelToKebab = str =>
-  str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()
+  str.replaceAll(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()
 
 /**
  * @param {Record<string, string | number | boolean>} options
