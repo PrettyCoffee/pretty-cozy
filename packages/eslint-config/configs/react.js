@@ -27,7 +27,7 @@ export default ts.config(
     name: "@pretty-cozy/react",
     extends: [
       createImportOrder({
-        main: ["react", "react-dom", "react-dom/client", "react-dom/server"],
+        groups: ["{react,react-dom,react-dom/*}"],
       }),
     ],
     rules: {
