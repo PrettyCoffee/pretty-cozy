@@ -2,7 +2,7 @@ import prettyCozy from "@pretty-cozy/eslint-config"
 import ts from "typescript-eslint"
 
 export default ts.config(
-  prettyCozy.base,
+  prettyCozy.baseJs,
   {
     files: ["eslint.config.mjs", "scripts/**"],
     rules: {

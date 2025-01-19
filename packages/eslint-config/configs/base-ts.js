@@ -1,10 +1,10 @@
 import imprt from "eslint-plugin-import"
 import ts from "typescript-eslint"
 
-import base from "./base.js"
+import baseJs from "./base-js.js"
 
 export default ts.config(
-  base,
+  baseJs,
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,
   imprt.flatConfigs.typescript,

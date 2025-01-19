@@ -6,8 +6,8 @@ A pretty cozy collection of eslint rules.
 
 | config name | description                                   |
 |-------------|-----------------------------------------------|
-| `base`      | General config without a specific usage scope |
-| `base-ts`   | Replaces `/base` to support typescript        |
+| `baseJs`    | General config without a specific usage scope |
+| `baseTs`    | Extends `baseJs` with typescript support      |
 | `react`     | React specific rule set                       |
 | `peact`     | Preact specific rule set                      |
 | `prettier`  | Enables prettier for eslint.                  |

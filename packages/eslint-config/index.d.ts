@@ -1,7 +1,7 @@
 import { ConfigArray } from "typescript-eslint";
 
 declare const configs: {
-    base: ConfigArray;
+    baseJs: ConfigArray;
     baseTs: ConfigArray;
     react: ConfigArray;
     preact: ConfigArray;
