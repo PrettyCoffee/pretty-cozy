@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/git-hooks",
-  "version": "0.5.0-alpha.1",
+  "version": "0.5.0",
   "description": "A pretty cozy collection of git hooks",
   "author": "Pretty Coffee",
   "license": "MIT",
