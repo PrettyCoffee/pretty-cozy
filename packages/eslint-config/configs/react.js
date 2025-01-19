@@ -40,7 +40,7 @@ export default ts.config(
           unnamedComponents: "arrow-function",
         },
       ],
-      "react/hook-use-state": "error",
+      "react/hook-use-state": ["error", { allowDestructuredState: true }],
       "react/jsx-boolean-value": ["error", "never"],
       "react/jsx-max-depth": ["error", { max: 4 }],
       "react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],

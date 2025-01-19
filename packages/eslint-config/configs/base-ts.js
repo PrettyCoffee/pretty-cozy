@@ -28,14 +28,21 @@ export default ts.config(
       },
     },
     rules: {
+      "@typescript-eslint/no-use-before-define": "error",
+
       "@typescript-eslint/consistent-type-assertions": "off",
-      "@typescript-eslint/no-use-before-define": ["error"],
       "@typescript-eslint/restrict-template-expressions": "off",
       "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-confusing-void-expression": "off",
+      "@typescript-eslint/no-invalid-void-type": "off",
+      "@typescript-eslint/no-unnecessary-condition": "off",
       "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/prefer-nullish-coalescing": "off",
+      "@typescript-eslint/prefer-promise-reject-errors": "off",
 
       "sonarjs/public-static-readonly": "error",
+      "sonarjs/deprecation": "off",
     },
   },
   {
