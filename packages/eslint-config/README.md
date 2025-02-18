@@ -9,7 +9,7 @@ A pretty cozy collection of eslint rules.
 | `baseJs`    | General config without a specific usage scope |
 | `baseTs`    | Extends `baseJs` with typescript support      |
 | `react`     | React specific rule set                       |
-| `peact`     | Preact specific rule set                      |
+| `preact`     | Preact specific rule set                      |
 | `prettier`  | Enables prettier for eslint.                  |
 | `tailwind`  | Tailwind css specific rule set                |
 
