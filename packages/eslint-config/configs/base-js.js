@@ -4,6 +4,7 @@ import checkFile from "eslint-plugin-check-file"
 import imprt from "eslint-plugin-import"
 import sonarjs from "eslint-plugin-sonarjs"
 import unicorn from "eslint-plugin-unicorn"
+import unusedImports from "eslint-plugin-unused-imports"
 import globals from "globals"
 import ts from "typescript-eslint"
 
@@ -28,12 +29,15 @@ export default ts.config(
       import: imprt,
       sonarjs,
       unicorn,
+      "unused-imports": unusedImports,
     },
     rules: {
       "check-file/folder-naming-convention": [
         "error",
         { "*/**": "KEBAB_CASE" },
       ],
+
+      "unused-imports/no-unused-imports": "error",
 
       "import/no-cycle": "error",
       "import/no-deprecated": "error",
@@ -87,7 +91,6 @@ export default ts.config(
       "sonarjs/no-useless-react-setstate": "error",
       "sonarjs/prefer-regexp-exec": "error",
       "sonarjs/super-invocation": "error",
-      "sonarjs/unused-import": "error",
 
       "unicorn/consistent-destructuring": "error",
       "unicorn/expiring-todo-comments": "error",
