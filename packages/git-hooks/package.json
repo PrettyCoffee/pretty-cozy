@@ -14,9 +14,9 @@
   },
   "scripts": {},
   "dependencies": {
-    "@commitlint/cli": "^17.8.1",
-    "@commitlint/config-conventional": "^17.8.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.3.0"
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3"
   }
 }
