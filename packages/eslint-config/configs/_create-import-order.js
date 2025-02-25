@@ -1,8 +1,7 @@
-import ts from "typescript-eslint"
-
 /** Helper to create import order groups
  *  @param {{ groups: string[] } | undefined} options
  *  @params options.groups - most important packages of the project, e.g. ["react"]
+ *  @returns {Record<string, import("eslint").Linter.RuleEntry>}
  **/
 export const createImportOrder = ({ groups = [] } = {}) => {
   const config = {
@@ -23,9 +22,7 @@ export const createImportOrder = ({ groups = [] } = {}) => {
     config.pathGroupsExcludedImportTypes = groups
   }
 
-  return ts.config({
-    rules: {
-      "import/order": ["error", config],
-    },
-  })
+  return {
+    "import/order": ["error", config],
+  }
 }

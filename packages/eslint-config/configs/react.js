@@ -27,12 +27,9 @@ export default ts.config(
   {
     name: "@pretty-cozy/react",
     plugins: { "react-compiler": reactCompiler },
-    extends: [
-      createImportOrder({
-        groups: ["{react,react-dom,react-dom/*}"],
-      }),
-    ],
     rules: {
+      ...createImportOrder({ groups: ["{react,react-dom,react-dom/*}"] }),
+
       "react-compiler/react-compiler": "error",
 
       "react/react-in-jsx-scope": "off",

@@ -5,11 +5,13 @@ import react from "./react.js"
 
 export default ts.config(react, {
   name: "@pretty-cozy/preact",
-  extends: [createImportOrder({ groups: ["{preact,preact/*}"] })],
   settings: {
     react: {
       version: "16.0",
       pragma: "h",
     },
+  },
+  rules: {
+    ...createImportOrder({ groups: ["{preact,preact/*}"] }),
   },
 })

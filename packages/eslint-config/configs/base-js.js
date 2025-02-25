@@ -16,7 +16,6 @@ export default ts.config(
 
   {
     name: "@pretty-cozy/base",
-    extends: [createImportOrder()],
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
@@ -32,6 +31,8 @@ export default ts.config(
       "unused-imports": unusedImports,
     },
     rules: {
+      ...createImportOrder(),
+
       "check-file/folder-naming-convention": [
         "error",
         { "*/**": "KEBAB_CASE" },
