@@ -1,5 +1,6 @@
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
+import reactCompiler from "eslint-plugin-react-compiler"
 import reactHooks from "eslint-plugin-react-hooks"
 import preferFC from "eslint-plugin-react-prefer-function-component/config"
 import ts from "typescript-eslint"
@@ -25,12 +26,15 @@ export default ts.config(
 
   {
     name: "@pretty-cozy/react",
+    plugins: { "react-compiler": reactCompiler },
     extends: [
       createImportOrder({
         groups: ["{react,react-dom,react-dom/*}"],
       }),
     ],
     rules: {
+      "react-compiler/react-compiler": "error",
+
       "react/react-in-jsx-scope": "off",
       "react/destructuring-assignment": ["error", "always"],
       "react/function-component-definition": [
