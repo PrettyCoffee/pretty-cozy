@@ -7,7 +7,7 @@ import ts from "typescript-eslint"
 
 import { createImportOrder } from "./_create-import-order.js"
 
-// TODO: Replace as soon as https://github.com/facebook/react/issues/28313 is resolved
+// TODO: Replace as soon as https://github.com/facebook/react/issues/28313 is resolved and 5.2.0 is released
 const reactHooksConfig = ts.config({
   name: "react-hooks",
   plugins: {
