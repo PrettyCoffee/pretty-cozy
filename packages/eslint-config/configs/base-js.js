@@ -40,7 +40,9 @@ export default ts.config(
 
       "unused-imports/no-unused-imports": "error",
 
-      "import/no-cycle": "error",
+      // import/no-cycle is very performance heavy, therefore it is deactivated for now
+      //"import/no-cycle": "error",
+
       "import/no-deprecated": "error",
       "import/no-duplicates": "error",
       "import/no-empty-named-blocks": "error",
