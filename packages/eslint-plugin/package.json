@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/eslint-plugin",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "A pretty cozy collection of eslint rules",
   "author": "Pretty Coffee",
   "license": "MIT",
