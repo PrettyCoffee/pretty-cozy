@@ -1,3 +1,4 @@
+import imprt from "eslint-plugin-import"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
 import reactCompiler from "eslint-plugin-react-compiler"
@@ -7,33 +8,34 @@ import ts from "typescript-eslint"
 
 import { createImportOrder } from "./create-import-order.js"
 
-// TODO: Replace as soon as https://github.com/facebook/react/issues/28313 is resolved and 5.2.0 is released
-const reactHooksConfig = ts.config({
-  name: "react-hooks",
-  plugins: {
-    "react-hooks": {
-      rules: { ...reactHooks.rules },
-    },
-  },
-  rules: reactHooks.configs.recommended.rules,
-})
-
 export default ts.config(
   react.configs.flat.recommended,
-  reactHooksConfig,
+  reactHooks.configs["recommended-latest"],
   preferFC.configs.recommended,
   jsxA11y.flatConfigs.recommended,
+  imprt.flatConfigs.react,
 
   {
     name: "@pretty-cozy/react",
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     plugins: { "react-compiler": reactCompiler },
     rules: {
       ...createImportOrder({ groups: ["{react,react-dom,react-dom/*}"] }),
 
       "react-compiler/react-compiler": "error",
 
-      "react/react-in-jsx-scope": "off",
       "react/destructuring-assignment": ["error", "always"],
+      "react/hook-use-state": ["error", { allowDestructuredState: true }],
+      "react/jsx-boolean-value": ["error", "never"],
+      "react/jsx-curly-brace-presence": "error",
+      "react/jsx-max-depth": ["error", { max: 4 }],
+      "react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],
+      "react/jsx-pascal-case": ["error", { allowNamespace: true }],
+      "react/no-array-index-key": "error",
       "react/function-component-definition": [
         "error",
         {
@@ -41,21 +43,14 @@ export default ts.config(
           unnamedComponents: "arrow-function",
         },
       ],
-      "react/hook-use-state": ["error", { allowDestructuredState: true }],
-      "react/jsx-boolean-value": ["error", "never"],
-      "react/jsx-max-depth": ["error", { max: 4 }],
-      "react/jsx-no-useless-fragment": ["error", { allowExpressions: true }],
-      "react/jsx-pascal-case": ["error", { allowNamespace: true }],
-      "react/no-array-index-key": "error",
+
+      "react/react-in-jsx-scope": "off",
+      "react/no-unescaped-entities": "off",
       "react/prop-types": "off",
 
-      "jsx-a11y/no-onchange": "off", // deprecated rule, will be deleted in a future release
+      "jsx-a11y/no-onchange": "off",
       "jsx-a11y/label-has-associated-control": "off",
-    },
-    settings: {
-      react: {
-        version: "detect",
-      },
+      "jsx-a11y/no-autofocus": "off",
     },
   }
 )
