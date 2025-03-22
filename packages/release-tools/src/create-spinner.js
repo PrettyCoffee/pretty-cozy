@@ -3,7 +3,7 @@ const { color } = require("./color")
 const getLineWidth = () => process.stdout.getWindowSize()[0]
 
 /** @param {string} text */
-// eslint-disable-next-line no-unused-vars -- keep that for now
+// eslint-disable-next-line unused-imports/no-unused-vars -- keep that for now
 const truncate = text => {
   const width = getLineWidth()
   if (text.length <= width) {

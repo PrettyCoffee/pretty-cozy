@@ -1,10 +1,10 @@
 const colors = {
-  red: "\x1b[31m",
-  green: "\x1b[32m",
-  yellow: "\x1b[33m",
-  blue: "\x1b[34m",
-  gray: "\x1b[90m",
-  reset: "\x1b[0m",
+  red: "\u001b[31m",
+  green: "\u001b[32m",
+  yellow: "\u001b[33m",
+  blue: "\u001b[34m",
+  gray: "\u001b[90m",
+  reset: "\u001b[0m",
 }
 
 const color = {

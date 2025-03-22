@@ -50,7 +50,7 @@ const npmPublish = async mode => {
       return npm.publish({ workspaces: true, access: "public" })
   }
 
-  return Promise.reject(new Error("Bad mode"))
+  throw new Error("Bad mode")
 }
 
 const run = async () => {

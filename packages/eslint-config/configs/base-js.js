@@ -12,6 +12,7 @@ import { createImportOrder } from "./create-import-order.js"
 
 export default ts.config(
   js.configs.recommended,
+  imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,
 
   {
@@ -21,17 +22,19 @@ export default ts.config(
       globals: {
         ...globals.node,
         ...globals.browser,
+        ...globals.es2020,
       },
     },
     plugins: {
       "check-file": checkFile,
-      import: imprt,
       sonarjs,
       unicorn,
       "unused-imports": unusedImports,
     },
     rules: {
-      ...createImportOrder(),
+      "arrow-body-style": ["warn", "as-needed"],
+      "no-alert": "error",
+      complexity: ["error", 10],
 
       "check-file/folder-naming-convention": [
         "error",
@@ -43,36 +46,29 @@ export default ts.config(
         { ignoreMiddleExtensions: true },
       ],
 
+      // auto-fix unused imports
+      "no-unused-vars": "off",
       "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": "error",
 
-      // import/no-cycle is very performance heavy, therefore it is deactivated for now
-      //"import/no-cycle": "error",
+      "import/no-cycle": "off", // tends to be very performance heavy
+      "import/namespace": "off", // tends to be very performance heavy
+      "import/no-unresolved": "off", // modules cannot be resolved correctly without a resolver
 
-      "import/no-deprecated": "error",
+      ...createImportOrder(),
+      "import/no-deprecated": "warn",
       "import/no-duplicates": "error",
       "import/no-empty-named-blocks": "error",
       "import/no-self-import": "error",
-      "import/newline-after-import": ["error", { count: 1 }],
-      "import/no-extraneous-dependencies": [
-        "error",
-        {
-          devDependencies: false,
-          optionalDependencies: false,
-        },
-      ],
-      "import/no-useless-path-segments": [
-        "error",
-        {
-          noUselessIndex: true,
-        },
-      ],
+      "import/newline-after-import": "error",
+      "import/no-extraneous-dependencies": "error",
+      "import/no-useless-path-segments": ["error", { noUselessIndex: true }],
 
       "sonarjs/anchor-precedence": "error",
       "sonarjs/assertions-in-tests": "error",
       "sonarjs/cognitive-complexity": "error",
       "sonarjs/concise-regex": "error",
       "sonarjs/cyclomatic-complexity": "error",
-      "sonarjs/deprecation": "error",
       "sonarjs/destructuring-assignment-syntax": "error",
       "sonarjs/duplicates-in-character-class": "error",
       "sonarjs/existing-groups": "error",
@@ -89,6 +85,7 @@ export default ts.config(
       "sonarjs/no-globals-shadowing": "error",
       "sonarjs/no-identical-conditions": "error",
       "sonarjs/no-identical-expressions": "error",
+      "sonarjs/no-identical-functions": "error",
       "sonarjs/no-ignored-exceptions": "error",
       "sonarjs/no-incorrect-string-concat": "error",
       "sonarjs/no-invalid-regexp": "error",
@@ -101,23 +98,36 @@ export default ts.config(
       "sonarjs/super-invocation": "error",
 
       "unicorn/consistent-destructuring": "error",
+      "unicorn/consistent-function-scoping": "error",
+      "unicorn/error-message": "error",
       "unicorn/expiring-todo-comments": "error",
       "unicorn/explicit-length-check": "error",
+      "unicorn/no-abusive-eslint-disable": "error",
       "unicorn/no-await-expression-member": "error",
+      "unicorn/no-await-in-promise-methods": "error",
       "unicorn/no-empty-file": "error",
+      "unicorn/no-hex-escape": "error",
+      "unicorn/no-unused-properties": "error",
+      "unicorn/no-useless-length-check": "error",
+      "unicorn/no-useless-promise-resolve-reject": "error",
       "unicorn/no-useless-switch-case": "error",
+      "unicorn/numeric-separators-style": "error",
+      "unicorn/prefer-array-flat-map": "error",
+      "unicorn/prefer-array-some": "error",
       "unicorn/prefer-date-now": "error",
       "unicorn/prefer-default-parameters": "error",
+      "unicorn/prefer-export-from": "error",
       "unicorn/prefer-logical-operator-over-ternary": "error",
       "unicorn/prefer-number-properties": "error",
       "unicorn/prefer-object-from-entries": "error",
-      "unicorn/prefer-regexp-test": "error",
       "unicorn/prefer-set-has": "error",
+      "unicorn/prefer-spread": "error",
       "unicorn/prefer-string-replace-all": "error",
       "unicorn/prefer-string-starts-ends-with": "error",
       "unicorn/prefer-structured-clone": "error",
       "unicorn/prefer-switch": "error",
       "unicorn/require-array-join-separator": "error",
+      "unicorn/switch-case-braces": ["error", "avoid"],
       "unicorn/template-indent": "error",
     },
   },
