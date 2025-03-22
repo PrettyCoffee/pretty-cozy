@@ -10,13 +10,18 @@ import ts from "typescript-eslint"
 
 import { createImportOrder } from "./create-import-order.js"
 
+const eslintRecommended = {
+  name: "eslint/recommended",
+  ...js.configs.recommended,
+}
+
 export default ts.config(
-  js.configs.recommended,
+  eslintRecommended,
   imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,
 
   {
-    name: "@pretty-cozy/base",
+    name: "@pretty-cozy/baseJs",
     languageOptions: {
       ecmaVersion: "latest",
       globals: {
@@ -25,26 +30,11 @@ export default ts.config(
         ...globals.es2020,
       },
     },
-    plugins: {
-      "check-file": checkFile,
-      sonarjs,
-      unicorn,
-      "unused-imports": unusedImports,
-    },
+    plugins: { "unused-imports": unusedImports },
     rules: {
       "arrow-body-style": ["warn", "as-needed"],
       "no-alert": "error",
       complexity: ["error", 10],
-
-      "check-file/folder-naming-convention": [
-        "error",
-        { "*/**": "KEBAB_CASE" },
-      ],
-      "check-file/filename-naming-convention": [
-        "error",
-        { "*/**": "KEBAB_CASE" },
-        { ignoreMiddleExtensions: true },
-      ],
 
       // auto-fix unused imports
       "no-unused-vars": "off",
@@ -63,40 +53,15 @@ export default ts.config(
       "import/newline-after-import": "error",
       "import/no-extraneous-dependencies": "error",
       "import/no-useless-path-segments": ["error", { noUselessIndex: true }],
+    },
+  },
 
-      "sonarjs/anchor-precedence": "error",
-      "sonarjs/assertions-in-tests": "error",
-      "sonarjs/cognitive-complexity": "error",
-      "sonarjs/concise-regex": "error",
-      "sonarjs/cyclomatic-complexity": "error",
-      "sonarjs/destructuring-assignment-syntax": "error",
-      "sonarjs/duplicates-in-character-class": "error",
-      "sonarjs/existing-groups": "error",
-      "sonarjs/function-inside-loop": "error",
-      "sonarjs/future-reserved-words": "error",
-      "sonarjs/generator-without-yield": "error",
-      "sonarjs/jsx-no-leaked-render": "error",
-      "sonarjs/nested-control-flow": "error",
-      "sonarjs/no-array-delete": "error",
-      "sonarjs/no-collapsible-if": "error",
-      "sonarjs/no-duplicate-in-composite": "error",
-      "sonarjs/no-empty-alternatives": "error",
-      "sonarjs/no-exclusive-tests": "error",
-      "sonarjs/no-globals-shadowing": "error",
-      "sonarjs/no-identical-conditions": "error",
-      "sonarjs/no-identical-expressions": "error",
-      "sonarjs/no-identical-functions": "error",
-      "sonarjs/no-ignored-exceptions": "error",
-      "sonarjs/no-incorrect-string-concat": "error",
-      "sonarjs/no-invalid-regexp": "error",
-      "sonarjs/no-misleading-array-reverse": "error",
-      "sonarjs/no-redundant-parentheses": "error",
-      "sonarjs/no-small-switch": "error",
-      "sonarjs/no-try-promise": "error",
-      "sonarjs/no-useless-react-setstate": "error",
-      "sonarjs/prefer-regexp-exec": "error",
-      "sonarjs/super-invocation": "error",
-
+  {
+    // Manual selection of unicorn rules, since the recommended config enables >100 rules
+    // @see https://github.com/sindresorhus/eslint-plugin-unicorn#rules
+    name: "@pretty-cozy/baseJs/unicorn",
+    plugins: { unicorn },
+    rules: {
       "unicorn/consistent-destructuring": "error",
       "unicorn/consistent-function-scoping": "error",
       "unicorn/error-message": "error",
@@ -133,7 +98,67 @@ export default ts.config(
   },
 
   {
-    name: "@pretty-cozy/base",
+    // Manual selection of sonarjs rules, since the recommended config enables >200 rules
+    // @see https://github.com/SonarSource/SonarJS/blob/master/packages/jsts/src/rules/README.md#rules
+    name: "@pretty-cozy/baseJs/sonarjs",
+    plugins: { sonarjs },
+    rules: {
+      "sonarjs/anchor-precedence": "error",
+      "sonarjs/assertions-in-tests": "error",
+      "sonarjs/cognitive-complexity": "error",
+      "sonarjs/concise-regex": "error",
+      "sonarjs/cyclomatic-complexity": "error",
+      "sonarjs/destructuring-assignment-syntax": "error",
+      "sonarjs/duplicates-in-character-class": "error",
+      "sonarjs/existing-groups": "error",
+      "sonarjs/function-inside-loop": "error",
+      "sonarjs/future-reserved-words": "error",
+      "sonarjs/generator-without-yield": "error",
+      "sonarjs/jsx-no-leaked-render": "error",
+      "sonarjs/nested-control-flow": "error",
+      "sonarjs/no-array-delete": "error",
+      "sonarjs/no-collapsible-if": "error",
+      "sonarjs/no-duplicate-in-composite": "error",
+      "sonarjs/no-empty-alternatives": "error",
+      "sonarjs/no-exclusive-tests": "error",
+      "sonarjs/no-globals-shadowing": "error",
+      "sonarjs/no-identical-conditions": "error",
+      "sonarjs/no-identical-expressions": "error",
+      "sonarjs/no-identical-functions": "error",
+      "sonarjs/no-ignored-exceptions": "error",
+      "sonarjs/no-incorrect-string-concat": "error",
+      "sonarjs/no-invalid-regexp": "error",
+      "sonarjs/no-misleading-array-reverse": "error",
+      "sonarjs/no-redundant-parentheses": "error",
+      "sonarjs/no-small-switch": "error",
+      "sonarjs/no-try-promise": "error",
+      "sonarjs/no-useless-react-setstate": "error",
+      "sonarjs/prefer-regexp-exec": "error",
+      "sonarjs/super-invocation": "error",
+    },
+  },
+
+  {
+    name: "@pretty-cozy/baseJs/checkFile",
+    // Only apply the naming conventions on files that are within a directory.
+    // This will fix the issue where the root directory is not named with kebab-case.
+    files: ["*/**"],
+    plugins: { checkFile },
+    rules: {
+      "checkFile/folder-naming-convention": [
+        "error",
+        { "**/!(@types|.*)/": "KEBAB_CASE" },
+      ],
+      "checkFile/filename-naming-convention": [
+        "error",
+        { "*/**": "KEBAB_CASE" },
+        { ignoreMiddleExtensions: true },
+      ],
+    },
+  },
+
+  {
+    name: "@pretty-cozy/baseJs",
     files: ["*", "**/*.test.*", "**/*.stories.*"],
     rules: {
       "import/no-extraneous-dependencies": "off",
