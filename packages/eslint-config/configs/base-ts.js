@@ -11,6 +11,7 @@ export default ts.config(
 
   {
     name: "@pretty-cozy/baseTs",
+
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -23,33 +24,84 @@ export default ts.config(
       },
       "import/resolver": {
         typescript: {
+          alwaysTryTypes: true,
           project: "./tsconfig.json",
         },
       },
     },
-    rules: {
-      "@typescript-eslint/no-use-before-define": "error",
 
-      "@typescript-eslint/consistent-type-assertions": "off",
+    rules: {
+      // duplicates that are handled by TypeScript or typescript-eslint rules
+      "import/export": "off",
+      "import/default": "off",
+
+      "sonarjs/deprecation": "off",
+      "import/no-deprecated": "off",
+      "@typescript-eslint/no-deprecated": "error",
+
+      "sonarjs/no-incorrect-string-concat": "off",
+      "@typescript-eslint/restrict-plus-operands": "error",
+
+      "sonarjs/prefer-regexp-exec": "off",
+      "@typescript-eslint/prefer-regexp-exec": "error",
+
+      // these interfere with DX too much in some scenarios
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/explicit-module-boundary-types": "off",
       "@typescript-eslint/restrict-template-expressions": "off",
+      "@typescript-eslint/prefer-promise-reject-errors": "off",
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/no-invalid-void-type": "off",
-      "@typescript-eslint/no-unnecessary-condition": "off",
-      "@typescript-eslint/no-unused-expressions": "off",
+      "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/prefer-nullish-coalescing": "off",
-      "@typescript-eslint/prefer-promise-reject-errors": "off",
+      "@typescript-eslint/array-type": "off",
+      "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
 
-      "sonarjs/public-static-readonly": "error",
-      "sonarjs/deprecation": "off",
+      // additional typescript rules
+      "@typescript-eslint/no-use-before-define": "error",
+      "@typescript-eslint/no-unnecessary-type-assertion": [
+        "error",
+        { typesToIgnore: ["const"] },
+      ],
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-expect-error": "allow-with-description",
+          "ts-ignore": "allow-with-description",
+        },
+      ],
     },
   },
+
   {
-    name: "@pretty-cozy/baseTs",
-    files: ["src/@types/**"],
+    // test code may not need these strict type rules
+    // -> e.g., there are problems with test tables
+    name: "@pretty-cozy/baseTs/test-files",
+    files: ["**/*.test.*"],
     rules: {
-      "check-file/folder-naming-convention": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/unbound-method": "off",
+    },
+  },
+
+  {
+    // types are annoying to define in js, which results in lots of `any` types
+    // these rules would just be annoying
+    name: "@pretty-cozy/baseTs/js-files",
+    files: ["**/*.js", "**/*.cjs", "**/*.mjs"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
     },
   }
 )
