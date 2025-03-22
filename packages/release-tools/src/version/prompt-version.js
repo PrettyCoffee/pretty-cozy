@@ -1,6 +1,6 @@
 const { prompt } = require("enquirer")
 
-const { Version } = require("./Version")
+const { Version } = require("./version")
 
 /**
  * @param {string} currentVersion

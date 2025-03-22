@@ -10,7 +10,7 @@ const {
 const { glob } = require("glob")
 
 const { version } = require("../package.json")
-const { promptOk } = require("./utils/promptOk")
+const { promptOk } = require("./utils/prompt-ok")
 
 const getPackages = () =>
   glob(["package.json", "packages/*/package.json"], { absolute: true })

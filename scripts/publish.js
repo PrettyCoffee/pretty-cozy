@@ -3,8 +3,8 @@
 const { npm, color } = require("@pretty-cozy/release-tools")
 const { createSpinner } = require("@pretty-cozy/release-tools")
 
-const printHelp = require("./utils/printHelp")
-const { promptOk } = require("./utils/promptOk")
+const printHelp = require("./utils/print-help")
+const { promptOk } = require("./utils/prompt-ok")
 
 const printHelpPage = () => {
   printHelp(

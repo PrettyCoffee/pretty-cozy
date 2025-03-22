@@ -8,7 +8,7 @@ import unusedImports from "eslint-plugin-unused-imports"
 import globals from "globals"
 import ts from "typescript-eslint"
 
-import { createImportOrder } from "./_create-import-order.js"
+import { createImportOrder } from "./create-import-order.js"
 
 export default ts.config(
   js.configs.recommended,
@@ -36,6 +36,11 @@ export default ts.config(
       "check-file/folder-naming-convention": [
         "error",
         { "*/**": "KEBAB_CASE" },
+      ],
+      "check-file/filename-naming-convention": [
+        "error",
+        { "*/**": "KEBAB_CASE" },
+        { ignoreMiddleExtensions: true },
       ],
 
       "unused-imports/no-unused-imports": "error",

@@ -1,5 +1,5 @@
 const { exec } = require("./utils/exec")
-const { stringifyArgs } = require("./utils/stringifyArgs")
+const { stringifyArgs } = require("./utils/stringify-args")
 
 const removeCommitHash = commit => commit.replace(/^[a-f0-9]+ /, "")
 

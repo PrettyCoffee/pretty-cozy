@@ -1,6 +1,6 @@
 import ts from "typescript-eslint"
 
-import { createImportOrder } from "./_create-import-order.js"
+import { createImportOrder } from "./create-import-order.js"
 import react from "./react.js"
 
 export default ts.config(react, {
