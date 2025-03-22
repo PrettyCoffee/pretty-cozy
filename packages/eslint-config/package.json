@@ -17,10 +17,10 @@
     "lint:fix": "npx lint -- --fix"
   },
   "peerDependencies": {
-    "eslint": ">=9.0.0"
+    "eslint": ">=9.22.0"
   },
   "dependencies": {
-    "@eslint/js": "^9.21.0",
+    "@eslint/js": "^9.22.0",
     "@pretty-cozy/eslint-plugin": "0.6.0",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
@@ -43,9 +43,6 @@
     "typescript-eslint": "^8.25.0"
   },
   "devDependencies": {
-    "eslint": "^9.21.0"
-  },
-  "overrides": {
-    "eslint": "^9.21.0"
+    "eslint": "^9.22.0"
   }
 }

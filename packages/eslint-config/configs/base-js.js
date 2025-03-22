@@ -1,5 +1,6 @@
 import js from "@eslint/js"
 import prettyCozy from "@pretty-cozy/eslint-plugin"
+import { globalIgnores } from "eslint/config"
 import checkFile from "eslint-plugin-check-file"
 import imprt from "eslint-plugin-import"
 import sonarjs from "eslint-plugin-sonarjs"
@@ -19,6 +20,16 @@ export default ts.config(
   eslintRecommended,
   imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,
+
+  globalIgnores(
+    [
+      "**/vite.config.ts.timestamp*",
+      "**/node_modules/**",
+      "**/build/**",
+      "**/dist/**",
+    ],
+    "@pretty-cozy/baseJs/global-ignores"
+  ),
 
   {
     name: "@pretty-cozy/baseJs",
