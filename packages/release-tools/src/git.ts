@@ -3,7 +3,11 @@ import { stringifyArgs } from "./utils/stringify-args"
 
 const removeCommitHash = (commit: string) => commit.replace(/^[a-f0-9]+ /, "")
 
-interface CommitArgs { message: string, dryRun?: boolean, allowEmpty?: boolean }
+interface CommitArgs {
+  message: string
+  dryRun?: boolean
+  allowEmpty?: boolean
+}
 
 /** Commits all pending changes to the repository.
  *  @param args.message The commit message.
@@ -15,7 +19,9 @@ const commit = async ({ message, ...args }: CommitArgs) => {
   await exec(`git commit -m "${message}" ${stringifyArgs(args)}`)
 }
 
-interface PushArgs { dryRun?: boolean }
+interface PushArgs {
+  dryRun?: boolean
+}
 
 /** Pushes changes to the remote repository.
  *  @param args.dryRun If set to true, the changes are not applied.
@@ -24,7 +30,11 @@ const push = async (args: PushArgs) => {
   await exec(`git push ${stringifyArgs(args as Record<string, unknown>)}`)
 }
 
-interface TagArgs { version: string, message?: string, dryRun?: boolean }
+interface TagArgs {
+  version: string
+  message?: string
+  dryRun?: boolean
+}
 /** Creates a new tag on the current commit.
  *  @param args.version The version number to tag the latest commit with.
  *  @param args.dryRun If set to true, the changes are not applied.

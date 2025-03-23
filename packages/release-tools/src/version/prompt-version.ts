@@ -13,7 +13,12 @@ const promptExactVersion = (currentVersion: string) =>
   }).then(({ version }) => version)
 
 const getVersionChoices = (currentVersion: string) => {
-  const exact = { message: "exact", name: "exact", value: "exact", hint: "x.x.x" }
+  const exact = {
+    message: "exact",
+    name: "exact",
+    value: "exact",
+    hint: "x.x.x",
+  }
   const version = new Version(currentVersion)
 
   const { extension } = version.current

@@ -14,7 +14,7 @@ export const promptWorkspaces = async ({
     message: message + "\n  Press 'a' to toggle all.\n ",
     initial: workspaces.map(ws => ws.name),
 
-    // @ts-ignore
+    // @ts-ignore -- types are not working here for some reason?
     choices: workspaces.map(ws => ({
       name: ws.name,
       message: ws.name,

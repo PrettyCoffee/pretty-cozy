@@ -2,7 +2,14 @@ import { color } from "../color"
 
 type Change = "current" | "major" | "minor" | "patch" | "extension"
 
-type ParsedVersion = {major: number, minor: number, patch: number, extension?: string, extensionVersion?: number, full: string}
+interface ParsedVersion {
+  major: number
+  minor: number
+  patch: number
+  extension?: string
+  extensionVersion?: number
+  full: string
+}
 
 export class Version {
   current: ParsedVersion
@@ -53,9 +60,8 @@ export class Version {
   /** Split a version into it's segments
    **/
   static parse(version: string): ParsedVersion {
-    const [major, minor, patch, extension, extensionVersion] = Version.regex
-      .exec(version)
-      ?.slice(1) ?? []
+    const [major, minor, patch, extension, extensionVersion] =
+      Version.regex.exec(version)?.slice(1) ?? []
 
     return {
       major: Number(major),

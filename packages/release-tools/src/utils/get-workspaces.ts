@@ -10,7 +10,12 @@ interface Package {
   version: string
   private?: boolean
 }
-export type PackageInfo = { name: string, version: string, isPrivate?: boolean, path: string }
+export interface PackageInfo {
+  name: string
+  version: string
+  isPrivate?: boolean
+  path: string
+}
 
 const getPackageInfo = (pkg: Package, path: string) => {
   const result: PackageInfo = {
