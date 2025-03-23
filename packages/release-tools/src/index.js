@@ -7,4 +7,5 @@ module.exports = {
   ...require("./set-package-version"),
   ...require("./create-spinner"),
   ...require("./prompt-workspaces"),
+  ...require("./update-versions"),
 }
