@@ -44,9 +44,9 @@ const npm = {
   },
   /**
    * Publish npm packages.
-   * @param {{ dryRun?: boolean, workspace?: string, workspaces?: boolean, access?: "restricted" | "public" }} args
+   * @param {{ dryRun?: boolean, workspace?: string | string[], workspaces?: boolean, access?: "restricted" | "public" }} args
    * @param args.dryRun If set to true, the changes are not applied.
-   * @param args.workspace The workspace to publish.
+   * @param args.workspace The specific workspace(s) to publish.
    * @param args.workspaces If set to true, all workspaces are published.
    * @param args.access Whether the access to the module should be public or restricted.
    * @returns {Promise<string>} A promise that resolves when all packages are published.
