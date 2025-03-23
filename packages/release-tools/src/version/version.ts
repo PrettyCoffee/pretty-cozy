@@ -1,13 +1,13 @@
-/** @typedef {{ major: number, minor: number, patch: number, extension: string | undefined, extensionVersion: number | undefined, full: string }} ParsedVersion */
-
 import { color } from "../color"
 
-export class Version {
-  /** @type {ParsedVersion} */
-  current
+type Change = "current" | "major" | "minor" | "patch" | "extension"
 
-  /** @param {string} currentVersion */
-  constructor(currentVersion) {
+type ParsedVersion = {major: number, minor: number, patch: number, extension?: string, extensionVersion?: number, full: string}
+
+export class Version {
+  current: ParsedVersion
+
+  constructor(currentVersion: string) {
     if (!Version.isValid(currentVersion)) {
       throw new Error(color.red(`Invalid version: ${currentVersion}`))
     }
@@ -20,11 +20,8 @@ export class Version {
    *  - "minor" increments the minor version (1.X.0)
    *  - "patch" increments the patch version (1.1.X)
    *  - "extension" increments the extension version (1.1.1-alpha.X)
-   *
-   * @param {"current" | "major" | "minor" | "patch" | "extension"} change
-   * @returns {string}
    **/
-  bump(change) {
+  bump(change: Change) {
     const { major, minor, patch, extension, extensionVersion } = this.current
     switch (change) {
       case "current":
@@ -36,7 +33,7 @@ export class Version {
       case "patch":
         return `${major}.${minor}.${patch + 1}`
       case "extension":
-        return `${major}.${minor}.${patch}-${extension}.${extensionVersion + 1}`
+        return `${major}.${minor}.${patch}-${extension}.${(extensionVersion ?? -1) + 1}`
       default:
         throw new Error(`Invalid arg in version.getNext: ${change}`)
     }
@@ -48,21 +45,18 @@ export class Version {
   static regex = /^(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?$/
 
   /** Validate a version
-   * @param {string} version
-   * @returns {boolean}
    **/
-  static isValid(version) {
+  static isValid(version: string) {
     return Version.regex.test(version)
   }
 
   /** Split a version into it's segments
-   * @param {string} version
-   * @returns {ParsedVersion}
    **/
-  static parse(version) {
+  static parse(version: string): ParsedVersion {
     const [major, minor, patch, extension, extensionVersion] = Version.regex
       .exec(version)
-      .slice(1)
+      ?.slice(1) ?? []
+
     return {
       major: Number(major),
       minor: Number(minor),

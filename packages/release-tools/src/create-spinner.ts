@@ -1,22 +1,6 @@
 import { color } from "./color"
 
-const getLineWidth = () => process.stdout.getWindowSize()[0]
-
-/** @param {string} text */
-// eslint-disable-next-line unused-imports/no-unused-vars -- keep that for now
-const truncate = text => {
-  const width = getLineWidth()
-  if (text.length <= width) {
-    return text
-  }
-  return text.substring(0, width - 3) + "..."
-}
-
-/**
- * @param {string} text
- * @param {boolean} resetLine
- */
-const writeLine = (text, resetLine = false) => {
+const writeLine = (text: string, resetLine = false) => {
   process.stdout.cursorTo(0)
   process.stdout.write(text)
   process.stdout.clearLine(1)
@@ -56,26 +40,24 @@ const userInput = {
 }
 
 export const createSpinner = () => {
-  let intervalId = null
+  let intervalId: NodeJS.Timeout | undefined = undefined
   let current = 0
   let curentStep = 0
   let text = ""
-  let frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+  const frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"] as const
 
   const update = () => {
-    const frame = frames[current++ % frames.length]
+    const frame = frames[current++ % frames.length] ?? frames[0]
     const line = `${color.blue(frame)} ${text}`
 
     writeLine(line, true)
   }
 
-  /** @param {string} newText */
-  const setText = newText => {
+  const setText = (newText: string) => {
     text = newText
   }
 
-  /** @param {string} text */
-  const start = text => {
+  const start = (text: string) => {
     if (intervalId) {
       throw new Error("Spinner is already running")
     }
@@ -88,7 +70,7 @@ export const createSpinner = () => {
 
   const reset = () => {
     clearInterval(intervalId)
-    intervalId = null
+    intervalId = undefined
     current = 0
     curentStep = 0
     setText("")
@@ -96,8 +78,7 @@ export const createSpinner = () => {
     userInput.enable()
   }
 
-  /** @param {string} text */
-  const stop = text => {
+  const stop = (text: string) => {
     if (!intervalId) return
 
     if (curentStep > 0) {
@@ -108,18 +89,15 @@ export const createSpinner = () => {
     reset()
   }
 
-  /** @param {string} text */
-  const success = text => {
+  const success = (text: string) => {
     stop(`${color.green("√")} ${text}`)
   }
 
-  /** @param {string} text */
-  const error = text => {
+  const error = (text: string) => {
     stop(`${color.red("✖")} ${text}`)
   }
 
-  /** @param {string} text */
-  const step = text => {
+  const step = (text: string) => {
     curentStep++
     if (curentStep === 1) {
       writeLine(`${color.gray("┌─»")} ${text}`)

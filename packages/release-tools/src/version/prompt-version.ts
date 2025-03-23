@@ -2,12 +2,8 @@ import { prompt } from "enquirer"
 
 import { Version } from "./version"
 
-/**
- * @param {string} currentVersion
- * @returns {Promise<string>}
- **/
-const promptExactVersion = currentVersion =>
-  prompt({
+const promptExactVersion = (currentVersion: string) =>
+  prompt<{ version: string }>({
     type: "input",
     name: "version",
     message: "Enter a version",
@@ -16,9 +12,8 @@ const promptExactVersion = currentVersion =>
       Version.isValid(value) ? true : "Format must be x.x.x or x.x.x-ext.x",
   }).then(({ version }) => version)
 
-/** @param {string} currentVersion */
-const getVersionChoices = currentVersion => {
-  const exact = { message: "exact", value: "exact", hint: "x.x.x" }
+const getVersionChoices = (currentVersion: string) => {
+  const exact = { message: "exact", name: "exact", value: "exact", hint: "x.x.x" }
   const version = new Version(currentVersion)
 
   const { extension } = version.current
@@ -29,11 +24,13 @@ const getVersionChoices = currentVersion => {
     return [
       {
         message: "release",
+        name: current,
         value: current,
         hint: `${current} (remove ${extension})`,
       },
       {
         message: `bump ${extension}`,
+        name: extensionBump,
         value: extensionBump,
         hint: extensionBump,
       },
@@ -46,21 +43,15 @@ const getVersionChoices = currentVersion => {
   const nextPatch = version.bump("patch")
 
   return [
-    { message: "major", value: nextMajor, hint: nextMajor },
-    { message: "minor", value: nextMinor, hint: nextMinor },
-    { message: "patch", value: nextPatch, hint: nextPatch },
+    { message: "major", name: nextMajor, value: nextMajor, hint: nextMajor },
+    { message: "minor", name: nextMinor, value: nextMinor, hint: nextMinor },
+    { message: "patch", name: nextPatch, value: nextPatch, hint: nextPatch },
     exact,
   ]
 }
 
-/** Prompt the user to pick the next version
- *
- * @param {string} currentVersion The current version in your package.json
- *
- * @returns {Promise<string>}
- **/
-export const promptVersion = async currentVersion => {
-  const { version } = await prompt({
+export const promptVersion = async (currentVersion: string) => {
+  const { version } = await prompt<{ version: string }>({
     type: "select",
     name: "version",
     message: "Pick a version to release",

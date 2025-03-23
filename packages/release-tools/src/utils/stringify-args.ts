@@ -1,9 +1,9 @@
 import { color } from "../color"
 
-const camelToKebab = str =>
+const camelToKebab = (str: string) =>
   str.replaceAll(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()
 
-const toArg = (cliName, value) => {
+const toArg = (cliName: string, value: unknown) => {
   switch (typeof value) {
     case "boolean":
       return value ? `--${cliName}` : undefined
@@ -11,15 +11,11 @@ const toArg = (cliName, value) => {
     case "number":
       return `--${cliName}="${value}"`
     default:
-      throw new Error(color.red(`Invalid type for ${name}: ${typeof value}`))
+      throw new Error(color.red(`Invalid type for ${cliName}: ${typeof value}`))
   }
 }
 
-/**
- * @param {Record<string, string | number | boolean>} options
- * @returns {string}
- */
-export const stringifyArgs = (options = {}) => {
+export const stringifyArgs = (options: Record<string, unknown> = {}) => {
   const args = Object.entries(options).flatMap(([name, value]) => {
     const cliName = camelToKebab(name)
     return Array.isArray(value)

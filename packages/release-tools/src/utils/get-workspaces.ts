@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { readFile, access } from "node:fs/promises"
 import { join } from "node:path"
 
@@ -7,10 +5,15 @@ import { glob } from "glob"
 
 import { color } from "../color"
 
-/** @typedef {{ name: string, version: string, isPrivate?: boolean, path: string }} PackageInfo */
-/** @returns {PackageInfo} */
-const getPackageInfo = (pkg, path) => {
-  const result = {
+interface Package {
+  name: string
+  version: string
+  private?: boolean
+}
+export type PackageInfo = { name: string, version: string, isPrivate?: boolean, path: string }
+
+const getPackageInfo = (pkg: Package, path: string) => {
+  const result: PackageInfo = {
     name: pkg.name,
     version: pkg.version,
     path,
@@ -21,19 +24,13 @@ const getPackageInfo = (pkg, path) => {
   return result
 }
 
-/** @returns {Promise<object>} */
-const readPackage = async path => {
+const readPackage = async (path: string) => {
   const pkgPath = join(path, "package.json")
   const pkgContent = await readFile(pkgPath)
-  return JSON.parse(pkgContent.toString())
+  return JSON.parse(pkgContent.toString()) as Package
 }
 
-/**
- *  @param {string} rootPath
- *  @param {object} rootPkg
- *  @returns {Promise<PackageInfo[]>}
- **/
-const getWorkspaceInfo = async (rootPath, rootPkg) => {
+const getWorkspaceInfo = async (rootPath: string, rootPkg: Package) => {
   if (!("workspaces" in rootPkg) || !Array.isArray(rootPkg.workspaces)) {
     return []
   }
@@ -51,33 +48,30 @@ const getWorkspaceInfo = async (rootPath, rootPkg) => {
   return workspaces.flat()
 }
 
-/** @returns {Promise<string>} */
-const getNearestPackage = async (path = process.cwd()) => {
+const getNearestPackage = async (path = process.cwd()): Promise<string> => {
   try {
     const pkgPath = join(path, "package.json")
     await access(pkgPath)
     return path
   } catch {
-    const systemRoot = /^([^\\/]*[\\/]).*/.exec(process.cwd())[1]
+    const systemRoot = /^([^\\/]*[\\/]).*/.exec(process.cwd())?.[1]
     if (path !== systemRoot) return getNearestPackage(join(path, ".."))
     throw new Error(color.red(`Could not find a package.json file`))
   }
 }
 
-/**
- *  @param {{ allowPrivate?: boolean }} args
- *  @returns {Promise<{ root: PackageInfo, workspaces: PackageInfo[] }>}
- **/
 export const getWorkspaces = async ({ allowPrivate = false } = {}) => {
   const rootPath = await getNearestPackage()
   const rootPkg = await readPackage(rootPath)
   const root = getPackageInfo(rootPkg, rootPath)
   const workspaces = await getWorkspaceInfo(rootPath, rootPkg)
 
-  return {
+  const result = {
     root,
     workspaces: workspaces.filter(
       ({ isPrivate }) => allowPrivate || !isPrivate
     ),
   }
+
+  return result
 }
