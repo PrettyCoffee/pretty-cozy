@@ -1,22 +1,56 @@
-import { setPackageVersion } from "./set-package-version"
 import { PackageInfo } from "./utils/get-workspaces"
+import { packageJson } from "./utils/package-json"
+import { Version } from "./version/version"
+
+const updatePackage = async ({
+  path,
+  version,
+  updatedNames,
+}: {
+  path: string
+  updatedNames: string[]
+  version: string
+}) => {
+  const json = await packageJson.read(path)
+
+  if (updatedNames.includes(json.name)) {
+    json.version = version
+  }
+
+  const depScopes = [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+  ] as const
+
+  depScopes.forEach(depScope => {
+    updatedNames.forEach(name => {
+      if (!json[depScope]) return
+      const installed = json[depScope][name]
+      // If a version is a monorepo workspace path, we don't want to replace that
+      if (installed && Version.isValid(installed)) {
+        json[depScope][name] = version
+      }
+    })
+  })
+
+  await packageJson.write(path, json)
+}
 
 interface Args {
   root: PackageInfo
   workspaces: PackageInfo[]
   version: string
-  scope: string
 }
-export const updateVersions = async ({
-  root,
-  workspaces,
-  version,
-  scope,
-}: Args) => {
+export const updateVersions = async ({ root, workspaces, version }: Args) => {
+  const updatedNames = [root, ...workspaces]
+    .filter(ws => !ws.ignore)
+    .map(ws => ws.name)
+
   await Promise.all([
-    setPackageVersion({ packagePath: root.path, version, scope }),
+    updatePackage({ path: root.path, version, updatedNames }),
     ...workspaces.map(ws =>
-      setPackageVersion({ packagePath: ws.path, version, scope })
+      updatePackage({ path: ws.path, version, updatedNames })
     ),
   ])
 }

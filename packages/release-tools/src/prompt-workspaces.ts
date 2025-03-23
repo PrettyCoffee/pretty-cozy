@@ -1,6 +1,6 @@
 import { prompt } from "enquirer"
 
-import { getWorkspaces } from "./utils/get-workspaces"
+import { getWorkspaces, PackageInfo } from "./utils/get-workspaces"
 
 export const promptWorkspaces = async ({
   message = "Which workspaces do you want to release?",
@@ -14,7 +14,7 @@ export const promptWorkspaces = async ({
     message: message + "\n  Press 'a' to toggle all.\n ",
     initial: workspaces.map(ws => ws.name),
 
-    // @ts-ignore -- types are not working here for some reason?
+    // @ts-expect-error -- types are not working here for some reason?
     choices: workspaces.map(ws => ({
       name: ws.name,
       message: ws.name,
@@ -22,10 +22,14 @@ export const promptWorkspaces = async ({
     })),
   })
 
-  const wsResult = workspaces.map(ws => ({
-    ...ws,
-    selected: selectedWorkspaces.includes(ws.name),
-  }))
-
-  return { root, workspaces: wsResult }
+  return {
+    root,
+    workspaces: workspaces.map(
+      workspace =>
+        ({
+          ...workspace,
+          ignore: !selectedWorkspaces.includes(workspace.name),
+        }) satisfies PackageInfo
+    ),
+  }
 }

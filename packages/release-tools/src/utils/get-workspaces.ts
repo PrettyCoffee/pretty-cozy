@@ -1,41 +1,29 @@
-import { readFile, access } from "node:fs/promises"
+import { access } from "node:fs/promises"
 import { join } from "node:path"
 
 import { glob } from "glob"
 
 import { color } from "../color"
+import { PackageJson, packageJson } from "./package-json"
 
-interface Package {
-  name: string
-  version: string
-  private?: boolean
-}
 export interface PackageInfo {
   name: string
   version: string
-  isPrivate?: boolean
   path: string
+  ignore: boolean
+  isPrivate: boolean
 }
 
-const getPackageInfo = (pkg: Package, path: string) => {
-  const result: PackageInfo = {
+const getPackageInfo = (pkg: PackageJson, path: string) =>
+  ({
     name: pkg.name,
     version: pkg.version,
     path,
-  }
-  if (pkg.private) {
-    result.isPrivate = pkg.private
-  }
-  return result
-}
+    ignore: false,
+    isPrivate: pkg.private ?? false,
+  }) satisfies PackageInfo
 
-const readPackage = async (path: string) => {
-  const pkgPath = join(path, "package.json")
-  const pkgContent = await readFile(pkgPath)
-  return JSON.parse(pkgContent.toString()) as Package
-}
-
-const getWorkspaceInfo = async (rootPath: string, rootPkg: Package) => {
+const getWorkspaceInfo = async (rootPath: string, rootPkg: PackageJson) => {
   if (!("workspaces" in rootPkg) || !Array.isArray(rootPkg.workspaces)) {
     return []
   }
@@ -48,7 +36,9 @@ const getWorkspaceInfo = async (rootPath: string, rootPkg: Package) => {
   const workspaces = await Promise.all(
     wsPaths
       .flat()
-      .map(path => readPackage(path).then(pkg => getPackageInfo(pkg, path)))
+      .map(path =>
+        packageJson.read(path).then(pkg => getPackageInfo(pkg, path))
+      )
   )
   return workspaces.flat()
 }
@@ -67,16 +57,14 @@ const getNearestPackage = async (path = process.cwd()): Promise<string> => {
 
 export const getWorkspaces = async ({ allowPrivate = false } = {}) => {
   const rootPath = await getNearestPackage()
-  const rootPkg = await readPackage(rootPath)
+  const rootPkg = await packageJson.read(rootPath)
   const root = getPackageInfo(rootPkg, rootPath)
   const workspaces = await getWorkspaceInfo(rootPath, rootPkg)
 
-  const result = {
+  return {
     root,
     workspaces: workspaces.filter(
       ({ isPrivate }) => allowPrivate || !isPrivate
     ),
   }
-
-  return result
 }
