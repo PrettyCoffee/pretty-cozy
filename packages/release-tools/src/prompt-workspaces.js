@@ -1,10 +1,10 @@
-const { prompt } = require("enquirer")
+import { prompt } from "enquirer"
 
-const { getWorkspaces } = require("./utils/get-workspaces")
+import { getWorkspaces } from "./utils/get-workspaces"
 
 /** @typedef {{ name: string, version: string, isPrivate?: boolean, path: string }} PackageInfo */
 /** @returns {Promise<{ root: PackageInfo, workspaces: (PackageInfo & { selected: boolean })[] }>} */
-const promptWorkspaces = async ({
+export const promptWorkspaces = async ({
   message = "Which workspaces do you want to release?",
   allowPrivate = false,
 } = {}) => {
@@ -32,5 +32,3 @@ const promptWorkspaces = async ({
     })),
   }
 }
-
-module.exports = { promptWorkspaces }

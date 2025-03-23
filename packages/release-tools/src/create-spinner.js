@@ -1,4 +1,4 @@
-const { color } = require("./color")
+import { color } from "./color"
 
 const getLineWidth = () => process.stdout.getWindowSize()[0]
 
@@ -55,7 +55,7 @@ const userInput = {
   },
 }
 
-const createSpinner = () => {
+export const createSpinner = () => {
   let intervalId = null
   let current = 0
   let curentStep = 0
@@ -130,5 +130,3 @@ const createSpinner = () => {
 
   return { start, setText, success, error, step }
 }
-
-module.exports = { createSpinner }

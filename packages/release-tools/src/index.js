@@ -1,11 +1,9 @@
-module.exports = {
-  ...require("./version/prompt-version"),
-  ...require("./version/version"),
-  ...require("./color"),
-  ...require("./git"),
-  ...require("./npm"),
-  ...require("./set-package-version"),
-  ...require("./create-spinner"),
-  ...require("./prompt-workspaces"),
-  ...require("./update-versions"),
-}
+export * from "./version/prompt-version"
+export * from "./version/version"
+export * from "./color"
+export * from "./git"
+export * from "./npm"
+export * from "./set-package-version"
+export * from "./create-spinner"
+export * from "./prompt-workspaces"
+export * from "./update-versions"

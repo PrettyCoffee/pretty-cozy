@@ -1,7 +1,7 @@
-const { exec } = require("./utils/exec")
-const { stringifyArgs } = require("./utils/stringify-args")
+import { exec } from "./utils/exec"
+import { stringifyArgs } from "./utils/stringify-args"
 
-const npm = {
+export const npm = {
   /**
    * Run an npm script.
    * @param {string} script The script to run.
@@ -53,5 +53,3 @@ const npm = {
    */
   publish: args => exec(`npm publish ${stringifyArgs(args)}`),
 }
-
-module.exports = { npm }

@@ -1,6 +1,6 @@
-const { prompt } = require("enquirer")
+import { prompt } from "enquirer"
 
-const { Version } = require("./version")
+import { Version } from "./version"
 
 /**
  * @param {string} currentVersion
@@ -59,7 +59,7 @@ const getVersionChoices = currentVersion => {
  *
  * @returns {Promise<string>}
  **/
-const promptVersion = async currentVersion => {
+export const promptVersion = async currentVersion => {
   const { version } = await prompt({
     type: "select",
     name: "version",
@@ -69,5 +69,3 @@ const promptVersion = async currentVersion => {
 
   return version !== "exact" ? version : promptExactVersion(currentVersion)
 }
-
-module.exports = { promptVersion }

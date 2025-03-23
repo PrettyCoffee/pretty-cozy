@@ -1,8 +1,8 @@
 /** @typedef {{ major: number, minor: number, patch: number, extension: string | undefined, extensionVersion: number | undefined, full: string }} ParsedVersion */
 
-const { color } = require("../color")
+import { color } from "../color"
 
-class Version {
+export class Version {
   /** @type {ParsedVersion} */
   current
 
@@ -73,5 +73,3 @@ class Version {
     }
   }
 }
-
-module.exports = { Version }

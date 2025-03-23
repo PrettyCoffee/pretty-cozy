@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-const { readFile, access } = require("node:fs/promises")
-const { join } = require("node:path")
+import { readFile, access } from "node:fs/promises"
+import { join } from "node:path"
 
-const { glob } = require("glob")
+import { glob } from "glob"
 
-const { color } = "../color"
+import { color } from "../color"
 
 /** @typedef {{ name: string, version: string, isPrivate?: boolean, path: string }} PackageInfo */
 /** @returns {PackageInfo} */
@@ -68,7 +68,7 @@ const getNearestPackage = async (path = process.cwd()) => {
  *  @param {{ allowPrivate?: boolean }} args
  *  @returns {Promise<{ root: PackageInfo, workspaces: PackageInfo[] }>}
  **/
-const getWorkspaces = async ({ allowPrivate = false } = {}) => {
+export const getWorkspaces = async ({ allowPrivate = false } = {}) => {
   const rootPath = await getNearestPackage()
   const rootPkg = await readPackage(rootPath)
   const root = getPackageInfo(rootPkg, rootPath)
@@ -81,5 +81,3 @@ const getWorkspaces = async ({ allowPrivate = false } = {}) => {
     ),
   }
 }
-
-module.exports = { getWorkspaces }

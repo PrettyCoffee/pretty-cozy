@@ -1,4 +1,4 @@
-const { color } = require("../color")
+import { color } from "../color"
 
 const camelToKebab = str =>
   str.replaceAll(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()
@@ -19,7 +19,7 @@ const toArg = (cliName, value) => {
  * @param {Record<string, string | number | boolean>} options
  * @returns {string}
  */
-const stringifyArgs = (options = {}) => {
+export const stringifyArgs = (options = {}) => {
   const args = Object.entries(options).flatMap(([name, value]) => {
     const cliName = camelToKebab(name)
     return Array.isArray(value)
@@ -29,5 +29,3 @@ const stringifyArgs = (options = {}) => {
 
   return args.filter(Boolean).join(" ")
 }
-
-module.exports = { stringifyArgs }

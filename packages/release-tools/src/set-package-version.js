@@ -1,4 +1,4 @@
-const { writeFile } = require("node:fs/promises")
+import { writeFile } from "node:fs/promises"
 
 /** @param {{ packageJson: object, version: string, scope: string }} args */
 const bumpWorkspaceDeps = ({ packageJson, version, scope }) => {
@@ -23,7 +23,7 @@ const bumpWorkspaceDeps = ({ packageJson, version, scope }) => {
  * @param {string | undefined} args.scope If applicable, the monorepo scope to update all modules with the scope (e.g. "@pretty-cozy")
  * @returns {Promise<void>}
  **/
-const setPackageVersion = ({ packagePath, version, scope }) => {
+export const setPackageVersion = ({ packagePath, version, scope }) => {
   const packageJson = require(packagePath)
   packageJson.version = version
   if (scope) {
@@ -34,5 +34,3 @@ const setPackageVersion = ({ packagePath, version, scope }) => {
     JSON.stringify(packageJson, null, 2) + "\n"
   ).then(() => ({ version, name: packageJson.name }))
 }
-
-module.exports = { setPackageVersion }

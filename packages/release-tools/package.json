@@ -9,8 +9,17 @@
     "url": "https://github.com/PrettyCoffee/pretty-cozy"
   },
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
-  "main": "src/index.js",
+  "sideEffects": false,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/@types/index.d.ts",
   "scripts": {
+    "build": "run-s clean compile",
+    "clean": "rimraf ./dist",
+    "compile": "run-p compile:esm compile:cjs compile:types",
+    "compile:esm": "tsc -p ./tsconfig.node.json --outDir ./dist/esm -m esnext -t esnext",
+    "compile:cjs": "tsc -p ./tsconfig.node.json --outDir ./dist/cjs -m commonjs -t es2015",
+    "compile:types": "tsc -p ./tsconfig.node.json --outDir ./dist/@types --declaration --emitDeclarationOnly",
     "lint": "eslint ./src",
     "lint:fix": "npx lint -- --fix"
   },

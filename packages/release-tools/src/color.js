@@ -7,7 +7,7 @@ const colors = {
   reset: "\u001b[0m",
 }
 
-const color = {
+export const color = {
   /** @param {string} message */
   red: message => colors.red + message + colors.reset,
   /** @param {string} message */
@@ -19,5 +19,3 @@ const color = {
   /** @param {string} message */
   gray: message => colors.gray + message + colors.reset,
 }
-
-module.exports = { color }

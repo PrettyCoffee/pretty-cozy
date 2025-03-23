@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
+
+    /* Language and Environment */
+    "target": "esnext",
+    "lib": ["esnext"],
+
+    /* Modules */
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+
+    /* JavaScript Support */
+    "allowJs": true,
+
+    /* Emit */
+    "declaration": false,
+    "removeComments": false,
+    "noEmit": true,
+    "newLine": "crlf",
+
+    /* Interop Constraints */
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Type Checking */
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* Completeness */
+    "skipLibCheck": true
+  },
+  "exclude": ["**/dist/**"]
+}

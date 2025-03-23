@@ -1,12 +1,12 @@
-const { exec } = require("./utils/exec")
-const { stringifyArgs } = require("./utils/stringify-args")
+import { exec } from "./utils/exec"
+import { stringifyArgs } from "./utils/stringify-args"
 
 const removeCommitHash = commit => commit.replace(/^[a-f0-9]+ /, "")
 
 /**
  * Promise bindings for git commands.
  */
-const git = {
+export const git = {
   /** Commits all pending changes to the repository.
    *
    *  @param {{ message: string, dryRun?: boolean, allowEmpty?: boolean }} args
@@ -94,5 +94,3 @@ const git = {
     )
   },
 }
-
-module.exports = { git }
