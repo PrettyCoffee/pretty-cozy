@@ -11,9 +11,7 @@
     "packages/release-tools"
   ],
   "scripts": {
-    "release": "node ./scripts/release.js",
     "publish": "node ./scripts/publish.js",
-    "publish:preview": "npm run publish -- --preview",
     "lint": "eslint",
     "lint:fix": "npm run lint -- --fix",
     "prepare": "cozy-git-hooks install --quiet"

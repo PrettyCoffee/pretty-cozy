@@ -1,95 +1,104 @@
 #!/usr/bin/env node
 
-const { npm, color } = require("@pretty-cozy/release-tools")
-const { createSpinner } = require("@pretty-cozy/release-tools")
+const {
+  npm,
+  git,
+  promptWorkspaces,
+  updateVersions,
+  promptVersion,
+  createSpinner,
+} = require("@pretty-cozy/release-tools")
+const { prompt } = require("enquirer")
 
-const printHelp = require("./utils/print-help")
-const { promptOk } = require("./utils/prompt-ok")
+const promptOk = async text =>
+  prompt({
+    type: "toggle",
+    name: "ok",
+    message: text,
+    initial: true,
+  })
 
-const printHelpPage = () => {
-  printHelp(
-    "Increase the release version in all workspaces, commit the changes and tag the commit.",
-    "node release.js [options]",
-    {
-      "--preview": "Make a dry run, only previews what would be done",
-      "-h, --help": "Show help page",
-    }
-  )
+const createCommitMessage = version =>
+  version.includes("alpha")
+    ? `chore: Pre-release v${version}`
+    : `chore: Release v${version}`
+
+const spinner = createSpinner()
+const newLine = () => console.info("")
+
+const bumpVersions = async ({ root, workspaces, version }) => {
+  spinner.start("Updating package versions")
+
+  await updateVersions({ root, workspaces, version })
+  spinner.step("Updated versions")
+
+  await npm.install()
+  spinner.success("Installed new versions")
 }
 
-const argNotAvailable = arg => {
-  console.error(`Error: ${arg} is not available\n`)
+const releaseVersion = async version => {
+  spinner.start("Releasing version to github")
+
+  await git.commit({
+    message: createCommitMessage(version),
+  })
+  spinner.step("Committed changes")
+
+  await git.tag({
+    version: `v${version}`,
+    message: `Release v${version}`,
+  })
+  spinner.step("Created tag")
+
+  await git.push()
+  spinner.success("Pushed changes")
 }
 
-const getOptions = args =>
-  args.reduce((options, arg) => {
-    switch (arg) {
-      case "--preview":
-        return { ...options, preview: true }
-
-      case "-h":
-      case "--help":
-        return { ...options, help: true }
-
-      default:
-        argNotAvailable(arg)
-        return { ...options, help: true }
-    }
-  }, {})
-
-const npmPublish = async mode => {
-  switch (mode) {
-    case "preview":
-      return npm.publish({
-        workspaces: true,
-        access: "public",
-        dryRun: true,
-      })
-
-    case "execute":
-      return npm.publish({ workspaces: true, access: "public" })
+const publishVersion = async workspaces => {
+  spinner.start("Publishing the version")
+  try {
+    await npm.publish({
+      workspace: workspaces.filter(ws => !ws.ignore).map(ws => ws.name),
+      access: "public",
+    })
+    spinner.success("Published")
+  } catch {
+    spinner.error("Failed to publish. Did you already publish this version?\n")
   }
-
-  throw new Error("Bad mode")
 }
 
 const run = async () => {
-  const args = process.argv.slice(2)
-  const options = getOptions(args)
+  const version = await promptVersion()
+  const { root, workspaces } = await promptWorkspaces()
 
-  if (options.help) {
-    printHelpPage()
+  await bumpVersions({ root, workspaces, version })
+  newLine()
+
+  /**
+   * Commit and push the version
+   **/
+  const shouldPush = await promptOk(
+    `Do you want to commit, tag and push v${version}?`
+  )
+  newLine()
+  if (!shouldPush) {
+    console.info("\n❌ Cancelled by user\n")
     return
   }
+  await releaseVersion(version)
 
-  console.info("Packages to be published:\n")
-  const preview = await npmPublish("preview")
-  console.info(color.gray(preview))
-
-  if (options.preview) return
-
-  console.info("\n")
-
-  const spinner = createSpinner()
-
-  promptOk("Do you want to publish this version?").then(accepted => {
-    console.info("\n")
-    if (!accepted) {
-      console.info("❌ Publishing was canceled.\n")
-      return
-    }
-
-    spinner.start("Publishing the version")
-    npmPublish("execute")
-      .then(() => {
-        spinner.success("Published")
-      })
-      .catch(() => {
-        spinner.error(
-          "Failed to publish. Did you already publish this version?\n"
-        )
-      })
-  })
+  /**
+   * Publish version
+   **/
+  const shouldPublish = await promptOk(
+    `Do you want to publish the selected packages?`
+  )
+  newLine()
+  if (!shouldPublish) {
+    console.info("\n❌ Cancelled by user\n")
+    return
+  }
+  await publishVersion(workspaces)
 }
 
-run()
+void run()
