@@ -4,19 +4,21 @@ const {
   npm,
   git,
   promptWorkspaces,
-  updateVersions,
   promptVersion,
   createSpinner,
+  updateVersions,
 } = require("@pretty-cozy/release-tools")
 const { prompt } = require("enquirer")
 
-const promptOk = async text =>
-  prompt({
+const promptOk = async text => {
+  const { ok } = await prompt({
     type: "toggle",
     name: "ok",
     message: text,
     initial: true,
   })
+  return ok
+}
 
 const createCommitMessage = version =>
   version.includes("alpha")
@@ -70,6 +72,7 @@ const publishVersion = async workspaces => {
 const run = async () => {
   const version = await promptVersion()
   const { root, workspaces } = await promptWorkspaces()
+  newLine()
 
   await bumpVersions({ root, workspaces, version })
   newLine()
@@ -86,6 +89,7 @@ const run = async () => {
     return
   }
   await releaseVersion(version)
+  newLine()
 
   /**
    * Publish version
