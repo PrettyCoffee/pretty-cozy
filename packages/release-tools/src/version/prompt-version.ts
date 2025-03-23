@@ -1,6 +1,7 @@
 import { prompt } from "enquirer"
 
 import { Version } from "./version"
+import { packageJson } from "../utils/package-json"
 
 const promptExactVersion = (currentVersion: string) =>
   prompt<{ version: string }>({
@@ -55,13 +56,21 @@ const getVersionChoices = (currentVersion: string) => {
   ]
 }
 
-export const promptVersion = async (currentVersion: string) => {
+const findVersion = async () => {
+  const path = await packageJson.findNearest()
+  const json = await packageJson.read(path)
+  return json.version
+}
+
+export const promptVersion = async (currentVersion?: string) => {
+  const oldVersion = currentVersion ?? (await findVersion())
+
   const { version } = await prompt<{ version: string }>({
     type: "select",
     name: "version",
     message: "Pick a version to release",
-    choices: getVersionChoices(currentVersion),
+    choices: getVersionChoices(oldVersion),
   })
 
-  return version !== "exact" ? version : promptExactVersion(currentVersion)
+  return version !== "exact" ? version : promptExactVersion(oldVersion)
 }

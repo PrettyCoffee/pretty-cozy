@@ -1,6 +1,8 @@
 import { access, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 
+import { color } from "../color"
+
 export interface PackageJson {
   name: string
   version: string
@@ -34,4 +36,16 @@ const write = async (path: string, packageContent: PackageJson) => {
   await writeFile(packagePath, JSON.stringify(packageContent, null, 2) + "\n")
 }
 
-export const packageJson = { read, write }
+const findNearest = async (path = process.cwd()): Promise<string> => {
+  try {
+    const pkgPath = join(path, "package.json")
+    await access(pkgPath)
+    return path
+  } catch {
+    const systemRoot = /^([^\\/]*[\\/]).*/.exec(process.cwd())?.[1]
+    if (path !== systemRoot) return findNearest(join(path, ".."))
+    throw new Error(color.red(`Could not find a package.json file`))
+  }
+}
+
+export const packageJson = { read, write, findNearest }
