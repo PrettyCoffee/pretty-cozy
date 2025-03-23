@@ -6,4 +6,5 @@ module.exports = {
   ...require("./npm"),
   ...require("./set-package-version"),
   ...require("./create-spinner"),
+  ...require("./prompt-workspaces"),
 }

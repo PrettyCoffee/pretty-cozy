@@ -15,6 +15,7 @@
     "lint:fix": "npx lint -- --fix"
   },
   "dependencies": {
-    "enquirer": "^2.4.1"
+    "enquirer": "^2.4.1",
+    "glob": "^11.0.1"
   }
 }
