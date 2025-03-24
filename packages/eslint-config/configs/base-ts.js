@@ -5,7 +5,7 @@ import baseJs from "./base-js.js"
 
 export default ts.config(
   baseJs,
-  ts.configs.strictTypeChecked,
+  ts.configs.recommendedTypeChecked,
   ts.configs.stylisticTypeChecked,
   imprt.flatConfigs.typescript,
 
@@ -58,6 +58,7 @@ export default ts.config(
       "@typescript-eslint/prefer-nullish-coalescing": "off",
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
+      "@typescript-eslint/unbound-method": "off",
 
       // additional typescript rules
       "@typescript-eslint/no-use-before-define": "error",
@@ -72,6 +73,15 @@ export default ts.config(
           "ts-ignore": "allow-with-description",
         },
       ],
+
+      // Rules picked from ts.configs.strictTypeChecked
+      "@typescript-eslint/no-misused-spread": "error",
+      "@typescript-eslint/no-unnecessary-condition": "error",
+      "@typescript-eslint/no-unnecessary-template-expression": "error",
+      "@typescript-eslint/no-unnecessary-type-arguments": "error",
+      "@typescript-eslint/no-unnecessary-type-parameters": "error",
+      "@typescript-eslint/prefer-reduce-type-parameter": "error",
+      "@typescript-eslint/use-unknown-in-catch-callback-variable": "error",
     },
   },
 
@@ -92,9 +102,8 @@ export default ts.config(
 
   {
     // types are annoying to define in js, which results in lots of `any` types
-    // these rules would just be annoying
     name: "@pretty-cozy/baseTs/js-files",
-    files: ["**/*.js", "**/*.cjs", "**/*.mjs"],
+    files: ["**/*.@(js|cjs|mjs)"],
     rules: {
       "@typescript-eslint/no-require-imports": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
