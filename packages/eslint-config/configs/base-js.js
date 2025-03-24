@@ -154,7 +154,7 @@ export default ts.config(
     name: "@pretty-cozy/baseJs/checkFile",
     // Only apply the naming conventions on files that are within a directory.
     // This will fix the issue where the root directory is not named with kebab-case.
-    files: ["*/**"],
+    ignores: ["*"],
     plugins: { checkFile },
     rules: {
       "checkFile/folder-naming-convention": [
