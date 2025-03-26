@@ -7,5 +7,6 @@ declare const configs: {
   preact: ConfigArray
   prettier: ConfigArray
   tailwind: ConfigArray
+  vitest: ConfigArray
 }
 export default configs
