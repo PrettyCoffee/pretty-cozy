@@ -119,7 +119,6 @@ export default ts.config(
       "sonarjs/assertions-in-tests": "error",
       "sonarjs/cognitive-complexity": "error",
       "sonarjs/concise-regex": "error",
-      "sonarjs/cyclomatic-complexity": "error",
       "sonarjs/destructuring-assignment-syntax": "error",
       "sonarjs/duplicates-in-character-class": "error",
       "sonarjs/existing-groups": "error",
@@ -171,7 +170,7 @@ export default ts.config(
 
   {
     name: "@pretty-cozy/baseJs",
-    files: ["*", "**/*.test.*", "**/*.stories.*"],
+    files: ["*", "scripts/**", "**/*.test.*", "**/*.stories.*"],
     rules: {
       "import/no-extraneous-dependencies": "off",
     },
