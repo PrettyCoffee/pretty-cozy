@@ -2,16 +2,18 @@ import { PackageInfo } from "./utils/get-workspaces"
 import { packageJson } from "./utils/package-json"
 import { Version } from "./version/version"
 
+type VersionModifier = ">=" | "^" | "~" | ""
+
 const updatePackage = async ({
   path,
   version,
   updatedNames,
-  modifier = "",
+  modifier,
 }: {
   path: string
   updatedNames: string[]
   version: string
-  modifier?: ">=" | "^" | "~" | ""
+  modifier: VersionModifier
 }) => {
   const json = await packageJson.read(path)
 
@@ -43,16 +45,22 @@ interface Args {
   root: PackageInfo
   workspaces: PackageInfo[]
   version: string
+  modifier?: VersionModifier
 }
-export const updateVersions = async ({ root, workspaces, version }: Args) => {
+export const updateVersions = async ({
+  root,
+  workspaces,
+  version,
+  modifier = "",
+}: Args) => {
   const updatedNames = [root, ...workspaces]
     .filter(ws => !ws.ignore)
     .map(ws => ws.name)
 
   await Promise.all([
-    updatePackage({ path: root.path, version, updatedNames }),
+    updatePackage({ path: root.path, version, updatedNames, modifier }),
     ...workspaces.map(ws =>
-      updatePackage({ path: ws.path, version, updatedNames })
+      updatePackage({ path: ws.path, version, updatedNames, modifier })
     ),
   ])
 }
