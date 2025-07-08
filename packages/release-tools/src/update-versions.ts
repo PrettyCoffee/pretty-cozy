@@ -6,10 +6,12 @@ const updatePackage = async ({
   path,
   version,
   updatedNames,
+  modifier = "",
 }: {
   path: string
   updatedNames: string[]
   version: string
+  modifier?: ">=" | "^" | "~" | ""
 }) => {
   const json = await packageJson.read(path)
 
@@ -29,7 +31,7 @@ const updatePackage = async ({
       const installed = json[depScope][name]
       // If a version is a monorepo workspace path, we don't want to replace that
       if (installed && Version.isValid(installed)) {
-        json[depScope][name] = version
+        json[depScope][name] = modifier + version
       }
     })
   })
