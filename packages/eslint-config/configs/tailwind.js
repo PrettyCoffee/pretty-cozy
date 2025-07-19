@@ -1,21 +1,29 @@
-import tailwind from "eslint-plugin-tailwindcss"
+import tailwindcss from "eslint-plugin-better-tailwindcss"
 import ts from "typescript-eslint"
 
-/** @type {["error", { callees: string[] }]} */
-const tailwindConfig = [
-  "error",
-  { callees: ["classnames", "cn", "cva", "clsx"] },
-]
+/** Function to create tailwind eslint rules
+ *
+ *  @param settings {object}
+ *  @param settings.entryPoint {string | undefined} Path to css config (eg: `src/global.css`)
+ *  @param settings.tailwindConfig {string | undefined} Path to js config (eg: `tailwind.config.js`)
+ *
+ *  @returns {import("typescript-eslint").ConfigArray}
+ **/
+const tailwind = settings =>
+  ts.config({
+    name: "@pretty-cozy/tailwind",
+    plugins: { tailwindcss },
+    settings: {
+      "better-tailwindcss": {
+        ...settings,
+        callees: ["classnames", "cn", "cva", "clsx"],
+      },
+    },
+    rules: {
+      ...tailwindcss.configs.recommended.rules,
+      "tailwindcss/no-conflicting-classes": "error",
+      "tailwindcss/enforce-shorthand-classes": "error",
+    },
+  })
 
-export default ts.config({
-  name: "@pretty-cozy/tailwind",
-  plugins: {
-    tailwindcss: tailwind,
-  },
-  rules: {
-    "tailwindcss/classnames-order": tailwindConfig,
-    "tailwindcss/no-contradicting-classname": tailwindConfig,
-    "tailwindcss/no-unnecessary-arbitrary-value": tailwindConfig,
-    "tailwindcss/enforces-shorthand": tailwindConfig,
-  },
-})
+export default tailwind
