@@ -1,4 +1,4 @@
-import tailwindcss from "eslint-plugin-better-tailwindcss"
+import betterTailwindcss from "eslint-plugin-better-tailwindcss"
 import ts from "typescript-eslint"
 
 /** Function to create tailwind eslint rules
@@ -12,7 +12,7 @@ import ts from "typescript-eslint"
 const tailwind = settings =>
   ts.config({
     name: "@pretty-cozy/tailwind",
-    plugins: { tailwindcss },
+    plugins: { "better-tailwindcss": betterTailwindcss },
     settings: {
       "better-tailwindcss": {
         ...settings,
@@ -20,9 +20,9 @@ const tailwind = settings =>
       },
     },
     rules: {
-      ...tailwindcss.configs.recommended.rules,
-      "tailwindcss/no-conflicting-classes": "error",
-      "tailwindcss/enforce-shorthand-classes": "error",
+      ...betterTailwindcss.configs.recommended.rules,
+      "better-tailwindcss/no-conflicting-classes": "error",
+      "better-tailwindcss/enforce-shorthand-classes": "error",
     },
   })
 
