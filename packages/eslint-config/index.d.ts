@@ -6,7 +6,10 @@ declare const configs: {
   react: ConfigArray
   preact: ConfigArray
   prettier: ConfigArray
-  tailwind: ConfigArray
+  tailwind: (settings: {
+    entryPoint?: string
+    tailwindConfig?: string
+  }) => ConfigArray
   vitest: ConfigArray
 }
 export default configs
