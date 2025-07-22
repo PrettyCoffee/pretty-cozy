@@ -23,6 +23,7 @@ const tailwind = settings =>
       ...betterTailwindcss.configs.recommended.rules,
       "better-tailwindcss/no-conflicting-classes": "error",
       "better-tailwindcss/enforce-shorthand-classes": "error",
+      "better-tailwindcss/enforce-consistent-line-wrapping": "off",
     },
   })
 
