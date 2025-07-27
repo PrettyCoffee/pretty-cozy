@@ -3,6 +3,7 @@ import { color } from "../color"
 type Change = "current" | "major" | "minor" | "patch" | "extension"
 
 interface ParsedVersion {
+  modifier?: string
   major: number
   minor: number
   patch: number
@@ -49,7 +50,7 @@ export class Version {
   /** Regex for semantic versions.
    *  Examples: 1.0.0, 1.0.0-alpha.1, 1.0.0-rc.1
    */
-  static regex = /^(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?$/
+  static regex = /^(\^|~|[<>]?=?)?(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?$/
 
   /** Validate a version
    **/
@@ -60,10 +61,11 @@ export class Version {
   /** Split a version into it's segments
    **/
   static parse(version: string): ParsedVersion {
-    const [major, minor, patch, extension, extensionVersion] =
+    const [modifier, major, minor, patch, extension, extensionVersion] =
       Version.regex.exec(version)?.slice(1) ?? []
 
     return {
+      modifier,
       major: Number(major),
       minor: Number(minor),
       patch: Number(patch),
