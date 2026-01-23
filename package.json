@@ -17,12 +17,12 @@
     "prepare": "cozy-git-hooks install --quiet"
   },
   "devDependencies": {
-    "enquirer": "^2.4.1",
-    "eslint": "^9.22.0",
-    "glob": "^11.0.1",
-    "npm-run-all2": "^5.0.0",
-    "rimraf": "^6.0.1",
-    "typescript": "^5.7.3"
+    "enquirer": "2.4.1",
+    "eslint": "9.23.0",
+    "glob": "11.0.1",
+    "npm-run-all2": "5.0.2",
+    "rimraf": "6.0.1",
+    "typescript": "5.7.3"
   },
   "lint-staged": {
     "*.js": [
