@@ -1,9 +1,9 @@
-import ts from "typescript-eslint"
+import { defineConfig } from "eslint/config"
 
 import { createImportOrder } from "./create-import-order.js"
 import react from "./react.js"
 
-export default ts.config(react, {
+export default defineConfig(react, {
   name: "@pretty-cozy/preact",
   settings: {
     react: {

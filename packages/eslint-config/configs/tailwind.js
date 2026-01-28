@@ -1,5 +1,5 @@
+import { defineConfig } from "eslint/config"
 import betterTailwindcss from "eslint-plugin-better-tailwindcss"
-import ts from "typescript-eslint"
 
 /** Function to create tailwind eslint rules
  *
@@ -10,7 +10,7 @@ import ts from "typescript-eslint"
  *  @returns {import("typescript-eslint").ConfigArray}
  **/
 const tailwind = settings =>
-  ts.config({
+  defineConfig({
     name: "@pretty-cozy/tailwind",
     plugins: { "better-tailwindcss": betterTailwindcss },
     settings: {

@@ -1,9 +1,10 @@
+import { defineConfig } from "eslint/config"
 import imprt from "eslint-plugin-import"
 import ts from "typescript-eslint"
 
 import baseJs from "./base-js.js"
 
-export default ts.config(
+export default defineConfig(
   baseJs,
   ts.configs.recommendedTypeChecked,
   ts.configs.stylisticTypeChecked,

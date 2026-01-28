@@ -1,16 +1,15 @@
+import { defineConfig } from "eslint/config"
 import imprt from "eslint-plugin-import"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
-import reactCompiler from "eslint-plugin-react-compiler"
 import reactHooks from "eslint-plugin-react-hooks"
 import preferFC from "eslint-plugin-react-prefer-function-component/config"
-import ts from "typescript-eslint"
 
 import { createImportOrder } from "./create-import-order.js"
 
-export default ts.config(
+export default defineConfig(
   react.configs.flat.recommended,
-  reactHooks.configs["recommended-latest"],
+  reactHooks.configs.flat.recommended,
   preferFC.configs.recommended,
   jsxA11y.flatConfigs.recommended,
   imprt.flatConfigs.react,
@@ -22,11 +21,8 @@ export default ts.config(
         version: "detect",
       },
     },
-    plugins: { "react-compiler": reactCompiler },
     rules: {
       ...createImportOrder({ groups: ["{react,react-dom,react-dom/*}"] }),
-
-      "react-compiler/react-compiler": "error",
 
       "react/destructuring-assignment": ["error", "always"],
       "react/hook-use-state": ["error", { allowDestructuredState: true }],

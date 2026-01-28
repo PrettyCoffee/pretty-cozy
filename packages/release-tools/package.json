@@ -22,9 +22,7 @@
     "compile": "run-p compile:esm compile:cjs compile:types",
     "compile:esm": "tsc -p ./tsconfig.node.json --outDir ./dist/esm -m esnext -t esnext",
     "compile:cjs": "tsc -p ./tsconfig.node.json --outDir ./dist/cjs -m commonjs -t es2015",
-    "compile:types": "tsc -p ./tsconfig.node.json --outDir ./dist/@types --declaration --emitDeclarationOnly",
-    "lint": "eslint ./src",
-    "lint:fix": "npx lint -- --fix"
+    "compile:types": "tsc -p ./tsconfig.node.json --outDir ./dist/@types --declaration --emitDeclarationOnly"
   },
   "dependencies": {
     "enquirer": "^2.4.1",

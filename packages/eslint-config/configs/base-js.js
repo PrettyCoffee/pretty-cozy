@@ -1,13 +1,12 @@
 import js from "@eslint/js"
 import prettyCozy from "@pretty-cozy/eslint-plugin"
-import { globalIgnores } from "eslint/config"
+import { globalIgnores, defineConfig } from "eslint/config"
 import checkFile from "eslint-plugin-check-file"
 import imprt from "eslint-plugin-import"
 import sonarjs from "eslint-plugin-sonarjs"
 import unicorn from "eslint-plugin-unicorn"
 import unusedImports from "eslint-plugin-unused-imports"
 import globals from "globals"
-import ts from "typescript-eslint"
 
 import { createImportOrder } from "./create-import-order.js"
 
@@ -16,7 +15,7 @@ const eslintRecommended = {
   ...js.configs.recommended,
 }
 
-export default ts.config(
+export default defineConfig(
   eslintRecommended,
   imprt.flatConfigs.recommended,
   prettyCozy.configs.flat,

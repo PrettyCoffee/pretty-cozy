@@ -1,8 +1,8 @@
 import vitestPlugin from "@vitest/eslint-plugin"
+import { defineConfig } from "eslint/config"
 import globals from "globals"
-import ts from "typescript-eslint"
 
-export default ts.config({
+export default defineConfig({
   name: "@ptvgroup/vitest",
   files: ["**/*.test.*"],
   plugins: {

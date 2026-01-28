@@ -11,9 +11,5 @@
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
   "type": "module",
   "main": "./index.js",
-  "types": "./index.d.ts",
-  "scripts": {
-    "lint": "eslint ./rules/* ./index.js",
-    "lint:fix": "npm run lint -- --fix"
-  }
+  "types": "./index.d.ts"
 }
