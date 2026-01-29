@@ -56,19 +56,6 @@ const releaseVersion = async version => {
   spinner.success("Pushed changes")
 }
 
-const publishVersion = async workspaces => {
-  spinner.start("Publishing the version")
-  try {
-    await npm.publish({
-      workspace: workspaces.filter(ws => !ws.ignore).map(ws => ws.name),
-      access: "public",
-    })
-    spinner.success("Published")
-  } catch {
-    spinner.error("Failed to publish. Did you already publish this version?\n")
-  }
-}
-
 const run = async () => {
   const version = await promptVersion()
   const { root, workspaces } = await promptWorkspaces()
@@ -90,19 +77,6 @@ const run = async () => {
   }
   await releaseVersion(version)
   newLine()
-
-  /**
-   * Publish version
-   **/
-  const shouldPublish = await promptOk(
-    `Do you want to publish the selected packages?`
-  )
-  newLine()
-  if (!shouldPublish) {
-    console.info("\n❌ Cancelled by user\n")
-    return
-  }
-  await publishVersion(workspaces)
 }
 
 void run()
