@@ -1,6 +1,38 @@
-import { color } from "../color"
+import { color } from "./color"
 
-type Change = "current" | "major" | "minor" | "patch" | "extension"
+const nextMajor = ({ major, minor, patch, extension }: ParsedVersion) => {
+  if (extension && major !== 0 && minor === 0 && patch === 0) {
+    return major
+  }
+  return major + 1
+}
+
+const nextMinor = ({ minor, patch, extension }: ParsedVersion) => {
+  if (extension && minor !== 0 && patch === 0) {
+    return minor
+  }
+  return minor + 1
+}
+
+const nextPatch = ({ patch, extension }: ParsedVersion) => {
+  if (extension && patch !== 0) {
+    return patch
+  }
+  return patch + 1
+}
+
+const nextExtension = (
+  { extension, extensionVersion = 0 }: ParsedVersion,
+  newExtension: string
+) => {
+  if (extension && extension === newExtension) {
+    return `${extension}.${extensionVersion + 1}`
+  }
+  return `${newExtension}.0`
+}
+
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents -- keep string literals for type hints
+type Change = "current" | "major" | "minor" | "patch" | string
 
 interface ParsedVersion {
   modifier?: string
@@ -27,23 +59,22 @@ export class Version {
    *  - "major" increments the major version (X.0.0)
    *  - "minor" increments the minor version (1.X.0)
    *  - "patch" increments the patch version (1.1.X)
-   *  - "extension" increments the extension version (1.1.1-alpha.X)
+   *  - others are used as extension (i.e. alpha -> 1.1.1-alpha.X)
    **/
   bump(change: Change) {
-    const { major, minor, patch, extension, extensionVersion } = this.current
+    const { major, minor, patch } = this.current
+
     switch (change) {
       case "current":
         return `${major}.${minor}.${patch}`
       case "major":
-        return `${major + 1}.0.0`
+        return `${nextMajor(this.current)}.0.0`
       case "minor":
-        return `${major}.${minor + 1}.0`
+        return `${major}.${nextMinor(this.current)}.0`
       case "patch":
-        return `${major}.${minor}.${patch + 1}`
-      case "extension":
-        return `${major}.${minor}.${patch}-${extension}.${(extensionVersion ?? -1) + 1}`
+        return `${major}.${minor}.${nextPatch(this.current)}`
       default:
-        throw new Error(`Invalid arg in version.getNext: ${change}`)
+        return `${major}.${minor}.${patch}-${nextExtension(this.current, change)}`
     }
   }
 

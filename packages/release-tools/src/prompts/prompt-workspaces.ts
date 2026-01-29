@@ -1,6 +1,6 @@
 import { prompt } from "enquirer"
 
-import { getWorkspaces, PackageInfo } from "./utils/get-workspaces"
+import { getWorkspaces, PackageInfo } from "../utils/get-workspaces"
 
 export const promptWorkspaces = async ({
   message = "Which workspaces do you want to release?",
@@ -12,10 +12,10 @@ export const promptWorkspaces = async ({
     type: "multiselect",
     name: "selectedWorkspaces",
     message: message + "\n  Press 'a' to toggle all.\n ",
-    initial: workspaces.map(ws => ws.name),
+    initial: [],
 
     // @ts-expect-error -- types are not working here for some reason?
-    choices: workspaces.map(ws => ({
+    choices: [root, ...workspaces].map(ws => ({
       name: ws.name,
       message: ws.name,
       hint: `@${ws.version}`,
@@ -23,7 +23,7 @@ export const promptWorkspaces = async ({
   })
 
   return {
-    root,
+    root: { ...root, ignore: !selectedWorkspaces.includes(root.name) },
     workspaces: workspaces.map(
       workspace =>
         ({

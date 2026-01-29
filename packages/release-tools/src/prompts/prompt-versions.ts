@@ -1,7 +1,7 @@
 import { prompt } from "enquirer"
 
-import { Version } from "./version"
-import { packageJson } from "../utils/package-json"
+import { PackageInfo } from "../utils/get-workspaces"
+import { Version } from "../utils/version"
 
 const promptExactVersion = (currentVersion: string) =>
   prompt<{ version: string }>({
@@ -25,7 +25,7 @@ const getVersionChoices = (currentVersion: string) => {
   const { extension } = version.current
   if (extension) {
     const current = version.bump("current")
-    const extensionBump = version.bump("extension")
+    const extensionBump = version.bump(extension)
 
     return [
       {
@@ -56,21 +56,27 @@ const getVersionChoices = (currentVersion: string) => {
   ]
 }
 
-const findVersion = async () => {
-  const path = await packageJson.findNearest()
-  const json = await packageJson.read(path)
-  return json.version
-}
-
-export const promptVersion = async (currentVersion?: string) => {
-  const oldVersion = currentVersion ?? (await findVersion())
-
+const promptVersion = async (name: string, currentVersion: string) => {
   const { version } = await prompt<{ version: string }>({
     type: "select",
     name: "version",
-    message: "Pick a version to release",
-    choices: getVersionChoices(oldVersion),
+    message: `Pick a version for ${name}`,
+    choices: getVersionChoices(currentVersion),
   })
 
-  return version !== "exact" ? version : promptExactVersion(oldVersion)
+  return version !== "exact" ? version : promptExactVersion(currentVersion)
+}
+
+interface Args {
+  root: PackageInfo
+  workspaces: PackageInfo[]
+}
+export const promptVersions = async ({ root, workspaces }: Args) => {
+  const changes: Record<string, string> = {}
+  for (const ws of [root, ...workspaces]) {
+    if (ws.ignore) continue
+    changes[ws.name] = await promptVersion(ws.name, ws.version)
+  }
+
+  return changes
 }

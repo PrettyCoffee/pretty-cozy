@@ -21,6 +21,7 @@ const commit = async ({ message, ...args }: CommitArgs) => {
 
 interface PushArgs {
   dryRun?: boolean
+  tags?: boolean
 }
 
 /** Pushes changes to the remote repository.

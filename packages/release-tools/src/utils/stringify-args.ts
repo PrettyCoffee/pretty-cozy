@@ -1,4 +1,4 @@
-import { color } from "../color"
+import { color } from "./color"
 
 const camelToKebab = (str: string) =>
   str.replaceAll(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, "$1-$2").toLowerCase()

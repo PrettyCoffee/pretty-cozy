@@ -1,7 +1,7 @@
 import { access, readFile, writeFile } from "node:fs/promises"
 import { join } from "node:path"
 
-import { color } from "../color"
+import { color } from "./color"
 
 export interface PackageJson {
   name: string

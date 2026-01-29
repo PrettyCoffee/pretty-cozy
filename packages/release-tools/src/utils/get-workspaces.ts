@@ -3,7 +3,7 @@ import { join } from "node:path"
 
 import { glob } from "glob"
 
-import { color } from "../color"
+import { color } from "./color"
 import { PackageJson, packageJson } from "./package-json"
 
 export interface PackageInfo {

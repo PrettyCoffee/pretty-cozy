@@ -3,80 +3,78 @@
 const {
   npm,
   git,
+  color,
+  promptOk,
   promptWorkspaces,
-  promptVersion,
+  promptVersions,
   createSpinner,
-  updateVersions,
+  updateVersion,
 } = require("@pretty-cozy/release-tools")
-const { prompt } = require("enquirer")
-
-const promptOk = async text => {
-  const { ok } = await prompt({
-    type: "toggle",
-    name: "ok",
-    message: text,
-    initial: true,
-  })
-  return ok
-}
 
 const createCommitMessage = version =>
   version.includes("alpha")
-    ? `chore: Pre-release v${version}`
-    : `chore: Release v${version}`
+    ? `chore: Pre-release ${version}`
+    : `chore: Release ${version}`
 
 const spinner = createSpinner()
 const newLine = () => console.info("")
 
-const bumpVersions = async ({ root, workspaces, version }) => {
-  spinner.start("Updating package versions")
+const bumpVersions = async ({ root, workspaces, changes }) => {
+  for (const name in changes) {
+    const version = changes[name]
+    const tag = `${name}@${version}`
 
-  await updateVersions({ root, workspaces, version })
-  spinner.step("Updated versions")
+    spinner.start(`Release ${tag}`)
 
-  await npm.install()
-  spinner.success("Installed new versions")
-}
+    await updateVersion({ name, version, root, workspaces })
+    await npm.install()
 
-const releaseVersion = async version => {
-  spinner.start("Releasing version to github")
+    spinner.step(`Updated package.json files`)
 
-  await git.commit({
-    message: createCommitMessage(version),
-  })
-  spinner.step("Committed changes")
+    await git.commit({
+      message: createCommitMessage(tag),
+    })
+    await git.tag({
+      version: tag,
+      message: `Release ${tag}`,
+    })
 
-  await git.tag({
-    version: `v${version}`,
-    message: `Release v${version}`,
-  })
-  spinner.step("Created tag")
-
-  await git.push()
-  spinner.success("Pushed changes")
+    spinner.success(`Created commit`)
+  }
 }
 
 const run = async () => {
-  const version = await promptVersion()
   const { root, workspaces } = await promptWorkspaces()
   newLine()
 
-  await bumpVersions({ root, workspaces, version })
+  const changes = await promptVersions({ root, workspaces })
   newLine()
 
   /**
-   * Commit and push the version
+   * Apply changes, commit, and push the version
    **/
-  const shouldPush = await promptOk(
-    `Do you want to commit, tag and push v${version}?`
+  const tags = Object.entries(changes).map(
+    ([name, version]) => `${name}${color.gray("@")}${color.blue(version)}`
   )
+  const list = color.gray("\n - ")
+  const shouldApply = await promptOk(
+    `Do you want to apply and commit the new versions?${list}${tags.join(list)}\n`
+  )
+  newLine()
+  if (!shouldApply) {
+    console.info("\n❌ Cancelled by user\n")
+    return
+  }
+  await bumpVersions({ root, workspaces, changes })
+
+  const shouldPush = await promptOk(`Do you want to push the changes?`)
   newLine()
   if (!shouldPush) {
     console.info("\n❌ Cancelled by user\n")
     return
   }
-  await releaseVersion(version)
-  newLine()
+  await git.push()
+  await git.push({ tags: true })
 }
 
 void run()
