@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/eslint-config",
-  "version": "0.9.0-alpha.3",
+  "version": "0.9.0-alpha.5",
   "description": "A pretty cozy collection of eslint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@eslint/js": "^9.39.2",
-    "@pretty-cozy/eslint-plugin": "^0.6.0",
+    "@pretty-cozy/eslint-plugin": "0.9.0-alpha.5",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.53.1",
     "@vitest/eslint-plugin": "^1.6.6",
