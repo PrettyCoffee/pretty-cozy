@@ -1,8 +1,6 @@
 import { exec } from "./utils/exec"
 import { stringifyArgs } from "./utils/stringify-args"
 
-const removeCommitHash = (commit: string) => commit.replace(/^[a-f0-9]+ /, "")
-
 interface CommitArgs {
   message: string
   dryRun?: boolean
@@ -70,6 +68,31 @@ const allTags = () =>
     tags.split("\n").filter(version => /^\d+\.\d+\.\d+$/.test(version))
   )
 
+const getChangedFiles = async (commitHash: string) => {
+  const out = await exec(
+    `git diff-tree --no-commit-id --name-only ${commitHash} -r`
+  )
+  return out.split("\n").filter(Boolean)
+}
+
+const commitRegex = /^([a-z]+)(?:\((.+)\))?(!)?:\s*(.+)/
+const parseCommit = (commit: string) => {
+  const match = commitRegex.exec(commit)
+  if (!match) return null
+  const [, type, scope, breaking, message] = commitRegex.exec(commit) ?? []
+  return { type, scope, breaking: !!breaking, message }
+}
+
+const getCommitDetails = async (commit: string) => {
+  const [, hash = "", message = ""] = /([a-z0-9]+) (.*)/.exec(commit) ?? []
+  return {
+    hash,
+    raw: message,
+    parsed: parseCommit(message),
+    files: await getChangedFiles(hash),
+  }
+}
+
 /** Retrieves the commits between two tags.
  *  @param startTag The starting tag.
  *  @param endTag The ending tag.
@@ -80,10 +103,10 @@ const getCommits = async (startTag?: string, endTag?: string) => {
   const start = startTag ?? tags.at(-1)
   const end = endTag ?? "HEAD"
 
-  const command = `git log ${start}..${end} --oneline`
-  return exec(command).then(commits =>
-    commits.split("\n").filter(Boolean).map(removeCommitHash)
-  )
+  const out = await exec(`git log ${start}..${end} --oneline`)
+  const commits = out.split("\n").filter(Boolean)
+
+  return Promise.all(commits.map(getCommitDetails))
 }
 
 /**
