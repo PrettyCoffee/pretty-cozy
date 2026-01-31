@@ -44,7 +44,9 @@ const bumpVersions = async ({ root, workspaces, changes }) => {
 }
 
 const run = async () => {
-  const { root, workspaces } = await promptWorkspaces()
+  const { root, workspaces } = await promptWorkspaces({
+    enforceRootSelected: false,
+  })
   newLine()
 
   const changes = await promptVersions({ root, workspaces })

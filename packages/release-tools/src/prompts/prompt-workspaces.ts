@@ -2,11 +2,21 @@ import { prompt } from "enquirer"
 
 import { getWorkspaces, PackageInfo } from "../utils/get-workspaces"
 
+interface Options {
+  message?: string
+  allowPrivate?: boolean
+  enforceRootSelected?: boolean
+}
+
 export const promptWorkspaces = async ({
   message = "Which workspaces do you want to release?",
   allowPrivate = false,
-} = {}) => {
+  enforceRootSelected,
+}: Options = {}) => {
   const { root, workspaces } = await getWorkspaces({ allowPrivate })
+
+  const options =
+    enforceRootSelected != null ? workspaces : [root, ...workspaces]
 
   const { selectedWorkspaces } = await prompt<{ selectedWorkspaces: string }>({
     type: "multiselect",
@@ -15,15 +25,18 @@ export const promptWorkspaces = async ({
     initial: [],
 
     // @ts-expect-error -- types are not working here for some reason?
-    choices: [root, ...workspaces].map(ws => ({
+    choices: options.map(ws => ({
       name: ws.name,
       message: ws.name,
       hint: `@${ws.version}`,
     })),
   })
 
+  const isRootSelected =
+    enforceRootSelected ?? selectedWorkspaces.includes(root.name)
+
   return {
-    root: { ...root, ignore: !selectedWorkspaces.includes(root.name) },
+    root: { ...root, ignore: !isRootSelected },
     workspaces: workspaces.map(
       workspace =>
         ({
