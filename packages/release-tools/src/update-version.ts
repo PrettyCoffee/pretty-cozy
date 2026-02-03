@@ -29,7 +29,7 @@ const updatePackage = async ({
     // If a version is a monorepo workspace path, we don't want to replace that
     if (installed && Version.isValid(installed)) {
       const { current } = new Version(installed)
-      json[depScope][name] = current.modifier + version
+      json[depScope][name] = (current.modifier ?? "") + version
     }
   })
 
