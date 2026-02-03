@@ -1,4 +1,4 @@
-import { exec } from "./utils/exec"
+import { $ } from "./utils/shell"
 import { stringifyArgs } from "./utils/stringify-args"
 
 /** Run a npm script.
@@ -7,7 +7,7 @@ import { stringifyArgs } from "./utils/stringify-args"
  */
 const run = async (script: string) => {
   try {
-    return await exec(`pnpm run ${script}`)
+    return await $`pnpm run ${script}`.text()
   } catch {
     return null
   }
@@ -22,7 +22,7 @@ interface InstallArgs {
  * @returns A promise that resolves when the installation is complete.
  */
 const install = async (args: InstallArgs) => {
-  await exec(`pnpm i ${stringifyArgs(args as Record<string, unknown>)}`)
+  await $`pnpm i ${stringifyArgs(args as Record<string, unknown>)}`.quiet()
 }
 
 export const pnpm = {

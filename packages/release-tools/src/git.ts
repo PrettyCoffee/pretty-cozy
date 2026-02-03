@@ -1,4 +1,4 @@
-import { exec } from "./utils/exec"
+import { $ } from "./utils/shell"
 import { stringifyArgs } from "./utils/stringify-args"
 
 interface CommitArgs {
@@ -13,8 +13,8 @@ interface CommitArgs {
  *  @param args.allowEmpty If set to true, an empty commit is allowed.
  **/
 const commit = async ({ message, ...args }: CommitArgs) => {
-  await exec(`git add -A`)
-  await exec(`git commit -m "${message}" ${stringifyArgs(args)}`)
+  await $`git add -A`.quiet()
+  await $`git commit -m "${message}" ${stringifyArgs(args)}`.quiet()
 }
 
 interface PushArgs {
@@ -26,7 +26,7 @@ interface PushArgs {
  *  @param args.dryRun If set to true, the changes are not applied.
  **/
 const push = async (args: PushArgs) => {
-  await exec(`git push ${stringifyArgs(args as Record<string, unknown>)}`)
+  await $`git push ${stringifyArgs(args as Record<string, unknown>)}`.quiet()
 }
 
 interface TagArgs {
@@ -40,40 +40,37 @@ interface TagArgs {
  **/
 const tag = async ({ version, dryRun, ...args }: TagArgs) => {
   if (dryRun) return
-  await exec(`git tag -a ${version} ${stringifyArgs(args)}`)
+  await $`git tag -a ${version} ${stringifyArgs(args)}`.quiet()
 }
 
 /** Stashes all pending changes in the repository.
  **/
 const stash = async () => {
-  await exec(`git stash --include-untracked`)
+  await $`git stash --include-untracked`.quiet()
 }
 
 /** Applies the latest stash to the repository.
  **/
 const stashPop = async () => {
-  await exec(`git stash pop`)
+  await $`git stash pop`.quiet()
 }
 
 /** Retrieves the latest tag in the repository.
  *  @returns A promise that resolves to the latest tag.
  **/
-const latestTag = () => exec(`git describe --tags --abbrev=0`)
+const latestTag = async () => await $`git describe --tags --abbrev=0`.text()
 
 /** Retrieves all tags in the repository.
  *  @returns A promise that resolves to an array of all tags.
  **/
 const allTags = () =>
-  exec(`git tag -l --sort=version:refname`).then(tags =>
-    tags.split("\n").filter(version => /^\d+\.\d+\.\d+$/.test(version))
-  )
+  $`git tag -l --sort=version:refname`
+    .lines()
+    // TODO: Fix filter to also include specific package tags (i.e. @pretty-cozy/release-tools@1.0.0)
+    .then(out => out.filter(version => /^\d+\.\d+\.\d+$/.test(version)))
 
-const getChangedFiles = async (commitHash: string) => {
-  const out = await exec(
-    `git diff-tree --no-commit-id --name-only ${commitHash} -r`
-  )
-  return out.split("\n").filter(Boolean)
-}
+const getChangedFiles = async (commitHash: string) =>
+  await $`git diff-tree --no-commit-id --name-only ${commitHash} -r`.lines()
 
 const commitRegex = /^([a-z]+)(?:\((.+)\))?(!)?:\s*(.+)/
 const parseCommit = (commit: string) => {
@@ -94,17 +91,15 @@ const getCommitDetails = async (commit: string) => {
 }
 
 /** Retrieves the commits between two tags.
- *  @param startTag The starting tag.
+ *  @param startTag The starting tag. Defaults to the latest tag.
  *  @param endTag The ending tag.
  *  @returns A promise that resolves to an array of commits between the specified tags.
  **/
 const getCommits = async (startTag?: string, endTag?: string) => {
-  const tags = await allTags()
-  const start = startTag ?? tags.at(-1)
+  const start = startTag ?? (await allTags().then(tags => tags.at(-1)))
   const end = endTag ?? "HEAD"
 
-  const out = await exec(`git log ${start}..${end} --oneline`)
-  const commits = out.split("\n").filter(Boolean)
+  const commits = await $`git log ${start}..${end} --oneline`.lines()
 
   return Promise.all(commits.map(getCommitDetails))
 }
