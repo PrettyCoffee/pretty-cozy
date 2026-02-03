@@ -12,6 +12,12 @@ export interface PackageInfo {
   path: string
   ignore: boolean
   isPrivate: boolean
+
+  deps: {
+    default: string[]
+    dev: string[]
+    peer: string[]
+  }
 }
 
 const getPackageInfo = (pkg: PackageJson, path: string) =>
@@ -21,6 +27,12 @@ const getPackageInfo = (pkg: PackageJson, path: string) =>
     path,
     ignore: false,
     isPrivate: pkg.private ?? false,
+
+    deps: {
+      default: Object.keys(pkg.dependencies ?? {}),
+      dev: Object.keys(pkg.devDependencies ?? {}),
+      peer: Object.keys(pkg.peerDependencies ?? {}),
+    },
   }) satisfies PackageInfo
 
 const getWorkspaceInfo = async (rootPath: string, rootPkg: PackageJson) => {
