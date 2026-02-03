@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/release-tools",
-  "version": "0.9.0-alpha.7",
+  "version": "0.9.0",
   "description": "A pretty cozy collection of tools to create release scripts",
   "author": "Pretty Coffee",
   "license": "MIT",
