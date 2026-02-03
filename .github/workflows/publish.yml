@@ -3,7 +3,9 @@ name: Publish
 on:
   push:
     tags:
-      - '@pretty-cozy/*'
+      - '*'
+  # Allows to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # Related npm documentation: https://docs.npmjs.com/trusted-publishers#github-actions-configuration
 permissions:
