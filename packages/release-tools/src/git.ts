@@ -66,8 +66,7 @@ const latestTag = async () => await $`git describe --tags --abbrev=0`.text()
 const allTags = () =>
   $`git tag -l --sort=version:refname`
     .lines()
-    // TODO: Fix filter to also include specific package tags (i.e. @pretty-cozy/release-tools@1.0.0)
-    .then(out => out.filter(version => /^\d+\.\d+\.\d+$/.test(version)))
+    .then(out => out.filter(version => /\d+\.\d+\.\d+$/.test(version)))
 
 const getChangedFiles = async (commitHash: string) =>
   await $`git diff-tree --no-commit-id --name-only ${commitHash} -r`.lines()
