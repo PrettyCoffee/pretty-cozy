@@ -4,6 +4,7 @@ import { join } from "node:path"
 import { glob } from "glob"
 
 import { color } from "./color"
+import { getInternalDependencies } from "./get-internal-dependencies"
 import { PackageJson, packageJson } from "./package-json"
 
 export interface PackageInfo {
@@ -73,10 +74,16 @@ export const getWorkspaces = async ({ allowPrivate = false } = {}) => {
   const root = getPackageInfo(rootPkg, rootPath)
   const workspaces = await getWorkspaceInfo(rootPath, rootPkg)
 
+  const deps = getInternalDependencies(workspaces)
+
   return {
     root,
-    workspaces: workspaces.filter(
-      ({ isPrivate }) => allowPrivate || !isPrivate
-    ),
+    workspaces: workspaces
+      .toSorted((a, b) => {
+        const depsA = deps[a.name]
+        const depsB = deps[b.name]
+        return depsB?.includes(a.name) ? 1 : depsA?.includes(b.name) ? -1 : 0
+      })
+      .filter(({ isPrivate }) => allowPrivate || !isPrivate),
   }
 }
