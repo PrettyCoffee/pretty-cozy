@@ -26,6 +26,7 @@ export default defineConfig(
       "**/node_modules/**",
       "**/build/**",
       "**/dist/**",
+      "!.storybook",
     ],
     "@pretty-cozy/baseJs/global-ignores"
   ),
@@ -92,7 +93,6 @@ export default defineConfig(
       "unicorn/prefer-array-some": "error",
       "unicorn/prefer-date-now": "error",
       "unicorn/prefer-default-parameters": "error",
-      "unicorn/prefer-export-from": "error",
       "unicorn/prefer-logical-operator-over-ternary": "error",
       "unicorn/prefer-number-properties": "error",
       "unicorn/prefer-object-from-entries": "error",
@@ -152,7 +152,7 @@ export default defineConfig(
     name: "@pretty-cozy/baseJs/checkFile",
     // Only apply the naming conventions on files that are within a directory.
     // This will fix the issue where the root directory is not named with kebab-case.
-    ignores: ["*"],
+    ignores: ["*", ".storybook/**"],
     plugins: { checkFile },
     rules: {
       "checkFile/folder-naming-convention": [
@@ -169,7 +169,13 @@ export default defineConfig(
 
   {
     name: "@pretty-cozy/baseJs",
-    files: ["*", "scripts/**", "**/*.test.*", "**/*.stories.*"],
+    files: [
+      "*",
+      "scripts/**",
+      ".storybook/**",
+      "**/*.test.*",
+      "**/*.stories.*",
+    ],
     rules: {
       "import/no-extraneous-dependencies": "off",
     },
