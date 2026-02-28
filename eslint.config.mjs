@@ -1,7 +1,7 @@
 import prettyCozy from "@pretty-cozy/eslint-config"
-import ts from "typescript-eslint"
+import { defineConfig } from "eslint/config"
 
-export default ts.config(
+export default defineConfig(
   prettyCozy.baseJs,
   {
     files: ["**/*.ts"],

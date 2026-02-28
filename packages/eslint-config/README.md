@@ -22,15 +22,16 @@ A pretty cozy collection of eslint rules.
 2. Add an `eslint.config.mjs` file at the root directory of your project for configuration.
     ```js
     import prettyCozy from "@pretty-cozy/eslint-config"
+    import { defineConfig } from "eslint/config"
     
-    export default [
-      ...prettyCozy.baseTs,
-      ...prettyCozy.react,
+    export default defineConfig(
+      prettyCozy.baseTs,
+      prettyCozy.react,
       {
         // your additional configuration
       },
-      ...prettyCozy.prettier
-    ]
+      prettyCozy.prettier
+    )
     ```
 3. Add npm scripts to your `package.json`:
     ```json
@@ -51,36 +52,3 @@ npm run lint
 # Autofix linter problems where possible
 npm run lint:fix
 ```
-
-## The better setup
-
-Above we created the eslint config by exporting an array.
-However, `@typescript-eslint` provides an awesome utility to make writing configs a bit easier.
-
-It adds a few quality of live improvements, like:
-- nested config arrays (you no longer have to use the spread operator)
-- correct types to provide auto-completion in your IDE
-- a new `extends` field, to adjust shared configs
-
-See the related [docs](https://typescript-eslint.io/packages/typescript-eslint#config) for more details.
-
-Required changes:
-
-1. Install `typescript-eslint` which exports the utility
-    ```bash
-    npm i -D typescript-eslint
-    ```
-2. Use the exported config utility:
-    ```js
-    import prettyCozy from "@pretty-cozy/eslint-config"
-    import ts from "typescript-eslint"
-   
-    export default ts.config(
-      prettyCozy.baseTs,
-      prettyCozy.react,
-      { 
-        // your additional configuration
-      },
-      prettyCozy.prettier,
-    )
-    ```
