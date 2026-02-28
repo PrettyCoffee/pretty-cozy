@@ -1,7 +1,7 @@
-const { prompt } = require("enquirer")
+import { prompt } from "enquirer"
 
 export const promptOk = async (text: string, initial = false) => {
-  const { ok } = await prompt({
+  const { ok } = await prompt<{ ok: boolean }>({
     type: "toggle",
     name: "ok",
     message: text,
