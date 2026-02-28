@@ -13,8 +13,8 @@
     "cozy-git-hooks": "./bin/cli.sh"
   },
   "dependencies": {
-    "@commitlint/cli": "^20.3.1",
-    "@commitlint/config-conventional": "^20.3.1",
+    "@commitlint/cli": "^20.4.2",
+    "@commitlint/config-conventional": "^20.4.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7"
   }
