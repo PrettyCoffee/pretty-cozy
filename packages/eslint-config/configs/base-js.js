@@ -149,17 +149,17 @@ export default defineConfig(
   },
 
   {
-    name: "@pretty-cozy/baseJs/checkFile",
+    name: "@pretty-cozy/baseJs/check-file",
     // Only apply the naming conventions on files that are within a directory.
     // This will fix the issue where the root directory is not named with kebab-case.
     ignores: ["*", ".storybook/**"],
-    plugins: { checkFile },
+    plugins: { "check-file": checkFile },
     rules: {
-      "checkFile/folder-naming-convention": [
+      "check-file/folder-naming-convention": [
         "error",
         { "**/!(@types|.*)/": "KEBAB_CASE" },
       ],
-      "checkFile/filename-naming-convention": [
+      "check-file/filename-naming-convention": [
         "error",
         { "*/**": "KEBAB_CASE" },
         { ignoreMiddleExtensions: true },
