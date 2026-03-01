@@ -1,6 +1,6 @@
 import { prompt } from "enquirer"
 
-import { PackageInfo } from "../utils/get-workspaces"
+import { PackageInfo } from "../utils/get-internal-dependencies"
 import { Version } from "../utils/version"
 
 const promptExactVersion = (currentVersion: string) =>

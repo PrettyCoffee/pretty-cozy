@@ -4,22 +4,11 @@ import { join } from "node:path"
 import { glob } from "glob"
 
 import { color } from "./color"
-import { getInternalDependencies } from "./get-internal-dependencies"
+import {
+  getInternalDependencies,
+  PackageInfo,
+} from "./get-internal-dependencies"
 import { PackageJson, packageJson } from "./package-json"
-
-export interface PackageInfo {
-  name: string
-  version: string
-  path: string
-  ignore: boolean
-  isPrivate: boolean
-
-  deps: {
-    default: string[]
-    dev: string[]
-    peer: string[]
-  }
-}
 
 const getPackageInfo = (pkg: PackageJson, path: string) =>
   ({

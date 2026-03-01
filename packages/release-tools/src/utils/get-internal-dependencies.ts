@@ -1,6 +1,18 @@
-import { PackageInfo } from "./get-workspaces"
-
 const unique = (items: string[]) => [...new Set(items)]
+
+export interface PackageInfo {
+  name: string
+  version: string
+  path: string
+  ignore: boolean
+  isPrivate: boolean
+
+  deps: {
+    default: string[]
+    dev: string[]
+    peer: string[]
+  }
+}
 
 interface Tree {
   name: string

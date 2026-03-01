@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process"
 import { resolve } from "node:path"
+import process from "node:process"
 
 export interface ShellResult {
   code: number | null
@@ -106,6 +107,10 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
             return resolve(result.stdout)
           case "lines":
             return resolve(result.stdout.split("\n").filter(Boolean))
+          default:
+            throw new Error(
+              `Error in $: returnType ${this.options.returnType} is not supported.`
+            )
         }
       })
     })
@@ -118,7 +123,7 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
  *  $`echo Hello world`.then(console.log) // -> { code: 0, stdout: "Hello world", stderr: "" }
  *  $`echo Hello world`.text().then(console.log) // -> "Hello world"
  *
- *  @result ShellCommand instance to set options and finally run the command.
+ *  @returns ShellCommand instance to set options and finally run the command.
  **/
 export const $ = (strings: TemplateStringsArray, ...values: Stringable[]) =>
   new ShellCommand(strings, ...values)

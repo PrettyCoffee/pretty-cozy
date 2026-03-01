@@ -1,6 +1,6 @@
 /** Helper to create import order groups
  *  @param {{ groups: string[] } | undefined} options
- *  @params options.groups - most important packages of the project, e.g. ["react"]
+ *  @param options.groups - most important packages of the project, e.g. ["react"]
  *  @returns {Record<string, import("eslint").Linter.RuleEntry>}
  **/
 export const createImportOrder = ({ groups = [] } = {}) => {

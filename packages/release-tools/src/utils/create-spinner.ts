@@ -1,3 +1,5 @@
+import process from "node:process"
+
 import { color } from "./color"
 
 const writeLine = (text: string, resetLine = false) => {
