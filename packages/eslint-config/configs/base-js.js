@@ -1,5 +1,4 @@
 import js from "@eslint/js"
-import prettyCozy from "@pretty-cozy/eslint-plugin"
 import { globalIgnores, defineConfig } from "eslint/config"
 import checkFile from "eslint-plugin-check-file"
 import { importX } from "eslint-plugin-import-x"
@@ -18,7 +17,6 @@ const eslintRecommended = {
 export default defineConfig(
   eslintRecommended,
   importX.flatConfigs.recommended,
-  prettyCozy.configs.flat,
 
   globalIgnores(
     [

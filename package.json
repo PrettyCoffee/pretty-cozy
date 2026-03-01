@@ -6,7 +6,6 @@
   "license": "MIT",
   "workspaces": [
     "packages/eslint-config",
-    "packages/eslint-plugin",
     "packages/git-hooks",
     "packages/release-tools"
   ],
