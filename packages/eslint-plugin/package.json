@@ -11,5 +11,11 @@
   "bugs": "https://github.com/PrettyCoffee/pretty-cozy/issues/new",
   "type": "module",
   "main": "./index.js",
-  "types": "./index.d.ts"
+  "types": "./index.d.ts",
+  "peerDependencies": {
+    "eslint": "^9"
+  },
+  "devDependencies": {
+    "eslint": "9.39.3"
+  }
 }
