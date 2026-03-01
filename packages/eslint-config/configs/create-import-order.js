@@ -23,6 +23,6 @@ export const createImportOrder = ({ groups = [] } = {}) => {
   }
 
   return {
-    "import/order": ["error", config],
+    "import-x/order": ["error", config],
   }
 }

@@ -1,5 +1,5 @@
 import { defineConfig } from "eslint/config"
-import imprt from "eslint-plugin-import"
+import { importX } from "eslint-plugin-import-x"
 import ts from "typescript-eslint"
 
 import baseJs from "./base-js.js"
@@ -8,7 +8,7 @@ export default defineConfig(
   baseJs,
   ts.configs.recommendedTypeChecked,
   ts.configs.stylisticTypeChecked,
-  imprt.flatConfigs.typescript,
+  importX.flatConfigs.typescript,
 
   {
     name: "@pretty-cozy/baseTs",
@@ -20,10 +20,10 @@ export default defineConfig(
       },
     },
     settings: {
-      "import/parsers": {
+      "import-x/parsers": {
         "@typescript-eslint/parser": [".ts", ".tsx"],
       },
-      "import/resolver": {
+      "import-x/resolver": {
         typescript: {
           alwaysTryTypes: true,
           project: "./tsconfig.json",
@@ -33,11 +33,11 @@ export default defineConfig(
 
     rules: {
       // duplicates that are handled by TypeScript or typescript-eslint rules
-      "import/export": "off",
-      "import/default": "off",
+      "import-x/export": "off",
+      "import-x/default": "off",
 
       "sonarjs/deprecation": "off",
-      "import/no-deprecated": "off",
+      "import-x/no-deprecated": "off",
       "@typescript-eslint/no-deprecated": "error",
 
       "sonarjs/no-incorrect-string-concat": "off",

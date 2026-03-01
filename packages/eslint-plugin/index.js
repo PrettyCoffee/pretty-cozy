@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-useless-path-segments
+// eslint-disable-next-line import-x/no-useless-path-segments
 import rules from "./rules/index.js"
 
 const plugin = {

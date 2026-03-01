@@ -2,7 +2,7 @@ import js from "@eslint/js"
 import prettyCozy from "@pretty-cozy/eslint-plugin"
 import { globalIgnores, defineConfig } from "eslint/config"
 import checkFile from "eslint-plugin-check-file"
-import imprt from "eslint-plugin-import"
+import { importX } from "eslint-plugin-import-x"
 import sonarjs from "eslint-plugin-sonarjs"
 import unicorn from "eslint-plugin-unicorn"
 import unusedImports from "eslint-plugin-unused-imports"
@@ -17,7 +17,7 @@ const eslintRecommended = {
 
 export default defineConfig(
   eslintRecommended,
-  imprt.flatConfigs.recommended,
+  importX.flatConfigs.recommended,
   prettyCozy.configs.flat,
 
   globalIgnores(
@@ -53,18 +53,18 @@ export default defineConfig(
       "unused-imports/no-unused-imports": "error",
       "unused-imports/no-unused-vars": "error",
 
-      "import/no-cycle": "off", // tends to be very performance heavy
-      "import/namespace": "off", // tends to be very performance heavy
-      "import/no-unresolved": "off", // modules cannot be resolved correctly without a resolver
+      "import-x/no-cycle": "off", // tends to be very performance heavy
+      "import-x/namespace": "off", // tends to be very performance heavy
+      "import-x/no-unresolved": "off", // modules cannot be resolved correctly without a resolver
 
       ...createImportOrder(),
-      "import/no-deprecated": "warn",
-      "import/no-duplicates": "error",
-      "import/no-empty-named-blocks": "error",
-      "import/no-self-import": "error",
-      "import/newline-after-import": "error",
-      "import/no-extraneous-dependencies": "error",
-      "import/no-useless-path-segments": ["error", { noUselessIndex: true }],
+      "import-x/no-deprecated": "warn",
+      "import-x/no-duplicates": "error",
+      "import-x/no-empty-named-blocks": "error",
+      "import-x/no-self-import": "error",
+      "import-x/newline-after-import": "error",
+      "import-x/no-extraneous-dependencies": "error",
+      "import-x/no-useless-path-segments": ["error", { noUselessIndex: true }],
     },
   },
 
@@ -177,7 +177,7 @@ export default defineConfig(
       "**/*.stories.*",
     ],
     rules: {
-      "import/no-extraneous-dependencies": "off",
+      "import-x/no-extraneous-dependencies": "off",
     },
   }
 )
