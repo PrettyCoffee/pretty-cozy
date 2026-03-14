@@ -14,10 +14,7 @@ const tailwind = settings =>
     name: "@pretty-cozy/tailwind",
     plugins: { "better-tailwindcss": betterTailwindcss },
     settings: {
-      "better-tailwindcss": {
-        ...settings,
-        callees: ["classnames", "cn", "cva", "clsx"],
-      },
+      "better-tailwindcss": settings,
     },
     rules: {
       ...betterTailwindcss.configs.recommended.rules,
