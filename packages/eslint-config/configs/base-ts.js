@@ -60,6 +60,7 @@ export default defineConfig(
       "@typescript-eslint/array-type": "off",
       "@typescript-eslint/no-unnecessary-boolean-literal-compare": "off",
       "@typescript-eslint/unbound-method": "off",
+      "@typescript-eslint/no-namespace": "off",
 
       // additional typescript rules
       "@typescript-eslint/no-use-before-define": "error",
@@ -73,6 +74,10 @@ export default defineConfig(
           "ts-expect-error": "allow-with-description",
           "ts-ignore": "allow-with-description",
         },
+      ],
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { fixStyle: "inline-type-imports", prefer: "type-imports" },
       ],
 
       // Rules picked from ts.configs.strictTypeChecked
