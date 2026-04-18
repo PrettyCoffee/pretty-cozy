@@ -37,7 +37,7 @@ A pretty cozy collection of eslint rules.
     ```json
     "scripts": {
       "lint": "eslint src",
-      "lint:fix": "npx lint -- --fix"
+      "lint:fix": "npm run lint -- --fix"
     }
     ```
    

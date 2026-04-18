@@ -1,0 +1,10 @@
+ignoreDepScripts: true
+blockExoticSubdeps: true
+minimumReleaseAge: 1440 # >=1 day
+preferFrozenLockfile: true
+
+trustPolicy: no-downgrade
+  - semver@6.3.1 # https://github.com/npm/node-semver/issues/838
+
+packages:
+  - packages/*

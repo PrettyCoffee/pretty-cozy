@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const {
-  npm,
+  pnpm,
   git,
   color,
   promptOk,
@@ -27,7 +27,7 @@ const bumpVersions = async ({ root, workspaces, changes }) => {
     spinner.start(`Release ${tag}`)
 
     await updateVersion({ name, version, root, workspaces })
-    await npm.install()
+    await pnpm.install()
 
     spinner.step(`Updated package.json files`)
 

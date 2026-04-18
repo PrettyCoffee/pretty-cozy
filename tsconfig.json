@@ -5,6 +5,7 @@
     /* Language and Environment */
     "target": "esnext",
     "lib": ["esnext"],
+    "types": ["@types/node"],
 
     /* Modules */
     "module": "esnext",
