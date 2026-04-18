@@ -1,4 +1,4 @@
-import { PackageInfo } from "./get-workspaces"
+import { type PackageInfo } from "./get-workspaces"
 
 const unique = (items: string[]) => [...new Set(items)]
 

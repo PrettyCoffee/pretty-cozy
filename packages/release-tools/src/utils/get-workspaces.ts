@@ -5,7 +5,7 @@ import { glob } from "glob"
 
 import { color } from "./color"
 import { getInternalDependencies } from "./get-internal-dependencies"
-import { PackageJson, packageJson } from "./package-json"
+import { type PackageJson, packageJson } from "./package-json"
 
 export interface PackageInfo {
   name: string

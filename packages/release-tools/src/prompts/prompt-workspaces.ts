@@ -1,6 +1,6 @@
 import { prompt } from "enquirer"
 
-import { getWorkspaces, PackageInfo } from "../utils/get-workspaces"
+import { getWorkspaces, type PackageInfo } from "../utils/get-workspaces"
 
 interface Options {
   message?: string

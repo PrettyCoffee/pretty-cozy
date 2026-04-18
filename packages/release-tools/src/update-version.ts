@@ -1,4 +1,4 @@
-import { PackageInfo } from "./utils/get-workspaces"
+import { type PackageInfo } from "./utils/get-workspaces"
 import { packageJson } from "./utils/package-json"
 import { Version } from "./utils/version"
 

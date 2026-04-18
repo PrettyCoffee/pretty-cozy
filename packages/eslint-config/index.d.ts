@@ -1,4 +1,4 @@
-import { ConfigArray } from "typescript-eslint"
+import { type ConfigArray } from "typescript-eslint"
 
 declare const configs: {
   baseJs: ConfigArray
