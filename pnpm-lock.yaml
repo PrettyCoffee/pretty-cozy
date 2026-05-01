@@ -18,7 +18,7 @@ importers:
         specifier: workspace:*
         version: link:packages/eslint-config
       '@types/node':
-        specifier: ^24.12.2
+        specifier: 24.12.2
         version: 24.12.2
       enquirer:
         specifier: 2.4.1
