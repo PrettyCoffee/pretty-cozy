@@ -1,6 +1,5 @@
 import js from "@eslint/js"
 import { globalIgnores, defineConfig } from "eslint/config"
-import checkFile from "eslint-plugin-check-file"
 import { importX } from "eslint-plugin-import-x"
 import sonarjs from "eslint-plugin-sonarjs"
 import unicorn from "eslint-plugin-unicorn"
@@ -8,6 +7,7 @@ import unusedImports from "eslint-plugin-unused-imports"
 import globals from "globals"
 
 import { createImportOrder } from "./create-import-order.js"
+import prettyCozy from "../plugin/plugin.js"
 
 const eslintRecommended = {
   name: "eslint/recommended",
@@ -147,20 +147,16 @@ export default defineConfig(
   },
 
   {
-    name: "@pretty-cozy/baseJs/check-file",
-    // Only apply the naming conventions on files that are within a directory.
-    // This will fix the issue where the root directory is not named with kebab-case.
-    ignores: ["*", ".storybook/**"],
-    plugins: { "check-file": checkFile },
+    name: "@pretty-cozy/baseJs/custom-rules",
+    plugins: { "@pretty-cozy": prettyCozy },
     rules: {
-      "check-file/folder-naming-convention": [
+      "@pretty-cozy/directory-name-case": [
         "error",
-        { "**/!(@types|.*)/": "KEBAB_CASE" },
+        { kebabCase: true, ignore: ["^@types$", "^\\."] },
       ],
-      "check-file/filename-naming-convention": [
+      "@pretty-cozy/file-name-case": [
         "error",
-        { "*/**": "KEBAB_CASE" },
-        { ignoreMiddleExtensions: true },
+        { kebabCase: true, allowMiddleExtensions: true },
       ],
     },
   },
