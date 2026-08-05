@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/tmp/oxlint-config.tsbuildinfo",
+
+    "rootDir": "src",
+    "outDir": "dist",
+    "noEmit": true,
+    "declaration": true,
+
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+  },
+  "include": ["./src"],
+}

@@ -6,4 +6,5 @@ Available packages:
 | Name | Description | npm |
 | --- | --- | --- |
 | [eslint-config](./packages/eslint-config/) | A collection of eslint rules for fast setup | [![npm version](https://badge.fury.io/js/@pretty-cozy%2Feslint-config.svg)](https://www.npmjs.com/package/@pretty-cozy/eslint-config) |
+| [oxlint-config](./packages/oxlint-config/) | A collection of oxlint / oxfmt rules for fast setup | [![npm version](https://badge.fury.io/js/@pretty-cozy%2Foxlint-config.svg)](https://www.npmjs.com/package/@pretty-cozy/oxlint-config) |
 | [release-tools](./packages/release-tools/) | Utilities to create npm publish scripts | [![npm version](https://badge.fury.io/js/@pretty-cozy%2Frelease-tools.svg)](https://www.npmjs.com/package/@pretty-cozy/release-tools) |
