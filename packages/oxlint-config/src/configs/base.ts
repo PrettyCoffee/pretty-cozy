@@ -96,4 +96,20 @@ const disableUnwanted = defineSharedConfig({
   ],
 })
 
-export const base = mergeConfigs(envs, disableUnwanted, setup)
+const customRules = defineSharedConfig({
+  jsPlugins: [
+    { name: "@pretty-cozy", specifier: "@pretty-cozy/oxlint-config/plugin" },
+  ],
+  rules: {
+    "@pretty-cozy/directory-name-case": [
+      "error",
+      { kebabCase: true, ignore: ["^@types$", "^\\."] },
+    ],
+    "@pretty-cozy/file-name-case": [
+      "error",
+      { kebabCase: true, allowMiddleExtensions: true },
+    ],
+  },
+})
+
+export const base = mergeConfigs(envs, setup, disableUnwanted, customRules)
