@@ -26,9 +26,12 @@
     "build": "tsc --noEmit false"
   },
   "peerDependencies": {
-    "oxfmt": "^0.58.0"
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.74.0",
+    "oxlint-tsgolint": "^0.25.0"
   },
   "devDependencies": {
-    "oxfmt": "0.58.0"
+    "oxfmt": "0.58.0",
+    "oxlint": "1.74.0"
   }
 }
