@@ -1,6 +1,6 @@
 {
   "name": "@pretty-cozy/oxlint-config",
-  "version": "0.9.0",
+  "version": "0.1.0-alpha.0",
   "description": "A pretty cozy collection of oxlint configs",
   "author": "Pretty Coffee",
   "license": "MIT",
