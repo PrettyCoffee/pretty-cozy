@@ -42,7 +42,7 @@ export const promptWorkspaces = async ({
         ({
           ...workspace,
           ignore: !selectedWorkspaces.includes(workspace.name),
-        }) satisfies PackageInfo
+        }) satisfies PackageInfo,
     ),
   }
 }

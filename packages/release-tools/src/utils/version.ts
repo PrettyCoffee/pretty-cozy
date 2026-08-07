@@ -23,7 +23,7 @@ const nextPatch = ({ patch, extension }: ParsedVersion) => {
 
 const nextExtension = (
   { extension, extensionVersion = 0 }: ParsedVersion,
-  newExtension: string
+  newExtension: string,
 ) => {
   if (extension && extension === newExtension) {
     return `${extension}.${extensionVersion + 1}`
@@ -54,13 +54,12 @@ export class Version {
     this.current = Version.parse(currentVersion)
   }
 
-  /** Get the next version:
-   *  - "current" removes the extension if there is one
-   *  - "major" increments the major version (X.0.0)
-   *  - "minor" increments the minor version (1.X.0)
-   *  - "patch" increments the patch version (1.1.X)
-   *  - others are used as extension (i.e. alpha -> 1.1.1-alpha.X)
-   **/
+  /**
+   * Get the next version: - "current" removes the extension if there is one -
+   * "major" increments the major version (X.0.0) - "minor" increments the minor
+   * version (1.X.0) - "patch" increments the patch version (1.1.X) - others are
+   * used as extension (i.e. alpha -> 1.1.1-alpha.X)
+   */
   bump(change: Change) {
     const { major, minor, patch } = this.current
 
@@ -78,19 +77,15 @@ export class Version {
     }
   }
 
-  /** Regex for semantic versions.
-   *  Examples: 1.0.0, 1.0.0-alpha.1, 1.0.0-rc.1
-   */
+  /** Regex for semantic versions. Examples: 1.0.0, 1.0.0-alpha.1, 1.0.0-rc.1. */
   static regex = /^(\^|~|[<>]?=?)?(\d+)\.(\d+)\.(\d+)(?:-([a-z]+)\.(\d+))?$/
 
-  /** Validate a version
-   **/
+  /** Validate a version. */
   static isValid(version: string) {
     return Version.regex.test(version)
   }
 
-  /** Split a version into it's segments
-   **/
+  /** Split a version into it's segments. */
   static parse(version: string): ParsedVersion {
     const [modifier, major, minor, patch, extension, extensionVersion] =
       Version.regex.exec(version)?.slice(1) ?? []

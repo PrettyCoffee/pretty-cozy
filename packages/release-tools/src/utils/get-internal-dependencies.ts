@@ -12,13 +12,13 @@ const buildTree = (workspaces: PackageInfo[]) => {
     workspaces.map<[string, Tree]>(ws => [
       ws.name,
       { name: ws.name, dependents: [] },
-    ])
+    ]),
   )
 
   workspaces.forEach(ws => {
     const allDeps = unique(Object.values(ws.deps).flat())
     const internalDeps = allDeps.filter(name =>
-      workspaces.some(ws => ws.name === name)
+      workspaces.some(ws => ws.name === name),
     )
     internalDeps.forEach(name => tree[name]!.dependents.push(tree[ws.name]!))
   })
@@ -41,6 +41,6 @@ const flattenTree = (tree: Tree, current: string[] = []) => {
 export const getInternalDependencies = (workspaces: PackageInfo[]) => {
   const tree = buildTree(workspaces)
   return Object.fromEntries(
-    Object.values(tree).map(tree => [tree.name, flattenTree(tree)])
+    Object.values(tree).map(tree => [tree.name, flattenTree(tree)]),
   )
 }

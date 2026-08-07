@@ -31,7 +31,7 @@ const parseNameIgnoreOptions = ({ ignore }: NameIgnoreOptions) => {
       }
       return result
     },
-    { valid: [] as RegExp[], invalid: [] as string[] }
+    { valid: [] as RegExp[], invalid: [] as string[] },
   )
 
   if (invalid.length > 0) {

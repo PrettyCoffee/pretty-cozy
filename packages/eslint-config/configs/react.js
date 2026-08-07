@@ -1,9 +1,9 @@
-import { defineConfig } from "eslint/config"
 import { importX } from "eslint-plugin-import-x"
 import jsxA11y from "eslint-plugin-jsx-a11y"
 import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import preferFC from "eslint-plugin-react-prefer-function-component/config"
+import { defineConfig } from "eslint/config"
 
 import { createImportOrder } from "./create-import-order.js"
 
@@ -48,5 +48,5 @@ export default defineConfig(
       "jsx-a11y/label-has-associated-control": "off",
       "jsx-a11y/no-autofocus": "off",
     },
-  }
+  },
 )

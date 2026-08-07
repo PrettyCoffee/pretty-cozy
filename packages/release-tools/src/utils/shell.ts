@@ -28,7 +28,7 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
   constructor(strings: TemplateStringsArray, ...values: Stringable[]) {
     this.command = strings.reduce(
       (result, string, index) => result + string + String(values[index] ?? ""),
-      ""
+      "",
     )
   }
 
@@ -40,27 +40,25 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
     return this
   }
 
-  /** Disable throwing errors */
+  /** Disable throwing errors. */
   public noThrow() {
     this.options.noThrow = true
     return this
   }
 
-  /** Silence the command */
+  /** Silence the command. */
   public quiet() {
     this.options.quiet = true
     return this
   }
 
-  /** Change the return type to be a string.
-   *  Silences terminal output.
-   */
+  /** Change the return type to be a string. Silences terminal output. */
   public text() {
     this.options.returnType = "text"
     return this as ShellCommand<string>
   }
 
-  /** Change the return type to be a string[] with all non-empty lines */
+  /** Change the return type to be a string[] with all non-empty lines. */
   public lines() {
     this.options.returnType = "lines"
     return this as ShellCommand<string[]>
@@ -69,7 +67,7 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
   /** Execute your command and use the result. */
   public then<TResult1 = T, TResult2 = never>(
     onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | null,
-    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null
+    onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
   ): PromiseLike<TResult1 | TResult2> {
     return this.run().then(onfulfilled, onrejected)
   }
@@ -93,7 +91,7 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
       child.on("close", code => {
         if (code !== 0 && !this.options.noThrow) {
           return reject(
-            new Error(`Command failed with code ${code}: ${stderr}`)
+            new Error(`Command failed with code ${code}: ${stderr}`),
           )
         }
 
@@ -112,13 +110,14 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
   }
 }
 
-/** Shell utility function which mimics the bun shell command.
+/**
+ * Shell utility function which mimics the bun shell command.
  *
- *  @example
- *  $`echo Hello world`.then(console.log) // -> { code: 0, stdout: "Hello world", stderr: "" }
- *  $`echo Hello world`.text().then(console.log) // -> "Hello world"
+ * @example
+ *   $`echo Hello world`.then(console.log) // -> { code: 0, stdout: "Hello world", stderr: "" }
+ *   $`echo Hello world`.text().then(console.log) // -> "Hello world"
  *
- *  @result ShellCommand instance to set options and finally run the command.
- **/
+ * @returns ShellCommand instance to set options and finally run the command.
+ */
 export const $ = (strings: TemplateStringsArray, ...values: Stringable[]) =>
   new ShellCommand(strings, ...values)

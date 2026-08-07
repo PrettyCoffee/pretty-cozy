@@ -70,7 +70,7 @@ export default createRule({
         const rawFileName = path.basename(relativePath)
         const fileName = getFileName(
           relativePath,
-          options.allowMiddleExtensions
+          options.allowMiddleExtensions,
         )
 
         const shouldIgnore = nameIgnore.isIgnored(rawFileName)

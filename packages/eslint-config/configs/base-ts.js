@@ -1,5 +1,5 @@
-import { defineConfig } from "eslint/config"
 import { importX } from "eslint-plugin-import-x"
+import { defineConfig } from "eslint/config"
 import ts from "typescript-eslint"
 
 import baseJs from "./base-js.js"
@@ -118,5 +118,5 @@ export default defineConfig(
       "@typescript-eslint/no-unsafe-argument": "off",
       "@typescript-eslint/no-unsafe-return": "off",
     },
-  }
+  },
 )

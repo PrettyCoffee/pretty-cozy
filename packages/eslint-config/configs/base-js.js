@@ -1,13 +1,13 @@
 import js from "@eslint/js"
-import { globalIgnores, defineConfig } from "eslint/config"
 import { importX } from "eslint-plugin-import-x"
 import sonarjs from "eslint-plugin-sonarjs"
 import unicorn from "eslint-plugin-unicorn"
 import unusedImports from "eslint-plugin-unused-imports"
+import { globalIgnores, defineConfig } from "eslint/config"
 import globals from "globals"
 
-import { createImportOrder } from "./create-import-order.js"
 import prettyCozy from "../plugin/plugin.js"
+import { createImportOrder } from "./create-import-order.js"
 
 const eslintRecommended = {
   name: "eslint/recommended",
@@ -26,7 +26,7 @@ export default defineConfig(
       "**/dist/**",
       "!.storybook",
     ],
-    "@pretty-cozy/baseJs/global-ignores"
+    "@pretty-cozy/baseJs/global-ignores",
   ),
 
   {
@@ -173,5 +173,5 @@ export default defineConfig(
     rules: {
       "import-x/no-extraneous-dependencies": "off",
     },
-  }
+  },
 )

@@ -28,7 +28,7 @@ const stringCaseLabel = {
 
 const getEnabledStringCase = options =>
   Object.entries(options).flatMap(([key, value]) =>
-    key in stringCaseRegexp && value ? key : []
+    key in stringCaseRegexp && value ? key : [],
   )
 
 export const getStringCases = options => {
@@ -36,7 +36,7 @@ export const getStringCases = options => {
 
   if (casings.length === 0) {
     throw new Error(
-      "At least one casing option (kebabCase, camelCase, pascalCase, or snakeCase) must be enabled."
+      "At least one casing option (kebabCase, camelCase, pascalCase, or snakeCase) must be enabled.",
     )
   }
 

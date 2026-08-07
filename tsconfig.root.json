@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/tmp/.root.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/tmp/.root.tsbuildinfo"
   },
   "exclude": ["**/dist/**", "packages/oxlint-config"]
 }

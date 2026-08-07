@@ -52,15 +52,13 @@ const run = async () => {
   const changes = await promptVersions({ root, workspaces })
   newLine()
 
-  /**
-   * Apply changes, commit, and push the version
-   **/
+  /** Apply changes, commit, and push the version. */
   const tags = Object.entries(changes).map(
-    ([name, version]) => `${name}${color.gray("@")}${color.blue(version)}`
+    ([name, version]) => `${name}${color.gray("@")}${color.blue(version)}`,
   )
   const list = color.gray("\n - ")
   const shouldApply = await promptOk(
-    `Do you want to apply and commit the new versions?${list}${tags.join(list)}\n`
+    `Do you want to apply and commit the new versions?${list}${tags.join(list)}\n`,
   )
   newLine()
   if (!shouldApply) {

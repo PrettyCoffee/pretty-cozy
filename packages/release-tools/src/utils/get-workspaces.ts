@@ -43,15 +43,15 @@ const getWorkspaceInfo = async (rootPath: string, rootPkg: PackageJson) => {
 
   const wsPaths = await Promise.all(
     rootPkg.workspaces.map(wsPath =>
-      glob(`${rootPath}/${wsPath}`, { absolute: true })
-    )
+      glob(`${rootPath}/${wsPath}`, { absolute: true }),
+    ),
   )
   const workspaces = await Promise.all(
     wsPaths
       .flat()
       .map(path =>
-        packageJson.read(path).then(pkg => getPackageInfo(pkg, path))
-      )
+        packageJson.read(path).then(pkg => getPackageInfo(pkg, path)),
+      ),
   )
   return workspaces.flat()
 }

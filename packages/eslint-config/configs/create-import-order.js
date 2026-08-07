@@ -1,8 +1,12 @@
-/** Helper to create import order groups
- *  @param {{ groups: string[] } | undefined} options
- *  @params options.groups - most important packages of the project, e.g. ["react"]
- *  @returns {Record<string, import("eslint").Linter.RuleEntry>}
- **/
+/**
+ * Helper to create import order groups.
+ *
+ * @param {{ groups: string[] } | undefined} options
+ * @param options.groups - Most important packages of the project, e.g.
+ *   ["react"]
+ *
+ * @returns {Record<string, import("eslint").Linter.RuleEntry>}
+ */
 export const createImportOrder = ({ groups = [] } = {}) => {
   const config = {
     groups: ["builtin", "external", "internal"],

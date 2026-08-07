@@ -27,7 +27,7 @@ const parseNameIgnoreOptions = ({ ignore }) => {
       }
       return result
     },
-    { valid: [], invalid: [] }
+    { valid: [], invalid: [] },
   )
 
   if (invalid.length > 0) {

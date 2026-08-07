@@ -1,14 +1,17 @@
-import { defineConfig } from "eslint/config"
 import betterTailwindcss from "eslint-plugin-better-tailwindcss"
+import { defineConfig } from "eslint/config"
 
-/** Function to create tailwind eslint rules
+/**
+ * Function to create tailwind eslint rules.
  *
- *  @param settings {object}
- *  @param settings.entryPoint {string | undefined} Path to css config (eg: `src/global.css`)
- *  @param settings.tailwindConfig {string | undefined} Path to js config (eg: `tailwind.config.js`)
+ * @param settings {object}
+ * @param settings.entryPoint {string | undefined} Path to css config (eg:
+ *   `src/global.css`)
+ * @param settings.tailwindConfig {string | undefined} Path to js config (eg:
+ *   `tailwind.config.js`)
  *
- *  @returns {import("typescript-eslint").ConfigArray}
- **/
+ * @returns {import("typescript-eslint").ConfigArray}
+ */
 const tailwind = settings =>
   defineConfig({
     name: "@pretty-cozy/tailwind",

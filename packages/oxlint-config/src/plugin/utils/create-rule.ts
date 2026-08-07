@@ -1,6 +1,5 @@
-import type { JSRuleDefinition, Linter } from "eslint"
-
 import { meta } from "../meta.ts"
+import type { JSRuleDefinition, Linter } from "eslint"
 
 export type RuleDef = JSRuleDefinition & {
   name: string
