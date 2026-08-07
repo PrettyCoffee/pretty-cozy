@@ -27,12 +27,17 @@
     }
   },
   "scripts": {
-    "build": "tsc --noEmit false"
+    "build": "pnpm run clean && pnpm run compile",
+    "compile": "tsc --noEmit false",
+    "clean": "node -e 'require(\"node:fs\").rmSync(\"./dist\", { force: true, recursive: true })'"
   },
   "peerDependencies": {
     "oxfmt": "^0.58.0",
     "oxlint": "^1.74.0",
     "oxlint-tsgolint": "^0.25.0"
+  },
+  "dependencies": {
+    "eslint-plugin-better-tailwindcss": "^4.6.1"
   },
   "devDependencies": {
     "oxfmt": "0.58.0",

@@ -28,6 +28,9 @@ export const oxfmt = defineConfig({
   },
 
   sortPackageJson: false,
+  sortTailwindcss: {
+    functions: ["clsx", "cn", "cva"],
+  },
   sortImports: {
     newlinesBetween: true,
     groups: [
