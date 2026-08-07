@@ -11,6 +11,6 @@
     "clean": "node -e 'require(\"node:fs\").rmSync(\"./dist\", { force: true, recursive: true })'"
   },
   "devDependencies": {
-    "eslint": "9.39.4"
+    "eslint": "9.39.5"
   }
 }
