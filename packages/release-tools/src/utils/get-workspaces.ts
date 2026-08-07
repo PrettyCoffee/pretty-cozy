@@ -6,6 +6,7 @@ import { glob } from "glob"
 import { color } from "./color"
 import { getInternalDependencies } from "./get-internal-dependencies"
 import { type PackageJson, packageJson } from "./package-json"
+import { $ } from "./shell"
 
 export interface PackageInfo {
   name: string
@@ -36,24 +37,47 @@ const getPackageInfo = (pkg: PackageJson, path: string) =>
     },
   }) satisfies PackageInfo
 
-const getWorkspaceInfo = async (rootPath: string, rootPkg: PackageJson) => {
-  if (!("workspaces" in rootPkg) || !Array.isArray(rootPkg.workspaces)) {
-    return []
-  }
+const getNpmWorkspaces = async (rootPath: string, rootPkg: PackageJson) => {
+  if (!("workspaces" in rootPkg) || !Array.isArray(rootPkg.workspaces)) return
 
   const wsPaths = await Promise.all(
     rootPkg.workspaces.map(wsPath =>
       glob(`${rootPath}/${wsPath}`, { absolute: true }),
     ),
   )
-  const workspaces = await Promise.all(
-    wsPaths
-      .flat()
-      .map(path =>
-        packageJson.read(path).then(pkg => getPackageInfo(pkg, path)),
-      ),
+  return wsPaths.flat()
+}
+
+const getPnpmWorkspaces = async (rootPath: string) => {
+  try {
+    const workspaceJson =
+      await $`pnpm list -r --depth -1 --json --only-projects`
+        .cwd(rootPath)
+        .text()
+
+    const workspaceEntries = JSON.parse(workspaceJson) as Array<{
+      name: string
+      path: string
+    }>
+
+    return workspaceEntries.map(({ path }) => path)
+  } catch {
+    return
+  }
+}
+
+const getWorkspaceInfo = async (rootPath: string, rootPkg: PackageJson) => {
+  const wsPaths =
+    (await getNpmWorkspaces(rootPath, rootPkg)) ||
+    (await getPnpmWorkspaces(rootPath)) ||
+    []
+
+  return Promise.all(
+    wsPaths.map(async path => {
+      const pkg = await packageJson.read(path)
+      return getPackageInfo(pkg, path)
+    }),
   )
-  return workspaces.flat()
 }
 
 const getNearestPackage = async (path = process.cwd()): Promise<string> => {

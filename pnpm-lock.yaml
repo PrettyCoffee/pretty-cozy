@@ -17,6 +17,9 @@ importers:
       '@pretty-cozy/oxlint-config':
         specifier: workspace:*
         version: link:packages/oxlint-config
+      '@pretty-cozy/release-tools':
+        specifier: workspace:*
+        version: link:packages/release-tools
       '@types/node':
         specifier: 24.12.2
         version: 24.12.2
