@@ -41,6 +41,6 @@
     "typescript-eslint": "^8.58.2"
   },
   "devDependencies": {
-    "eslint": "9.39.4"
+    "eslint": "9.39.5"
   }
 }
