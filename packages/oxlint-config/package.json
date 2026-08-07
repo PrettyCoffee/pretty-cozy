@@ -22,14 +22,16 @@
       "default": "./dist/index.js"
     },
     "./plugin": {
-      "types": "./dist/plugin/plugin.d.ts",
-      "default": "./dist/plugin/plugin.js"
+      "types": "./dist/plugin/index.d.ts",
+      "default": "./dist/plugin/index.js"
     }
   },
   "scripts": {
-    "build": "pnpm run clean && pnpm run compile",
+    "build": "pnpm run clean && pnpm run compile && pnpm run install-plugin",
+    "clean": "node -e 'require(\"node:fs\").rmSync(\"./dist\", { force: true, recursive: true })'",
     "compile": "tsc --noEmit false",
-    "clean": "node -e 'require(\"node:fs\").rmSync(\"./dist\", { force: true, recursive: true })'"
+    "install-plugin": "pnpm --dir ../eslint-plugin run build && node -e 'require(\"node:fs\").cpSync(\"../eslint-plugin/dist\", \"./dist/plugin\", { force:true, recursive:true })'",
+    "prepare": "pnpm run build"
   },
   "peerDependencies": {
     "oxfmt": "^0.58.0",

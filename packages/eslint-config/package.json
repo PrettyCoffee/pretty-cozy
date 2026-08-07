@@ -12,6 +12,11 @@
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "scripts": {
+    "build": "pnpm run install-plugin",
+    "install-plugin": "pnpm --dir ../eslint-plugin run build && node -e 'require(\"node:fs\").cpSync(\"../eslint-plugin/dist\", \"./plugin\", { force:true, recursive:true })'",
+    "prepare": "pnpm run build"
+  },
   "peerDependencies": {
     "eslint": ">=9.22.0"
   },

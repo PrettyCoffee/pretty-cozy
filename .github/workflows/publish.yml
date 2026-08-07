@@ -47,6 +47,12 @@ jobs:
 
               NAME=$(node -p "require('./package.json').name")
               VERSION=$(node -p "require('./package.json').version")
+              PRIVATE=$(node -p "require('./package.json').private")
+
+              if [ "$PRIVATE" = "true" ]; then
+                echo "Skipping $NAME@$VERSION (private package)"
+                exit 0
+              fi
 
               if npm view "$NAME@$VERSION" > /dev/null 2>&1; then
                 echo "Skipping $NAME@$VERSION (already published)"

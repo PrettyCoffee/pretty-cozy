@@ -4,8 +4,11 @@ logs
 npm-debug.log*
 
 node_modules
-dist
 *.local
+
+# dist code
+dist
+packages/eslint-config/plugin
 
 # Editor directories and files
 .vscode/*
