@@ -1,9 +1,12 @@
-ignoreDepScripts: true
 blockExoticSubdeps: true
-minimumReleaseAge: 1440 # >=1 day
+minimumReleaseAge: 4320 # >=3 days
 preferFrozenLockfile: true
 
+allowBuilds:
+  unrs-resolver: false
+
 trustPolicy: no-downgrade
+trustPolicyExclude:
   - semver@6.3.1 # https://github.com/npm/node-semver/issues/838
 
 packages:
