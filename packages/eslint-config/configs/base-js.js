@@ -6,7 +6,7 @@ import unusedImports from "eslint-plugin-unused-imports"
 import { globalIgnores, defineConfig } from "eslint/config"
 import globals from "globals"
 
-import prettyCozy from "../plugin/plugin.js"
+import prettyCozy from "../plugin/index.js"
 import { createImportOrder } from "./create-import-order.js"
 
 const eslintRecommended = {
