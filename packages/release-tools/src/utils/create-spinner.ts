@@ -40,7 +40,7 @@ const userInput = {
 }
 
 export const createSpinner = () => {
-  let intervalId: NodeJS.Timeout | undefined = undefined
+  let intervalId: NodeJS.Timeout | undefined
   let current = 0
   let curentStep = 0
   let text = ""

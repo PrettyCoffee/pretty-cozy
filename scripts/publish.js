@@ -43,6 +43,7 @@ const bumpVersions = async ({ root, workspaces, changes }) => {
   }
 }
 
+// oxlint-disable-next-line max-statements
 const run = async () => {
   const { root, workspaces } = await promptWorkspaces({
     enforceRootSelected: false,

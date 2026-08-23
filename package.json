@@ -4,6 +4,7 @@
   "description": "Collection of pretty cozy utilities to make npm workflows easier",
   "author": "Pretty Coffee",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "pnpm --filter='./packages/*' run build",
     "publish": "pnpm run build && node ./scripts/publish.js",
@@ -21,6 +22,7 @@
     "npm-run-all2": "8.0.4",
     "oxfmt": "0.58.0",
     "oxlint": "1.74.0",
+    "oxlint-tsgolint": "7.0.2001",
     "typescript": "6.0.3"
   }
 }

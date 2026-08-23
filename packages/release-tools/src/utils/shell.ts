@@ -72,7 +72,8 @@ class ShellCommand<T = ShellResult> implements PromiseLike<T> {
     return this.run().then(onfulfilled, onrejected)
   }
 
-  private async run(): Promise<any> {
+  // oxlint-disable-next-line typescript/no-explicit-any
+  private run(): Promise<any> {
     return new Promise((resolve, reject) => {
       const [cmd = "", ...args] = this.command.trim().split(/\s+/)
       const child = spawn(cmd, args, { cwd: this.options.cwd, shell: true })

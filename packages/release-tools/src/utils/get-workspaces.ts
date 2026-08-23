@@ -55,10 +55,10 @@ const getPnpmWorkspaces = async (rootPath: string) => {
         .cwd(rootPath)
         .text()
 
-    const workspaceEntries = JSON.parse(workspaceJson) as Array<{
+    const workspaceEntries = JSON.parse(workspaceJson) as {
       name: string
       path: string
-    }>
+    }[]
 
     return workspaceEntries.map(({ path }) => path)
   } catch {

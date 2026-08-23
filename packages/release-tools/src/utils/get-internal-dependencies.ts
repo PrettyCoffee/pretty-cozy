@@ -20,7 +20,8 @@ const buildTree = (workspaces: PackageInfo[]) => {
     const internalDeps = allDeps.filter(name =>
       workspaces.some(ws => ws.name === name),
     )
-    internalDeps.forEach(name => tree[name]!.dependents.push(tree[ws.name]!))
+    // oxlint-disable-next-line typescript/no-non-null-assertion
+    internalDeps.forEach(name => tree[name]?.dependents.push(tree[ws.name]!))
   })
 
   return tree
