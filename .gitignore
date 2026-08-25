@@ -9,6 +9,7 @@ node_modules
 # dist code
 dist
 packages/eslint-config/plugin
+*.tgz
 
 # Editor directories and files
 .vscode/*
