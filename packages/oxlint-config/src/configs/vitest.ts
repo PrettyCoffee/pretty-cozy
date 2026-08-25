@@ -40,10 +40,8 @@ export const vitest = defineSharedConfig({
         "vitest/prefer-hooks-in-order": "error",
         "vitest/prefer-hooks-on-top": "error",
         "vitest/prefer-import-in-mock": "error",
-        "vitest/prefer-lowercase-title": "error",
         "vitest/prefer-mock-promise-shorthand": "error",
         "vitest/prefer-mock-return-shorthand": "error",
-        "vitest/prefer-spy-on": "error",
         "vitest/prefer-strict-equal": "error",
         "vitest/prefer-to-be": "error",
         "vitest/prefer-to-be-falsy": "error",
@@ -56,8 +54,8 @@ export const vitest = defineSharedConfig({
         "vitest/require-hook": "error",
         "vitest/require-top-level-describe": "error",
 
-        // Picked from pedantic category
-        "vitest/no-conditional-in-test": "error",
+        // Explicitly disable rules that may be enabled by categories
+        "vitest/require-mock-type-parameters": "off",
       },
     },
   ],

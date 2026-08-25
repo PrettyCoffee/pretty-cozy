@@ -67,6 +67,7 @@ const reactPlugin = defineSharedConfig({
     "react/no-unsafe": "off",
     "react/react-in-jsx-scope": "off",
     "react/no-multi-comp": "off",
+    "react/no-object-type-as-default-prop": "off",
 
     // Not yet implemented, see https://github.com/oxc-project/oxc/issues/1022
     // TODO: Add when oxlint implemented the rules
@@ -81,6 +82,7 @@ const reactPerf = defineSharedConfig({
     "react-perf/jsx-no-new-function-as-prop": "off",
     "react-perf/jsx-no-new-array-as-prop": "off",
     "react-perf/jsx-no-new-object-as-prop": "off",
+    "react-perf/jsx-no-jsx-as-prop": "off",
   },
 })
 

@@ -45,7 +45,7 @@ const eslint = defineSharedConfig({
     "eslint/default-case-last": "error",
     "eslint/default-param-last": "error",
     "eslint/max-params": "error",
-    "eslint/max-statements": ["error", 15],
+    "eslint/max-statements": ["error", 20],
     "eslint/no-duplicate-imports": "error",
     "eslint/no-multi-assign": "error",
     "eslint/no-template-curly-in-string": "error",
@@ -170,9 +170,9 @@ const typescript = defineSharedConfig({
   },
   overrides: [
     {
-      // test code may not need these strict type rules
+      // test and documentation code may not need these strict type rules
       // -> e.g., there are problems with test tables
-      files: ["**/*.test.*"],
+      files: [...patterns.tests, ...patterns.stories],
       rules: {
         "typescript/no-unsafe-argument": "off",
         "typescript/no-unsafe-assignment": "off",
@@ -227,6 +227,7 @@ const unicorn = defineSharedConfig({
   plugins: ["unicorn"],
   rules: {
     // Configuration of rules enabled by correctness / suspicious / perf category
+    "unicorn/no-instanceof-builtins": ["error", { exclude: ["Function"] }],
 
     // Picked from restriction category
     "unicorn/no-abusive-eslint-disable": "error",
@@ -259,7 +260,6 @@ const unicorn = defineSharedConfig({
     "unicorn/prefer-array-some": "error",
     "unicorn/prefer-date-now": "error",
     "unicorn/prefer-string-replace-all": "error",
-    "unicorn/no-useless-undefined": "error",
     "unicorn/prefer-dom-node-append": "error",
     "unicorn/prefer-dom-node-dataset": "error",
     "unicorn/prefer-dom-node-remove": "error",
@@ -279,6 +279,21 @@ const unicorn = defineSharedConfig({
     //"unicorn/expiring-todo-comments": "error",
     //"unicorn/no-unused-properties": "error",
     //"unicorn/prefer-switch": "error",
+  },
+  overrides: [
+    {
+      files: patterns.tests,
+      rules: {
+        "unicorn/consistent-function-scoping": "off",
+      },
+    },
+  ],
+})
+
+const promise = defineSharedConfig({
+  plugins: ["promise"],
+  rules: {
+    "promise/always-return": "off",
   },
 })
 
@@ -318,5 +333,6 @@ export const base = mergeConfigs(
   typescript,
   imports,
   unicorn,
+  promise,
   customRules,
 )

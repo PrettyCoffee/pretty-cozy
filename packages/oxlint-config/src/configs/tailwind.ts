@@ -9,5 +9,6 @@ export const tailwind = defineSharedConfig({
     "better-tailwindcss/no-conflicting-classes": "error",
     "better-tailwindcss/enforce-shorthand-classes": "error",
     "better-tailwindcss/enforce-consistent-line-wrapping": "off",
+    "better-tailwindcss/enforce-consistent-class-order": "off", // handled by oxfmt
   },
 })
