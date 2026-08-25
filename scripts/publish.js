@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {
+import {
   pnpm,
   git,
   color,
@@ -9,7 +9,7 @@ const {
   promptVersions,
   createSpinner,
   updateVersion,
-} = require("@pretty-cozy/release-tools")
+} from "@pretty-cozy/release-tools"
 
 const createCommitMessage = version =>
   version.includes("alpha")
@@ -43,7 +43,6 @@ const bumpVersions = async ({ root, workspaces, changes }) => {
   }
 }
 
-// oxlint-disable-next-line max-statements
 const run = async () => {
   const { root, workspaces } = await promptWorkspaces({
     enforceRootSelected: false,
