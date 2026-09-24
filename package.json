@@ -17,12 +17,12 @@
     "@commitlint/config-conventional": "20.5.3",
     "@pretty-cozy/oxlint-config": "workspace:*",
     "@pretty-cozy/release-tools": "workspace:*",
-    "@types/node": "24.13.3",
+    "@types/node": "24.13.6",
     "husky": "9.1.7",
     "npm-run-all2": "8.0.4",
-    "oxfmt": "0.64.0",
-    "oxlint": "1.79.0",
-    "oxlint-tsgolint": "7.0.2001",
+    "oxfmt": "0.70.0",
+    "oxlint": "1.85.0",
+    "oxlint-tsgolint": "7.0.2002",
     "typescript": "6.0.3"
   }
 }
