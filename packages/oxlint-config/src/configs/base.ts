@@ -83,10 +83,6 @@ const typescript = defineSharedConfig({
   plugins: ["typescript"],
   rules: {
     // Configuration of rules enabled by correctness / suspicious / perf category
-    "typescript/no-unnecessary-type-assertion": [
-      "error",
-      { typesToIgnore: ["const"] },
-    ],
     "typescript/consistent-type-imports": [
       "error",
       { fixStyle: "inline-type-imports", prefer: "type-imports" },
