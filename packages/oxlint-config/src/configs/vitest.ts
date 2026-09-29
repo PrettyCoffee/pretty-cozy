@@ -8,6 +8,8 @@ export const vitest = defineSharedConfig({
       plugins: ["vitest"],
       env: { vitest: true },
       rules: {
+        "eslint/no-empty-function": "off", // empty functions are sometimes useful for implementation mocks
+
         // Picked from style category
         "vitest/consistent-test-filename": [
           "error",
