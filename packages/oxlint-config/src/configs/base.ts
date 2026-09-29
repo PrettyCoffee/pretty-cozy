@@ -152,6 +152,7 @@ const typescript = defineSharedConfig({
     "typescript/no-unnecessary-condition": "error",
 
     // Explicitly disable rules that may be enabled by categories
+    "typescript/no-unnecessary-type-assertion": "off",
     "typescript/no-unsafe-type-assertion": "off",
     "typescript/consistent-return": "off",
     "typescript/restrict-template-expressions": "off",
