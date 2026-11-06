@@ -13,17 +13,17 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@commitlint/cli": "21.2.3",
-    "@commitlint/config-conventional": "21.2.3",
+    "@commitlint/cli": "21.2.4",
+    "@commitlint/config-conventional": "21.2.4",
     "@pretty-cozy/oxlint-config": "workspace:*",
     "@pretty-cozy/release-tools": "workspace:*",
-    "@types/node": "24.19.0",
+    "@types/node": "24.19.2",
     "husky": "9.1.7",
     "lint-staged": "17.6.0",
-    "npm-run-all2": "9.0.3",
-    "oxfmt": "0.70.0",
-    "oxlint": "1.85.0",
-    "oxlint-tsgolint": "7.0.2003",
+    "npm-run-all2": "9.0.4",
+    "oxfmt": "0.76.0",
+    "oxlint": "1.91.0",
+    "oxlint-tsgolint": "7.0.2005",
     "typescript": "7.0.2"
   },
   "lint-staged": {
